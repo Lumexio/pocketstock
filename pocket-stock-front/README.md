@@ -1,4 +1,4 @@
-# pocketbar
+# pocketstock
 
 ## Project setup
 ```

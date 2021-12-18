@@ -5,7 +5,7 @@
         <v-card v-on:keyup.enter="login()" class="cont-card" elevation="2">
           <v-card-title class="fade-in-title" style="font-size: 3rem"
             ><code class="font-weight-light">Pocket</code
-            ><strong>bar</strong></v-card-title
+            ><strong>stock</strong></v-card-title
           >
           <v-text-field
             v-model="email"
