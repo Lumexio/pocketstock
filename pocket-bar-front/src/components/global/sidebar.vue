@@ -2,7 +2,7 @@
   <v-navigation-drawer permanent app>
     <v-list nav expand dense>
       <v-list-item-title style="font-size: 20px" class="text-uppercase">
-        <code class="font-weight-light">Pocket</code><strong>stock</strong>
+        <code class="font-weight-light">Pocket</code><strong>bar</strong>
         <v-divider></v-divider>
       </v-list-item-title>
       <v-list-item-group color="primary">
@@ -111,126 +111,126 @@
   </v-navigation-drawer>
 </template>
 <script>
-  import store from "@/store.js";
-  import router from "@/router";
-  export default {
-    name: "sidebar",
-    components: {},
-    data: () => ({
-      itemsmain: [
-        //{ path: "/home", title: "Home", icon: "mdi-home" },
-        { path: "/usuarios", title: "Usuarios", icon: "mdi-account-multiple" },
-        {
-          path: "/articulos",
-          title: "Artículos",
-          icon: "mdi-folder-multiple",
-        },
-      ],
-      itemsemp: [
-        {
-          path: "/articulos",
-          title: "Artículos",
-          icon: "mdi-folder-multiple",
-        },
-      ],
-      itemstable: [
-        {
-          path: "/categorias",
-          title: "Categorias",
-          icon: "mdi-folder-multiple",
-        },
-        {
-          path: "/marcas",
-          title: "Marcas",
-          icon: "mdi-folder-multiple",
-        },
-        {
-          path: "/tipos",
-          title: "Tipos",
-          icon: "mdi-folder-multiple",
-        },
-        {
-          path: "/proveedores",
-          title: "Proveedores",
-          icon: "mdi-folder-multiple",
-        },
-      ],
-      itemlocation: [
-        {
-          path: "/racks",
-          title: "Racks",
-          icon: "mdi-folder-multiple",
-        },
-        {
-          path: "/travesano",
-          title: "Travesaños",
-          icon: "mdi-folder-multiple",
-        },
-      ],
-    }),
-    computed: {
-      hasrol() {
-        return store.getters.hasrol;
+import store from "@/store.js";
+import router from "@/router";
+export default {
+  name: "sidebar",
+  components: {},
+  data: () => ({
+    itemsmain: [
+      //{ path: "/home", title: "Home", icon: "mdi-home" },
+      { path: "/usuarios", title: "Usuarios", icon: "mdi-account-multiple" },
+      {
+        path: "/articulos",
+        title: "Artículos",
+        icon: "mdi-folder-multiple",
       },
+    ],
+    itemsemp: [
+      {
+        path: "/articulos",
+        title: "Artículos",
+        icon: "mdi-folder-multiple",
+      },
+    ],
+    itemstable: [
+      {
+        path: "/categorias",
+        title: "Categorias",
+        icon: "mdi-folder-multiple",
+      },
+      {
+        path: "/marcas",
+        title: "Marcas",
+        icon: "mdi-folder-multiple",
+      },
+      {
+        path: "/tipos",
+        title: "Tipos",
+        icon: "mdi-folder-multiple",
+      },
+      {
+        path: "/proveedores",
+        title: "Proveedores",
+        icon: "mdi-folder-multiple",
+      },
+    ],
+    itemlocation: [
+      {
+        path: "/racks",
+        title: "Racks",
+        icon: "mdi-folder-multiple",
+      },
+      {
+        path: "/travesano",
+        title: "Travesaños",
+        icon: "mdi-folder-multiple",
+      },
+    ],
+  }),
+  computed: {
+    hasrol() {
+      return store.getters.hasrol;
     },
-    methods: {
-      paths(event) {
-        switch (event.srcKey) {
-          case "usuarios":
-            router.push("/usuarios").catch(() => {});
-            break;
-          case "articulos":
-            router.push("/articulos").catch(() => {});
-            break;
-          case "categorias":
-            router.push("/categorias").catch(() => {});
-            break;
-          case "marcas":
-            router.push("/marcas").catch(() => {});
-            break;
-          case "tipos":
-            router.push("/tipos").catch(() => {});
-            break;
-          case "proveedores":
-            router.push("/proveedores").catch(() => {});
-            break;
-          case "racks":
-            router.push("/racks").catch(() => {});
-            break;
-          case "travesano":
-            router.push("/travesano").catch(() => {});
-            break;
-          default:
-            break;
-        }
-      },
-      logout() {
-        let commit = (store.state.token = null);
+  },
+  methods: {
+    paths(event) {
+      switch (event.srcKey) {
+        case "usuarios":
+          router.push("/usuarios").catch(() => {});
+          break;
+        case "articulos":
+          router.push("/articulos").catch(() => {});
+          break;
+        case "categorias":
+          router.push("/categorias").catch(() => {});
+          break;
+        case "marcas":
+          router.push("/marcas").catch(() => {});
+          break;
+        case "tipos":
+          router.push("/tipos").catch(() => {});
+          break;
+        case "proveedores":
+          router.push("/proveedores").catch(() => {});
+          break;
+        case "racks":
+          router.push("/racks").catch(() => {});
+          break;
+        case "travesano":
+          router.push("/travesano").catch(() => {});
+          break;
+        default:
+          break;
+      }
+    },
+    logout() {
+      let commit = (store.state.token = null);
 
-        this.$store.dispatch("logout", commit);
-        this.$router.push("/");
-      },
+      this.$store.dispatch("logout", commit);
+      this.$router.push("/");
     },
-  };
+  },
+};
 </script>
 <style lang="scss">
-  #app {
-    font-family: Verdana, Tahoma, sans-serif, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #396796;
-  }
+#app {
+  font-family: Verdana, Tahoma, sans-serif, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #396796;
+}
 
-  #nav {
-    padding: 30px;
+#nav {
+  padding: 30px;
 
-    a {
-      color: #2c3e50;
+  a {
+    color: #2c3e50;
 
-      &.router-link-exact-active {
-        color: #ffffff;
-      }
+    &.router-link-exact-active {
+      color: #ffffff;
     }
   }
+}
 </style>
