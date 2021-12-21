@@ -24,8 +24,8 @@ class TipoValidationRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre_tipo' => 'required|alpha',
-            'descripcion_tipo' => 'nullable|alpha'
+            'nombre_tipo' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'descripcion_tipo' => 'nullable|regex:/(^[A-Za-z0-9 ]+$)+/'
         ];
     }
 }
