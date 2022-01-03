@@ -25,7 +25,7 @@ class UsuarioValidationRequest extends FormRequest
     {
         return [
             'name' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
-            'email' => 'required|email',
+            'email' => 'nullable|email',
             'password' => 'required',
             'rol_id' => 'required'
         ];
