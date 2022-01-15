@@ -4,17 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
+
+
+
 
 
 class Articulo extends Model
 {
     protected $table = 'articulos_tbl';
     protected $primaryKey = 'id';
-    use HasFactory;
-
-
-
-
+    use HasFactory,
+        LogsActivity;
 
     /**
      ** The attributes that are mass assignable.
@@ -35,4 +37,17 @@ class Articulo extends Model
         'status_id',
         'foto_articulo'
     ];
+
+    //ACtivity log system
+    public function getActivitylogOptions(): LogOptions
+    {
+
+        return LogOptions::defaults()
+            ->logOnly([
+
+                'nombre_articulo',
+                'cantidad_articulo',
+            ]);
+        // Chain fluent methods for configuration options
+    }
 }

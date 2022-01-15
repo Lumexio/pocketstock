@@ -30,6 +30,7 @@ class User extends Authenticatable
         'password',
         'rol_id',
     ];
+    //ACtivity log system
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

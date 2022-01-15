@@ -18,7 +18,6 @@ use Spatie\Activitylog\Models\Activity;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return Activity::all();
     return $request->user();
 });
 
