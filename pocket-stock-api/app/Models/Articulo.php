@@ -35,7 +35,8 @@ class Articulo extends Model
         'travesano_id',
         'rack_id',
         'status_id',
-        'foto_articulo'
+        'foto_articulo',
+        'user_id'
     ];
 
     //ACtivity log system
@@ -49,5 +50,9 @@ class Articulo extends Model
                 'cantidad_articulo',
             ]);
         // Chain fluent methods for configuration options
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

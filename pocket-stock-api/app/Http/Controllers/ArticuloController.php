@@ -9,6 +9,7 @@ use App\Models\Articulo;
 use App\Events\articuloCreated;
 use App\Http\Requests\ArticuleValidationRequest;
 use Illuminate\Http\File;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ArticuloController extends Controller
@@ -64,6 +65,8 @@ class ArticuloController extends Controller
         } else {
             $photo = $request->file('foto_articulo');
             $articulo = $request->all();
+            $articulo['user_id'] = Auth::id();
+
             if (isset($photo)) {
                 $extension = $request->file('foto_articulo')->guessExtension();
                 $name_foto = $request->nombre_articulo . '.' . $extension;

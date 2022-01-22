@@ -45,6 +45,10 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = Hash::make($password);
     }
+    public function articulo()
+    {
+        return $this->hasMany(Articulo::class);
+    }
 
     /**
      * The attributes that should be hidden for arrays.
