@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use App\Models\User;
 
 
 
@@ -42,10 +43,8 @@ class Articulo extends Model
     //ACtivity log system
     public function getActivitylogOptions(): LogOptions
     {
-
         return LogOptions::defaults()
             ->logOnly([
-
                 'nombre_articulo',
                 'cantidad_articulo',
             ]);
