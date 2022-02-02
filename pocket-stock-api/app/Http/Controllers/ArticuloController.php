@@ -23,7 +23,6 @@ class ArticuloController extends Controller
     {
 
         $dat = DB::table('articulos_tbl')
-
             ->leftJoin('categorias_tbl', 'articulos_tbl.categoria_id', '=', 'categorias_tbl.id')
             ->leftJoin('marcas_tbl', 'articulos_tbl.marca_id', '=', 'marcas_tbl.id')
             ->leftJoin('proveedores_tbl', 'articulos_tbl.proveedor_id', '=', 'proveedores_tbl.id')
@@ -57,10 +56,8 @@ class ArticuloController extends Controller
      */
     public function store(ArticuleValidationRequest $request)
     {
-        $nameUser = Auth::user()->name;
-        $nameUser;
-        // activity()
-        //     ->causedBy('name'= $nameUser );
+
+
         if (Articulo::where('nombre_articulo', '=', $request->get('nombre_articulo'))->exists()) {
             return response([
                 'message' => ['Uno de los parametros ya exite.']

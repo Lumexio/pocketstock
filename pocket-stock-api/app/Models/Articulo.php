@@ -7,10 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use App\Models\User;
-
-
-
-
+use Illuminate\Support\Facades\Auth;
 
 class Articulo extends Model
 {
@@ -49,6 +46,10 @@ class Articulo extends Model
                 'cantidad_articulo',
             ]);
         // Chain fluent methods for configuration options
+        //$user = Auth::user();
+        //Auth::login($user);
+        activity()
+            ->causedBy(Auth::id());
     }
     public function user()
     {
