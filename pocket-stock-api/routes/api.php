@@ -59,6 +59,7 @@ Mostrar un registro no */
 Eliminar no
 Mostrar un registro no */
     Route::resource('user', 'UserController');
+    Route::resource('activitylog', 'ActivitylogController');
 });
 
 Route::post('login', [UserController::class, 'login']);
