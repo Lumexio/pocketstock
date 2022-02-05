@@ -10,6 +10,11 @@ import Vuex from 'vuex';
 import Echo from 'laravel-echo';
 import store from '@/store';
 import 'bulma/css/bulma.css';
+import Alpine from 'alpinejs'
+
+
+
+
 Vue.use(Vuelidate)
 Vue.use(VueAxios, Axios)
 Vue.use(Vuex)
@@ -18,7 +23,8 @@ Vue.use(shortkey)
 Vue.config.productionTip = false
 
 window.Axios = require('axios')
-
+window.Alpine = Alpine
+Alpine.start()
 
 window.Pusher = require('pusher-js');
 
