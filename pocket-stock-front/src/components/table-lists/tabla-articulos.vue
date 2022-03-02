@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <v-row>
-      <v-col cols="12" sm="4" md="5">
+      <v-col sm="8" md="5">
         <v-text-field
           label="Buscar artículo"
           placeholder="Nombre, cantidad, categoria, tipo ...."
@@ -171,7 +171,7 @@
             max-width="600"
           >
             <template v-slot:default="dialogDetail">
-              <v-card>
+              <v-card :key="count">
                 <v-card-text>
                   <v-toolbar flat>
                     <v-card-title>
@@ -187,6 +187,19 @@
                   ></v-img>
                 </v-card-text>
                 <v-card-actions class="justify-end">
+                  <v-file-input
+                    v-model="photo"
+                    prepend-icon="mdi-camera"
+                    hide-input
+                    label="File input"
+                  ></v-file-input>
+                  <v-btn
+                    v-show="photo != null"
+                    text
+                    color="orange"
+                    @click="photochange()"
+                    >Subir Imagen</v-btn
+                  >
                   <v-btn text @click="dialogDetail.value = false">Close</v-btn>
                 </v-card-actions>
               </v-card>
@@ -218,297 +231,325 @@
 </template>
 
 <script>
-  //import axios from "axios";
-  import store from "@/store";
-  import {
-    getArticulos,
-    deleteArticulos,
-    editArticulos,
-  } from "@/api/articulos.js";
-  import { getCategorias } from "@/api/categorias.js";
-  import { getMarcas } from "@/api/marcas.js";
-  import { getProveedores } from "@/api/proveedores.js";
-  import { getTipos } from "@/api/tipos.js";
-  import { getRack } from "@/api/racks.js";
-  import { getTravesano } from "@/api/travesanos.js";
-  import { getStatus } from "@/api/status.js";
-  import { upperConverter } from "@/special/uppercases-converter.js";
-  import {
-    tiposync,
-    statusync,
-    travesañosync,
-    categsync,
-    racksync,
-    marcasync,
-    proveedorsync,
-  } from "@/special/sync-indexitems.js";
+//import axios from "axios";
+import store from "@/store";
+import { postPhoto } from "@/api/photohandler.js";
+import {
+  getArticulos,
+  deleteArticulos,
+  editArticulos,
+} from "@/api/articulos.js";
 
-  //axios.defaults.baseURL = "http://127.0.0.1:8000/";
-  export default {
-    name: "tabla-articulos",
-    data: () => ({
-      search: "",
-      dialog: false,
-      singleExpand: false,
-      dialogDelete: false,
-      dialogDetail: false,
-      cargando: true,
-      expanded: [],
+import { getCategorias } from "@/api/categorias.js";
+import { getMarcas } from "@/api/marcas.js";
+import { getProveedores } from "@/api/proveedores.js";
+import { getTipos } from "@/api/tipos.js";
+import { getRack } from "@/api/racks.js";
+import { getTravesano } from "@/api/travesanos.js";
+import { getStatus } from "@/api/status.js";
+import { upperConverter } from "@/special/uppercases-converter.js";
+import {
+  tiposync,
+  statusync,
+  travesañosync,
+  categsync,
+  racksync,
+  marcasync,
+  proveedorsync,
+} from "@/special/sync-indexitems.js";
 
-      headers: [
-        {
-          text: "Nombre",
-          align: "start",
-          sortable: false,
-          value: "nombre_articulo",
-        },
-        { text: "Cantidad", value: "cantidad_articulo", align: "center" },
-        { text: "Categoría", value: "nombre_categoria", align: "center" },
-        { text: "Tipo", value: "nombre_tipo", align: "center" },
-        { text: "Marca", value: "nombre_marca", align: "center" },
-        { text: "Proveedor", value: "nombre_proveedor", align: "center" },
-        { text: "estatus", value: "nombre_status", align: "center" },
-        { text: "Rack", value: "nombre_rack", align: "center" },
-        { text: "Travesaño", value: "nombre_travesano", align: "center" },
-        { text: "Acciones", value: "actions", sortable: false, align: "center" },
-        { text: "", align: "end", value: "data-table-expand" },
-      ],
+//axios.defaults.baseURL = "http://127.0.0.1:8000/";
+export default {
+  name: "tabla-articulos",
+  data: () => ({
+    search: "",
+    dialog: false,
+    singleExpand: false,
+    dialogDelete: false,
+    dialogDetail: false,
+    cargando: true,
+    expanded: [],
 
-      articulosArray: [],
-      //variable en la que se deposita la posicion en el selector
-      selectc: "", //categoria
-      selectt: "", //tipo
-      selectp: "", //proveedor
-      selectm: "", //marca
-      selectst: "", //status
-      selectr: "", //rack
-      selectT: "", //travesaño
-      //Array en el que se deposita de los selectores.
-      itemsc: [], //categoria
-      itemstt: [], //tipo
-      itemsp: [], //proveedor
-      itemstm: [], //marca
-      itemstst: [], //status
-      itemsr: [], //rack
-      itemsT: [], //travesaño
-
-      editedIndex: -1,
-      editedItem: {
-        id: "",
-        nombre_articulo: "",
-        cantidad_articulo: 0,
-        nombre_categoria: "",
-        nombre_tipo: "",
-        nombre_marca: "",
-        nombre_proveedor: "",
-        nombre_status: "",
-        nombre_rack: "",
-        nombre_travesano: "",
-        foto_articulo: null,
-        descripcion_articulo: "",
+    headers: [
+      {
+        text: "Nombre",
+        align: "start",
+        sortable: false,
+        value: "nombre_articulo",
       },
-      defaultItem: {
-        id: "",
-        nombre_articulo: "",
-        cantidad_articulo: 0,
-        nombre_categoria: "",
-        nombre_tipo: "",
-        nombre_marca: "",
-        nombre_proveedor: "",
-        nombre_status: "",
-        nombre_rack: "",
-        nombre_travesano: "",
-        foto_articulo: null,
-        descripcion_articulo: "",
-      },
-    }),
-    created() {
-      this.onFocus();
+      { text: "Cantidad", value: "cantidad_articulo", align: "center" },
+      { text: "Categoría", value: "nombre_categoria", align: "center" },
+      { text: "Tipo", value: "nombre_tipo", align: "center" },
+      { text: "Marca", value: "nombre_marca", align: "center" },
+      { text: "Proveedor", value: "nombre_proveedor", align: "center" },
+      { text: "estatus", value: "nombre_status", align: "center" },
+      { text: "Rack", value: "nombre_rack", align: "center" },
+      { text: "Travesaño", value: "nombre_travesano", align: "center" },
+      { text: "Acciones", value: "actions", sortable: false, align: "center" },
+      { text: "", align: "end", value: "data-table-expand" },
+    ],
+
+    articulosArray: [],
+    //variable en la que se deposita la posicion en el selector
+    selectc: "", //categoria
+    selectt: "", //tipo
+    selectp: "", //proveedor
+    selectm: "", //marca
+    selectst: "", //status
+    selectr: "", //rack
+    selectT: "", //travesaño
+    //Array en el que se deposita de los selectores.
+    itemsc: [], //categoria
+    itemstt: [], //tipo
+    itemsp: [], //proveedor
+    itemstm: [], //marca
+    itemstst: [], //status
+    itemsr: [], //rack
+    itemsT: [], //travesaño
+    photo: null,
+
+    editedIndex: -1,
+    editedItem: {
+      id: "",
+      nombre_articulo: "",
+      cantidad_articulo: 0,
+      nombre_categoria: "",
+      nombre_tipo: "",
+      nombre_marca: "",
+      nombre_proveedor: "",
+      nombre_status: "",
+      nombre_rack: "",
+      nombre_travesano: "",
+      foto_articulo: null,
+      descripcion_articulo: "",
     },
-    mounted() {
+    defaultItem: {
+      id: "",
+      nombre_articulo: "",
+      cantidad_articulo: 0,
+      nombre_categoria: "",
+      nombre_tipo: "",
+      nombre_marca: "",
+      nombre_proveedor: "",
+      nombre_status: "",
+      nombre_rack: "",
+      nombre_travesano: "",
+      foto_articulo: null,
+      descripcion_articulo: "",
+    },
+  }),
+  created() {
+    this.onFocus();
+  },
+  mounted() {
+    window.Echo.channel("articulos").listen("articuloCreated", (e) => {
+      this.articulosArray = e.articulos;
+    });
+
+    window.Echo.channel("categorias").listen("categoriaCreated", (e) => {
+      this.itemsc = e.categorias;
+    });
+    window.Echo.channel("marcas").listen("marcaCreated", (e) => {
+      this.itemstm = e.marcas;
+    });
+    window.Echo.channel("proveedores").listen("proveedorCreated", (e) => {
+      this.itemsp = e.proveedores;
+    });
+    window.Echo.channel("status").listen("statusCreated", (e) => {
+      this.itemstst = e.status;
+    });
+    window.Echo.channel("tipos").listen("tipoCreated", (e) => {
+      this.itemstt = e.tipos;
+    });
+    window.Echo.channel("racks").listen("rackCreated", (e) => {
+      this.itemsr = e.racks;
+    });
+    window.Echo.channel("travesanos").listen("travesañoCreated", (e) => {
+      this.itemsT = e.travesanos;
+    });
+    getArticulos(this.articulosArray)
+      .then((response) => {
+        if (response.stats === 200) {
+          this.cargando = false;
+          store.commit("setsuccess", false); //para resetear el valor de la notificion en una nueva entrada
+          store.commit("setdanger", false);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        this.cargando = true;
+      });
+    getCategorias(this.itemsc);
+    getMarcas(this.itemstm);
+    getProveedores(this.itemsp);
+    getTipos(this.itemstt);
+    getRack(this.itemsr);
+    getTravesano(this.itemsT);
+    getStatus(this.itemstst);
+  },
+
+  computed: {
+    formTitle() {
+      return this.editedIndex === -1 ? "New Item" : "Editar articulo";
+    },
+    count() {
+      return store.getters.counter;
+    },
+    hasrol() {
+      return store.getters.hasrol;
+    },
+  },
+
+  watch: {
+    dialog(val) {
+      val || this.close();
+    },
+    dialogDelete(val) {
+      val || this.closeDelete();
+    },
+  },
+
+  methods: {
+    onFocus() {
+      let stext = document.getElementById("onsearch");
+      stext;
+      stext = addEventListener("keyup", (e) => {
+        if (e.altKey) {
+          document.getElementById("onsearch").focus();
+        }
+      });
+    },
+    getColor(status) {
+      if (status === "Agotado") return "red lighten-2";
+      else if (status === "Disponible") return "orange lighten-2";
+      else if (status === "En uso") return "blue lighten-2";
+      else return "withe";
+    },
+    filterOnlyCapsText(value, search) {
+      return (
+        value != null &&
+        search != null &&
+        typeof value === "string" &&
+        value.toString().toLocaleUpperCase().indexOf(search) !== -1
+      );
+    },
+
+    editItem(item) {
+      this.editedIndex = this.articulosArray.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      //categoria
+      if (this.editedItem.nombre_categoria) {
+        let categoriasync = this.editedItem.nombre_categoria;
+        this.selectc = categsync(this.itemsc, this.selectc, categoriasync);
+      }
+      //tipo
+      if (this.editedItem.nombre_tipo) {
+        let typosync = this.editedItem.nombre_tipo;
+        this.selectt = tiposync(this.itemstt, this.selectt, typosync);
+      }
+      //proveedor
+      let provsync = this.editedItem.nombre_proveedor;
+      this.selectp = proveedorsync(this.itemsp, this.selectp, provsync);
+      //marca
+      let marcsync = this.editedItem.nombre_marca;
+      this.selectm = marcasync(this.itemstm, this.selectm, marcsync);
+
+      //status
+      let statync = this.editedItem.nombre_status;
+      this.selectst = statusync(this.itemstst, this.selectst, statync);
+      //rack
+      let racsycn = this.editedItem.nombre_rack;
+      this.selectr = racksync(this.itemsr, this.selectr, racsycn);
+      //travesaño
+      let travsync = this.editedItem.nombre_travesano;
+      this.selectT = travesañosync(this.itemsT, this.selectT, travsync);
+      this.dialog = true;
+    },
+
+    deleteItem(item) {
+      this.editedIndex = this.articulosArray.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialogDelete = true;
+    },
+    detailItem(item) {
+      this.editedIndex = this.articulosArray.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+
+      this.dialogDetail = true;
+    },
+
+    deleteItemConfirm() {
+      this.articulosArray.splice(this.editedIndex, 1);
+      let id = this.editedItem.id;
+      deleteArticulos(id);
       window.Echo.channel("articulos").listen("articuloCreated", (e) => {
         this.articulosArray = e.articulos;
       });
-
-      window.Echo.channel("categorias").listen("categoriaCreated", (e) => {
-        this.itemsc = e.categorias;
-      });
-      window.Echo.channel("marcas").listen("marcaCreated", (e) => {
-        this.itemstm = e.marcas;
-      });
-      window.Echo.channel("proveedores").listen("proveedorCreated", (e) => {
-        this.itemsp = e.proveedores;
-      });
-      window.Echo.channel("status").listen("statusCreated", (e) => {
-        this.itemstst = e.status;
-      });
-      window.Echo.channel("tipos").listen("tipoCreated", (e) => {
-        this.itemstt = e.tipos;
-      });
-      window.Echo.channel("racks").listen("rackCreated", (e) => {
-        this.itemsr = e.racks;
-      });
-      window.Echo.channel("travesanos").listen("travesañoCreated", (e) => {
-        this.itemsT = e.travesanos;
-      });
-      getArticulos(this.articulosArray)
-        .then((response) => {
-          if (response.stats === 200) {
-            this.cargando = false;
-            store.commit("setsuccess", false); //para resetear el valor de la notificion en una nueva entrada
-            store.commit("setdanger", false);
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-          this.cargando = true;
-        });
-      getCategorias(this.itemsc);
-      getMarcas(this.itemstm);
-      getProveedores(this.itemsp);
-      getTipos(this.itemstt);
-      getRack(this.itemsr);
-      getTravesano(this.itemsT);
-      getStatus(this.itemstst);
+      this.closeDelete();
     },
 
-    computed: {
-      formTitle() {
-        return this.editedIndex === -1 ? "New Item" : "Editar articulo";
-      },
+    close() {
+      this.dialog = false;
+      this.dialogDetail = false;
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
     },
 
-    watch: {
-      dialog(val) {
-        val || this.close();
-      },
-      dialogDelete(val) {
-        val || this.closeDelete();
-      },
+    closeDelete() {
+      this.dialogDelete = false;
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
     },
+    photochange() {
+      if (this.editedIndex > -1) {
+        Object.assign(this.articulosArray[this.editedIndex], this.editedItem);
+        let send = this.editedItem;
+        let url = "api/updatephoto/" + send.id;
 
-    methods: {
-      onFocus() {
-        let stext = document.getElementById("onsearch");
-        stext;
-        stext = addEventListener("keyup", (e) => {
-          if (e.altKey) {
-            document.getElementById("onsearch").focus();
-          }
-        });
-      },
-      getColor(status) {
-        if (status === "Agotado") return "red lighten-2";
-        else if (status === "Disponible") return "orange lighten-2";
-        else if (status === "En uso") return "blue lighten-2";
-        else return "withe";
-      },
-      filterOnlyCapsText(value, search) {
-        return (
-          value != null &&
-          search != null &&
-          typeof value === "string" &&
-          value.toString().toLocaleUpperCase().indexOf(search) !== -1
-        );
-      },
-
-      editItem(item) {
-        this.editedIndex = this.articulosArray.indexOf(item);
-        this.editedItem = Object.assign({}, item);
-        //categoria
-        if (this.editedItem.nombre_categoria) {
-          let categoriasync = this.editedItem.nombre_categoria;
-          this.selectc = categsync(this.itemsc, this.selectc, categoriasync);
+        if (this.photo != null) {
+          const formdata = new FormData();
+          formdata.append("foto_articulo", this.photo);
+          postPhoto(url, formdata);
         }
-        //tipo
-        if (this.editedItem.nombre_tipo) {
-          let typosync = this.editedItem.nombre_tipo;
-          this.selectt = tiposync(this.itemstt, this.selectt, typosync);
-        }
-        //proveedor
-        let provsync = this.editedItem.nombre_proveedor;
-        this.selectp = proveedorsync(this.itemsp, this.selectp, provsync);
-        //marca
-        let marcsync = this.editedItem.nombre_marca;
-        this.selectm = marcasync(this.itemstm, this.selectm, marcsync);
+      } else {
+        this.articulosArray.push(this.editedItem);
+      }
+      this.close();
+    },
+    save() {
+      if (this.editedIndex > -1) {
+        Object.assign(this.articulosArray[this.editedIndex], this.editedItem);
+        let send = this.editedItem;
+        send.nombre_articulo = upperConverter(send.nombre_articulo);
+        let url = "api/articulo/update/" + send.id;
 
-        //status
-        let statync = this.editedItem.nombre_status;
-        this.selectst = statusync(this.itemstst, this.selectst, statync);
-        //rack
-        let racsycn = this.editedItem.nombre_rack;
-        this.selectr = racksync(this.itemsr, this.selectr, racsycn);
-        //travesaño
-        let travsync = this.editedItem.nombre_travesano;
-        this.selectT = travesañosync(this.itemsT, this.selectT, travsync);
-        this.dialog = true;
-      },
+        url = `${url}?${"nombre_articulo=" + send.nombre_articulo}&${
+          "cantidad_articulo=" + send.cantidad_articulo
+        }&${"descripcion_articulo=" + send.descripcion_articulo}&${
+          "categoria_id=" + this.selectc
+        }&${"tipo_id=" + this.selectt}&${"marca_id=" + this.selectm}&${
+          "proveedor_id=" + this.selectp
+        }&${"status_id=" + this.selectst}&${"rack_id=" + this.selectr}&${
+          "travesano_id=" + this.selectT
+        }`;
 
-      deleteItem(item) {
-        this.editedIndex = this.articulosArray.indexOf(item);
-        this.editedItem = Object.assign({}, item);
-        this.dialogDelete = true;
-      },
-      detailItem(item) {
-        this.editedIndex = this.articulosArray.indexOf(item);
-        this.editedItem = Object.assign({}, item);
+        editArticulos(url);
+        //Sub sistema de eliminación de photos del articulo
 
-        this.dialogDetail = true;
-      },
-
-      deleteItemConfirm() {
-        this.articulosArray.splice(this.editedIndex, 1);
-        let id = this.editedItem.id;
-        deleteArticulos(id);
         window.Echo.channel("articulos").listen("articuloCreated", (e) => {
           this.articulosArray = e.articulos;
         });
-        this.closeDelete();
-      },
-
-      close() {
-        this.dialog = false;
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem);
-          this.editedIndex = -1;
-        });
-      },
-
-      closeDelete() {
-        this.dialogDelete = false;
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem);
-          this.editedIndex = -1;
-        });
-      },
-
-      save() {
-        if (this.editedIndex > -1) {
-          Object.assign(this.articulosArray[this.editedIndex], this.editedItem);
-          let send = this.editedItem;
-          send.nombre_articulo = upperConverter(send.nombre_articulo);
-          let url = "api/articulo/";
-          url = url + send.id;
-          url = `${url}?${"nombre_articulo=" + send.nombre_articulo}&${
-            "cantidad_articulo=" + send.cantidad_articulo
-          }&${"descripcion_articulo=" + send.descripcion_articulo}&${
-            "categoria_id=" + this.selectc
-          }&${"tipo_id=" + this.selectt}&${"marca_id=" + this.selectm}&${
-            "proveedor_id=" + this.selectp
-          }&${"status_id=" + this.selectst}&${"rack_id=" + this.selectr}&${
-            "travesano_id=" + this.selectT
-          }`;
-          editArticulos(url);
-          window.Echo.channel("articulos").listen("articuloCreated", (e) => {
-            this.articulosArray = e.articulos;
-          });
-        } else {
-          this.articulosArray.push(this.editedItem);
-        }
-        this.close();
-      },
+      } else {
+        this.articulosArray.push(this.editedItem);
+      }
+      this.close();
     },
-  };
+  },
+};
 </script>
 
 <style scoped>
