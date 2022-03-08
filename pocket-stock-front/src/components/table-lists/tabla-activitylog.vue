@@ -40,7 +40,54 @@
         </template>
         <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length">
-            {{ item.properties }}
+            <v-row v-if="item.properties.old != undefined">
+              <v-col col="2">
+                <b> Datos viejos: </b>
+              </v-col>
+              <v-col col="2">
+                <span v-if="item.properties.old.nombre_articulo != undefined">
+                  nombre: {{ item.properties.old.nombre_articulo }}
+                </span>
+                <span v-if="item.properties.old.name != undefined">
+                  nombre: {{ item.properties.old.name }}
+                </span>
+              </v-col>
+              <v-col col="2">
+                <span v-if="item.properties.old.cantidad_articulo != undefined">
+                  rol:{{ item.properties.old.cantidad_articulo }}</span
+                >
+                <span v-if="item.properties.old.rol_id != undefined">
+                  rol:{{ item.properties.old.rol_id }}</span
+                >
+              </v-col>
+            </v-row>
+            <v-row v-if="item.properties.attributes != undefined">
+              <v-col col="2">
+                <b> Datos actuales: </b>
+              </v-col>
+              <v-col col="2">
+                <span
+                  v-if="item.properties.attributes.nombre_articulo != undefined"
+                >
+                  nombre: {{ item.properties.attributes.nombre_articulo }}
+                </span>
+                <span v-if="item.properties.attributes.name != undefined">
+                  nombre: {{ item.properties.attributes.name }}
+                </span>
+              </v-col>
+              <v-col col="2">
+                <span
+                  v-if="
+                    item.properties.attributes.cantidad_articulo != undefined
+                  "
+                >
+                  rol:{{ item.properties.attributes.cantidad_articulo }}</span
+                >
+                <span v-if="item.properties.attributes.rol_id != undefined">
+                  rol:{{ item.properties.attributes.rol_id }}</span
+                >
+              </v-col>
+            </v-row>
           </td>
         </template>
       </v-data-table>

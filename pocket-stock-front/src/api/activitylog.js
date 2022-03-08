@@ -19,9 +19,13 @@ export function getActivitylog(activitylogArray) {
             causername: element.name,
             createdat: element.created_at,
             updatedat: element.updated_at,
-            properties: element.properties
+            properties: JSON.parse(element.properties)
           };
           if (!datos) return;
+          let tempold = datos.properties.old;
+          let tempattributes = datos.properties.attributes;
+          console.log("Api old:", tempold);
+          console.log("Api actual or new:", tempattributes);
           activitylogArray.push(datos);
         });
         resolve({

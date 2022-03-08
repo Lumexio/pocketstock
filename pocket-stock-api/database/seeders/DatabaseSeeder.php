@@ -49,13 +49,13 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(10)->create();
 
         DB::table('users')->insert([
-            'name' => 'francisco',
+            'name' => 'admin',
             'email' => 'a@a.com',
             'password' => Hash::make('12345678'),
             'rol_id' => '1',
         ]);
         DB::table('users')->insert([
-            'name' => 'darkfrancisco',
+            'name' => 'colaborador',
             'email' => 'b@b.com',
             'password' => Hash::make('12345678'),
             'rol_id' => '2',
