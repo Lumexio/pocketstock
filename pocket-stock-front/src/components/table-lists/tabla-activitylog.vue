@@ -20,12 +20,12 @@
       <v-data-table
         id="tabla"
         :headers="headers"
-        show-expand
-        :expanded.sync="expanded"
         :items="activitylogArray"
-        sort-by="cantidad_articulo"
+        :expanded.sync="expanded"
+        sort-by="accion"
         class="elevation-1"
         :search="search"
+        show-expand
         :custom-filter="filterOnlyCapsText.toUpperCase"
       >
         <template v-slot:top>

@@ -10,11 +10,12 @@ export function getActivitylog(activitylogArray) {
     axios
       .get("api/activitylog")
       .then((response) => {
-        console.log(response.data.payload);
+
         const activitylog = response.data.payload;
         const stats = response.status;
         activitylog.forEach((element) => {
           let datos = {
+            id: element.id,
             accion: element.description,
             causername: element.name,
             createdat: element.created_at,
@@ -22,10 +23,7 @@ export function getActivitylog(activitylogArray) {
             properties: JSON.parse(element.properties)
           };
           if (!datos) return;
-          let tempold = datos.properties.old;
-          let tempattributes = datos.properties.attributes;
-          console.log("Api old:", tempold);
-          console.log("Api actual or new:", tempattributes);
+
           activitylogArray.push(datos);
         });
         resolve({
