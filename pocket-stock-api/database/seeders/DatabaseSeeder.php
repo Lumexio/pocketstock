@@ -16,13 +16,14 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-
+        //* Roles de usuario
         DB::table('rols_tbl')->insert([
             'name_rol' => 'Administrativo',
         ]);
         DB::table('rols_tbl')->insert([
             'name_rol' => 'Empleado',
         ]);
+        //* Status para articulos
         DB::table('status_tbl')->insert([
             'nombre_status' => 'Disponible',
         ]);
@@ -32,6 +33,7 @@ class DatabaseSeeder extends Seeder
         DB::table('status_tbl')->insert([
             'nombre_status' => 'En uso',
         ]);
+        //* Ubicaciones por defecto
         DB::table('travesano_tbl')->insert([
             'nombre_travesano' => '1',
         ]);
