@@ -26,7 +26,7 @@ class MarcaValidationRequest extends FormRequest
         return [
             'nombre_marca' => 'required|alpha',
             'descripcion_marca' =>
-            'nullable|alpha',
+            'nullable|regex:/^[a-zA-Z0-9.,_ ]*$/',
         ];
     }
 }
