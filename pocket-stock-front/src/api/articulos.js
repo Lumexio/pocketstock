@@ -2,13 +2,13 @@ import axios from "axios";
 import store from "@/store";
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = "http://127.0.0.1:8000/";
+axios.defaults.baseURL = "http://" + window.location.hostname + ":8000";
 
 
 export function getArticulos(articulosArray) {
   return new Promise((resolve, reject) => {
     axios
-      .get("api/articulo")
+      .get("api/articulo/list")
       .then((response) => {
         const articulos = response.data;
         const stats = response.status;
@@ -18,6 +18,7 @@ export function getArticulos(articulosArray) {
             nombre_articulo: element.nombre_articulo,
             cantidad_articulo: element.cantidad_articulo,
             descripcion_articulo: element.descripcion_articulo, //pendiente
+            precio_articulo: element.precio_articulo, //pendiente
             nombre_categoria: element.nombre_categoria,
             nombre_tipo: element.nombre_tipo,
             nombre_marca: element.nombre_marca,
@@ -40,7 +41,7 @@ export function getArticulos(articulosArray) {
 }
 export function postArticulos(enviar) {
   axios
-    .post("api/articulo", enviar, {
+    .post("api/articulo/create/", enviar, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -59,14 +60,21 @@ export function postArticulos(enviar) {
     });
 }
 export function deleteArticulos(id) {
-  axios.delete("api/articulo/" + id).then((response) => { response; /*store.commit("increment", 1);*/ }).catch((error) => console.log(error));
+  axios.delete("api/articulo/delete/" + id).then((response) => { response; /*store.commit("increment", 1);*/ }).catch((error) => console.log(error));
 }
-export function editArticulos(url) {
+export function editArticulos(url, data) {
   axios
-    .put(url)
+    .put(url, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
     .then((response) => {
-      response;
-      store.commit("increment", 1);
+      console.log("Datos de edit:", response);
+      if (response.statusText === "Created") {
+        store.commit("setsuccess", true);
+      }
+      //store.commit("increment", 1);
     })
     .catch((error) => console.log(error));
 }

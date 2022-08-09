@@ -9,11 +9,16 @@ Vue.use(Vuex);
 
 const getDefaultState = () => {
  return {
+  darkflag: false,
   token: null,
   recharge: 0,
   rol: null,
+  userId: null,
+  status: "Por entregar",
   notiLike: null,
   notiDanger: null,
+  statcode: null,
+  ticketArray: [],
  };
 };
 
@@ -28,13 +33,22 @@ export default new Vuex.Store({
   },
   counter(state) { return state.recharge },
   hasrol(state) { return state.rol },
+  hastoken(state) { return state.token },
   hassuccess(state) { return state.notiLike },
   hasdanger(state) { return state.notiDanger },
+  hasstatus(state) { return state.status },
+  hasstatcode(state) { return state.statcode },
+  hasdarkflag(state) { return state.darkflag },
+  getUserId(state) { return state.userId },
+  gettickets(state) { return state.ticketArray },
  },
 
  mutations: {
   SET_TOKEN: (state, token) => {
    state.token = token;
+  },
+  setUserId(state, userId) {
+   state.userId = userId;
   },
   increment(state, payload) {
    // mutate state
@@ -43,8 +57,20 @@ export default new Vuex.Store({
   setrol(state, payload) { state.rol = payload },
   setsuccess(state, payload) { state.notiLike = payload },
   setdanger(state, payload) { state.notiDanger = payload },
+  setstatus(state, payload) { state.status = payload },
+  setstatcode(state, payload) { state.statcode = payload },
+  setdarkflag(state, payload) { state.darkflag = payload },
+  settickets(state, payload) { state.ticketArray = payload },
+  resetTicket: state => { state.ticketArray = [] },
   RESET: state => {
-   Object.assign(state, getDefaultState());
+   state.token = null,
+    state.recharge = 0,
+    state.rol = null,
+    state.status = "Por entregar",
+    state.notiLike = null,
+    state.notiDanger = null,
+    state.statcode = null,
+    state.ticketArray = null
   }
  },
 
@@ -57,6 +83,18 @@ export default new Vuex.Store({
   },
   setsuccess({ commit }) {
    commit('setsuccess')
+  },
+  setstatus({ commit }) {
+   commit('setstatus')
+  },
+  setstatcode({ commit }) {
+   commit('setstatcode')
+  },
+  setdarkflag({ commit }) {
+   commit('setdarkflag')
+  },
+  settickets({ commit }) {
+   commit('settickets')
   },
   login: ({ commit, dispatch }, { token }) => {
 

@@ -24,8 +24,8 @@ class ProveedorValidationRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre_proveedor' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
-            'descripcion' => 'nullable|regex:/(^[A-Za-z0-9 ]+$)+/'
+            'nombre_proveedor' => 'required|alpha',
+            'descripcion' => 'nullable|alpha'
         ];
     }
 }

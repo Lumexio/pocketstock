@@ -24,8 +24,8 @@ class CategoriaValidationRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre_categoria' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
-            'descripcion_categoria' => 'nullable|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'nombre_categoria' => 'required|alpha',
+            'descripcion_categoria' => 'nullable|alpha',
         ];
     }
 }

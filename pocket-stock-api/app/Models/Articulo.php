@@ -6,17 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
-
-
-
-
+use App\Models\User;
+use App\Models\Categoria;
+use Illuminate\Support\Facades\Auth;
 
 class Articulo extends Model
 {
     protected $table = 'articulos_tbl';
     protected $primaryKey = 'id';
-    use HasFactory,
-        LogsActivity;
+    use HasFactory, LogsActivity;
 
     /**
      ** The attributes that are mass assignable.
@@ -35,19 +33,42 @@ class Articulo extends Model
         'travesano_id',
         'rack_id',
         'status_id',
-        'foto_articulo'
+        'foto_articulo',
+        'user_id'
     ];
 
     //ACtivity log system
     public function getActivitylogOptions(): LogOptions
     {
-
         return LogOptions::defaults()
             ->logOnly([
-
                 'nombre_articulo',
                 'cantidad_articulo',
             ]);
         // Chain fluent methods for configuration options
+        //$user = Auth::user();
+        //Auth::login($user);
+        activity()
+            ->causedBy(Auth::id());
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class);
+    }
+    public function marca()
+    {
+        return $this->belongsTo(Marca::class);
+    }
+    public function proveedor()
+    {
+        return $this->belongsTo(Proveedor::class);
+    }
+    public function rack()
+    {
+        return $this->belongsTo(Rack::class);
     }
 }

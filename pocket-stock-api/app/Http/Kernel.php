@@ -19,11 +19,11 @@ class Kernel extends HttpKernel
         \Fruitcake\Cors\HandleCors::class,
         // \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
-        \Fruitcake\Cors\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \Illuminate\Session\Middleware\StartSession::class,
     ];
 
     /**
@@ -43,10 +43,14 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-
             EnsureFrontendRequestsAreStateful::class,
+            \Fruitcake\Cors\HandleCors::class,
             //'throttle:api',/*Esta comentada por que limitaba los pedidos al api desde el cliente*/
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\EncryptCookies::class,
+            \App\Http\Middleware\VerifyCsrfToken::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+
         ],
     ];
 

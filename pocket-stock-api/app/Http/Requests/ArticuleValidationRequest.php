@@ -24,9 +24,9 @@ class ArticuleValidationRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre_articulo' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'nombre_articulo' => 'required|alpha',
             'cantidad_articulo' => 'required|integer|min:0',
-            'descripcion_articulo' => 'nullable|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'descripcion_articulo' => 'nullable|regex:/^[a-zA-Z0-9.,_ ]*$/',
             'foto_articulo' => 'nullable|mimes:png,jpg'
         ];
     }

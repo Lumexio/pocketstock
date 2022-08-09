@@ -28,6 +28,35 @@ const routes = [
     meta: {
       layout: 'auth',
       name: 'auth'
+    }, beforeEnter(to, from, next) {
+      /*if (store.state.token != null && (to.path === '/login' && from.path === '/')) {
+        next({});
+      } else*/ if ((to.path === '/login' || to.path === '/') && store.state.token === null) {
+
+        next();
+      } else if (store.state.token != null && (to.path === '/login' || to.path === '/')) {
+
+        switch (store.getters.hasrol) {
+          case 1:
+            next({
+              path: "/usuarios"
+            });
+            break;
+          case 2:
+
+            next({
+              path: "/articulos"
+            });
+            break;
+          default:
+            next({
+              path: from.path
+            });
+            break;
+        }
+
+      }
+
     }
   },
   {
@@ -36,17 +65,21 @@ const routes = [
     component: () => import(/*webpackChunkName: "Home" */'../views/Home.vue'),
 
     meta: {
-      authenticated: true
+      authenticated: true,
+      layout: 'default',
+      name: 'default'
     },
     beforeEnter: (to, from, next) => {
       let validado = to.matched.some(record => record.meta.authenticated);
       if (store.state.token) {
+
         next();
         if (validado == true && from.path !== '/') {
           next();
         }
       }
       else if (!validado) {
+
         next({ name: 'login' });
       }
       else {
@@ -55,13 +88,15 @@ const routes = [
 
     }
   },
-  //Cruds 
+  //Cruds
   {
     path: '/crearusuario',
     name: 'crearusuario',
     component: () => import('../components/cruds/crearusuario.vue'),
     meta: {
-      authenticated: true
+      authenticated: true,
+      layout: 'default',
+      name: 'default'
     },
     beforeEnter: (to, from, next) => {
       let validado = to.matched.some(record => record.meta.authenticated);
@@ -87,7 +122,9 @@ const routes = [
     name: 'usuarios',
     component: () => import('../views/main-usuarios.vue'),
     meta: {
-      authenticated: true
+      authenticated: true,
+      layout: 'default',
+      name: 'default'
     },
     beforeEnter: (to, from, next) => {
       let validado = to.matched.some(record => record.meta.authenticated);
@@ -110,7 +147,9 @@ const routes = [
     path: '/articulos',
     name: 'artículos',
     component: () => import('../views/main-articulos.vue'), meta: {
-      authenticated: true
+      authenticated: true,
+      layout: 'default',
+      name: 'default'
     },
     beforeEnter: (to, from, next) => {
       let validado = to.matched.some(record => record.meta.authenticated);
@@ -134,7 +173,9 @@ const routes = [
     name: 'categorias',
     component: () => import('../views/main-categorias.vue'),
     meta: {
-      authenticated: true
+      authenticated: true,
+      layout: 'default',
+      name: 'default'
     },
     beforeEnter: (to, from, next) => {
       let validado = to.matched.some(record => record.meta.authenticated);
@@ -158,7 +199,9 @@ const routes = [
     name: 'marcas',
     component: () => import('../views/main-marcas.vue'),
     meta: {
-      authenticated: true
+      authenticated: true,
+      layout: 'default',
+      name: 'default'
     },
     beforeEnter: (to, from, next) => {
       let validado = to.matched.some(record => record.meta.authenticated);
@@ -182,7 +225,9 @@ const routes = [
     name: 'tipos',
     component: () => import('../views/main-tipo.vue'),
     meta: {
-      authenticated: true
+      authenticated: true,
+      layout: 'default',
+      name: 'default'
     },
     beforeEnter: (to, from, next) => {
       let validado = to.matched.some(record => record.meta.authenticated);
@@ -206,7 +251,9 @@ const routes = [
     name: 'proveedores',
     component: () => import('../views/main-proveedores.vue'),
     meta: {
-      authenticated: true
+      authenticated: true,
+      layout: 'default',
+      name: 'default'
     },
     beforeEnter: (to, from, next) => {
       let validado = to.matched.some(record => record.meta.authenticated);
@@ -230,7 +277,9 @@ const routes = [
     name: 'racks',
     component: () => import('../views/main-rack.vue'),
     meta: {
-      authenticated: true
+      authenticated: true,
+      layout: 'default',
+      name: 'default'
     },
     beforeEnter: (to, from, next) => {
       let validado = to.matched.some(record => record.meta.authenticated);
@@ -254,7 +303,9 @@ const routes = [
     name: 'travesano',
     component: () => import('../views/main-travesano.vue'),
     meta: {
-      authenticated: true
+      authenticated: true,
+      layout: 'default',
+      name: 'default'
     },
     beforeEnter: (to, from, next) => {
       let validado = to.matched.some(record => record.meta.authenticated);
@@ -273,6 +324,35 @@ const routes = [
 
     }
   },
+  {
+    path: '/historial',
+    name: 'historial',
+    component: () => import('../views/main-activitylog.vue'),
+    meta: {
+      authenticated: true,
+      layout: 'default',
+      name: 'default'
+    },
+    beforeEnter: (to, from, next) => {
+      let validado = to.matched.some(record => record.meta.authenticated);
+      if (store.state.token) {
+        next();
+        if (validado == true && from.path !== '/') {
+          next();
+        }
+      }
+      else if (!validado) {
+        next({ name: 'login' });
+      }
+      else {
+        next({ name: 'login' });
+      }
+
+    }
+  },
+
+
+
   {
     path: '*',
     name: 'Error',
