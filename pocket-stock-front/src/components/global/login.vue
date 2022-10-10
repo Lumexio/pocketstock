@@ -14,7 +14,7 @@
 							? 'black-mode-text'
 							: 'white-mode-text',
 					]"
-					>bar</strong
+					>stock</strong
 				></v-card-title
 			>
 			<v-text-field v-model="name" label="Nombre" required></v-text-field>
