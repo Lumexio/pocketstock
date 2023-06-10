@@ -1,42 +1,55 @@
 <template>
-  <div class="logcard">
-    <div id="app">
-      <v-app id="inspire">
-        <v-card v-on:keyup.enter="login()" class="cont-card" elevation="2">
-          <v-card-title class="fade-in-title" style="font-size: 3rem"
-            ><code class="font-weight-light">Pocket</code
-            ><strong>stock</strong></v-card-title
-          >
-          <v-text-field v-model="name" label="Nombre" required></v-text-field>
-          <v-text-field
-            :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-            v-model="password"
-            :type="show3 ? 'text' : 'password'"
-            class="input-group--focused"
-            :counter="8"
-            label="contraseña"
-            :error-messages="passwordErrors"
-            required
-            @click:append="show3 = !show3"
-            @input="$v.password.$touch()"
-            @blur="$v.password.$touch()"
-            loading
-          >
-            <template v-slot:progress>
-              <v-progress-linear
-                :value="progress"
-                :color="color"
-                absolute
-                height="2"
-              ></v-progress-linear>
-            </template>
-          </v-text-field>
-          <v-btn class="mr-4" v-on:click="login()" text> Iniciar sesión </v-btn>
-          <v-btn @click="clear" text> limpiar </v-btn>
-        </v-card>
-      </v-app>
-    </div>
-  </div>
+	<div class="logcard">
+		<v-card
+			v-on:keyup.enter="login()"
+			class="cont-card"
+			elevation="2"
+			:dark="this.$store.getters.hasdarkflag"
+		>
+			<v-card-title class="fade-in-title" style="font-size: 3rem"
+				><code class="font-weight-light">Pocket</code
+				><strong
+					:class="[
+						this.$store.getters.hasdarkflag === true
+							? 'black-mode-text'
+							: 'white-mode-text',
+					]"
+					>stock</strong
+				></v-card-title
+			>
+			<v-text-field v-model="name" label="Nombre" required></v-text-field>
+			<v-text-field
+				:append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+				v-model="password"
+				:type="show3 ? 'text' : 'password'"
+				class="input-group--focused"
+				:counter="8"
+				label="contraseña"
+				:error-messages="passwordErrors"
+				required
+				@click:append="show3 = !show3"
+				@input="$v.password.$touch()"
+				@blur="$v.password.$touch()"
+				loading
+			>
+				<template v-slot:progress>
+					<v-progress-linear
+						:value="progress"
+						:color="color"
+						absolute
+						height="2"
+					></v-progress-linear>
+				</template>
+			</v-text-field>
+			<v-card-actions>
+				<v-btn @click="clear" outlined> limpiar </v-btn>
+				<v-spacer></v-spacer>
+				<v-btn color="#9acd32" class="mr-4" v-on:click="login()" outlined>
+					Iniciar sesión
+				</v-btn>
+			</v-card-actions>
+		</v-card>
+	</div>
 </template>
 
 <script>
