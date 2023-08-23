@@ -49,16 +49,59 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(10)->create();
 
         DB::table('users')->insert([
-            'name' => 'francisco',
+            'name' => 'admin',
             'email' => 'a@a.com',
             'password' => Hash::make('12345678'),
             'rol_id' => '1',
         ]);
         DB::table('users')->insert([
-            'name' => 'darkfrancisco',
+            'name' => 'empleado',
             'email' => 'b@b.com',
             'password' => Hash::make('12345678'),
             'rol_id' => '2',
         ]);
+        DB::table('categorias_tbl')->insert([
+            'nombre_categoria' => 'Plomería',
+        ]);
+        DB::table('categorias_tbl')->insert([
+            'nombre_categoria' => 'Electrícidad',
+        ]);
+        DB::table('categorias_tbl')->insert([
+            'nombre_categoria' => 'General',
+        ]);
+
+
+        DB::table('marcas_tbl')->insert([
+            'nombre_marca' => 'Honda',
+        ]);
+        DB::table('marcas_tbl')->insert([
+            'nombre_marca' => 'Yamaha',
+        ]);
+        DB::table('marcas_tbl')->insert([
+            'nombre_marca' => 'Asus',
+        ]);
+
+
+        DB::table('tipos_tbl')->insert([
+            'nombre_tipo' => 'Consumible',
+        ]);
+        DB::table('tipos_tbl')->insert([
+            'nombre_tipo' => 'Herramienta',
+        ]);
+        DB::table('tipos_tbl')->insert([
+            'nombre_tipo' => 'General',
+        ]);
+
+
+        DB::table('proveedores_tbl')->insert([
+            'nombre_proveedor' => 'Davila',
+        ]);
+        DB::table('proveedores_tbl')->insert([
+            'nombre_proveedor' => 'Ortíz',
+        ]);
+        DB::table('proveedores_tbl')->insert([
+            'nombre_proveedor' => 'Desconocido',
+        ]);
+        \App\Models\Articulo::factory(10)->create();
     }
 }

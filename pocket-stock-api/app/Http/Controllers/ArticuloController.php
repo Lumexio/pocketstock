@@ -8,7 +8,7 @@ use \Illuminate\Http\Response;
 use App\Models\Articulo;
 use App\Events\articuloCreated;
 use App\Http\Requests\ArticuleValidationRequest;
-//use Illuminate\Http\File;
+use File;
 use Illuminate\Support\Facades\Auth;
 //use Illuminate\Support\Facades\Storage;
 
@@ -21,8 +21,6 @@ class ArticuloController extends Controller
      */
     public function index()
     {
-
-
         $dat = DB::table('articulos_tbl')
             ->leftJoin('users', 'articulos_tbl.user_id', '=', 'users.id')
             ->leftJoin('categorias_tbl', 'articulos_tbl.categoria_id', '=', 'categorias_tbl.id')
@@ -68,15 +66,12 @@ class ArticuloController extends Controller
             $photo = $request->file('foto_articulo');
             $articulo = $request->all();
             $articulo['user_id'] = Auth::id();
-
             if (isset($photo)) {
                 $extension = $request->file('foto_articulo')->guessExtension();
-                $name_foto = $request->nombre_articulo . '.' . $extension;
+                $name_foto =  $request->nombre_articulo . '.' . $extension;
                 $request->foto_articulo->move(public_path('images'), $name_foto);
                 $articulo["foto_articulo"] = $name_foto;
             }
-
-
             $articulo = Articulo::create($articulo);
             articuloCreated::dispatch($articulo);
             return $articulo;
@@ -104,10 +99,22 @@ class ArticuloController extends Controller
     public function update(Request $request, $id)
     {
         $articulo = Articulo::find($id);
+        //Obtener nombre venidero
+        $newname = $request->nombre_articulo;
+        //newname de archivo ya guardado
+        $filename = $articulo->foto_articulo;
+
+        //lugar donde esta guardado el archivo existente
+        $oldpath = public_path("/images/$filename");
+        $filename =  $newname . '.' . "jpg";
+        $newpath = public_path("/images/$filename");
+        rename($oldpath, $newpath);
+        $articulo["foto_articulo"] = $filename;
         $articulo->update($request->all());
         $articulo['user_id'] = Auth::id();
         return $articulo;
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -117,7 +124,13 @@ class ArticuloController extends Controller
      */
     public function destroy($id)
     {
+        $articulo = Articulo::find($id);
+        $filename = $articulo->foto_articulo;
+        $path = public_path("/images/$filename");
+
+        File::delete($path);
         $articulo = Articulo::destroy($id);
+
         return $articulo;
     }
 }

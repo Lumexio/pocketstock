@@ -20,10 +20,11 @@
         "laravel/tinker": "^2.5",
         "phpdocumentor/reflection-docblock": "^5.2",
         "pusher/pusher-php-server": "^4.0|^5.0|^6.0|^7.0",
-        "spatie/laravel-activitylog": "^4.3",
+        "spatie/laravel-activitylog": "^4.4",
         "symfony/mailer": "^6.0"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.11",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",
@@ -41,7 +42,9 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+                "barryvdh/laravel-ide-helper"
+            ]
         }
     },
     "autoload": {

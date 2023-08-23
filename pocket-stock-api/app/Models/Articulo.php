@@ -13,8 +13,7 @@ class Articulo extends Model
 {
     protected $table = 'articulos_tbl';
     protected $primaryKey = 'id';
-    use HasFactory,
-        LogsActivity;
+    use HasFactory, LogsActivity;
 
     /**
      ** The attributes that are mass assignable.
