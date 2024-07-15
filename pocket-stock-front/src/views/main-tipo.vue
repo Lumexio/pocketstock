@@ -12,22 +12,22 @@
 </template>
 
 <script>
-  import tablatipo from "../components/table-lists/tabla-tipo.vue";
-  import store from "@/store";
-  import creacionlist from "../components/global/creacion-tipo.vue";
-  export default {
-    name: "tipo",
-    components: { tablatipo, creacionlist },
-    computed: {
-      count() {
-        return store.getters.counter;
-      },
+import tablatipo from "../components/table-lists/tabla-tipo.vue";
+import store from "@/store";
+import creacionlist from "../components/global/creacion-tipo.vue";
+export default {
+  name: "tipo-component",
+  components: { tablatipo, creacionlist },
+  computed: {
+    count() {
+      return store.getters.counter;
     },
-  };
+  },
+};
 </script>
 
 <style scoped>
-  #creation {
-    padding: 4.5rem 0 0 0;
-  }
+#creation {
+  padding: 4.5rem 0 0 0;
+}
 </style>

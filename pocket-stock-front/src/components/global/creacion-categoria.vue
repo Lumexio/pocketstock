@@ -7,14 +7,8 @@
     <v-row>
       <v-col align-self="end" cols="2">
         <v-row>
-          <v-btn
-            v-shortkey="['ctrl', 'shift', 'c']"
-            @shortkey="dialogcategoria = !dialogcategoria"
-            elevation="0"
-            dark
-            rounded
-            @click="dialogcategoria = !dialogcategoria"
-          >
+          <v-btn v-shortkey="['ctrl', 'shift', 'c']" @shortkey="dialogcategoria = !dialogcategoria" elevation="0" dark
+            rounded @click="dialogcategoria = !dialogcategoria">
             <v-icon left large>mdi-plus</v-icon>
             Categoria
           </v-btn>
@@ -27,28 +21,28 @@
 </template>
 
 <script>
-  import crearcategoria from "../cruds/crearcategoria.vue";
+import crearcategoria from "../cruds/crear_categoria.vue";
 
-  export default {
-    name: "crearlist",
+export default {
+  name: "crear-list",
 
-    components: {
-      crearcategoria,
-    },
+  components: {
+    crearcategoria,
+  },
 
-    data: () => ({
-      dialogcategoria: false,
-    }),
-  };
+  data: () => ({
+    dialogcategoria: false,
+  }),
+};
 </script>
 <style scoped>
-  .list-card {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    padding: 1em;
+.list-card {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  padding: 1em;
 
-    width: 7rem;
-    height: 3em;
-  }
+  width: 7rem;
+  height: 3em;
+}
 </style>

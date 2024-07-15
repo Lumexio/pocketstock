@@ -7,14 +7,8 @@
     <v-row>
       <v-col align-self="end" cols="2">
         <v-row>
-          <v-btn
-            v-shortkey="['ctrl', 'shift', 'e']"
-            @shortkey="dialogtravesaño = !dialogtravesaño"
-            elevation="0"
-            dark
-            rounded
-            @click="dialogtravesaño = true"
-          >
+          <v-btn v-shortkey="['ctrl', 'shift', 'e']" @shortkey="dialogtravesaño = !dialogtravesaño" elevation="0" dark
+            rounded @click="dialogtravesaño = true">
             <v-icon left large dark>mdi-plus</v-icon>
             Travesaño
           </v-btn>
@@ -27,32 +21,32 @@
 </template>
 
 <script>
-  import creartravesaño from "../cruds/creartravesaño.vue";
+import creartravesaño from "../cruds/crear_travesaño.vue";
 
-  export default {
-    name: "crearlist",
+export default {
+  name: "crear-list",
 
-    components: {
-      creartravesaño,
+  components: {
+    creartravesaño,
+  },
+  methods: {
+    syncFromCategoria(updatedDialog) {
+      this.dialogtravesaño = updatedDialog;
     },
-    methods: {
-      syncFromCategoria(updatedDialog) {
-        this.dialogtravesaño = updatedDialog;
-      },
-    },
-    data: () => ({
-      dialogtravesaño: false,
-    }),
-  };
+  },
+  data: () => ({
+    dialogtravesaño: false,
+  }),
+};
 </script>
 <style scoped>
-  .list-card {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    padding: 1em;
+.list-card {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  padding: 1em;
 
-    width: 7rem;
-    height: 3em;
-  }
+  width: 7rem;
+  height: 3em;
+}
 </style>

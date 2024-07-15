@@ -1,31 +1,14 @@
 <template>
-  <v-dialog
-    content-class="elevation-0"
-    v-model="dialogusuarios"
-    max-width="25rem"
-    persistent
-  >
+  <v-dialog content-class="elevation-0" v-bind="dialogusuarios" max-width="25rem" persistent>
     <v-card v-on:keyup.enter="submit()" class="cont-card">
       <v-toolbar light flat>
-        <v-btn
-          v-shortkey="['esc']"
-          icon
-          color="dark"
-          @shortkey="onClose"
-          @click="onClose"
-        >
+        <v-btn v-shortkey="['esc']" icon color="dark" @shortkey="onClose" @click="onClose">
           <v-icon>mdi-close</v-icon>
         </v-btn>
         <v-toolbar-title>Crear usuario</v-toolbar-title>
       </v-toolbar>
-      <v-row
-        ><v-col sm="6" md="12" lx="13">
-          <v-text-field
-            v-model="name"
-            :counter="10"
-            label="Nombre"
-            required
-          ></v-text-field>
+      <v-row><v-col sm="6" md="12" lx="13">
+          <v-text-field v-model="name" :counter="10" label="Nombre" required></v-text-field>
         </v-col>
       </v-row>
       <!-- <v-row
@@ -33,26 +16,13 @@
           <v-text-field v-model="email" label="Correo" required></v-text-field>
         </v-col>
       </v-row> -->
-      <v-row
-        ><v-col sm="6" md="12" lx="13">
-          <v-text-field
-            v-model="password"
-            :counter="8"
-            :type="'password'"
-            label="Contraseña"
-            required
-          ></v-text-field>
+      <v-row><v-col sm="6" md="12" lx="13">
+          <v-text-field v-model="password" :counter="8" :type="'password'" label="Contraseña" required></v-text-field>
         </v-col>
       </v-row>
       <v-row align="center">
         <v-col sm="6" md="12" lx="13">
-          <v-select
-            v-model="selectrol"
-            :items="itemsrol"
-            item-text="name_rol"
-            item-value="rol_id"
-            label="Rol"
-          >
+          <v-select v-model="selectrol" :items="itemsrol" item-text="name_rol" item-value="rol_id" label="Rol">
           </v-select>
         </v-col>
       </v-row>
@@ -70,7 +40,7 @@ import store from "@/store";
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://127.0.0.1:8000/";
 export default {
-  name: "crearusuario",
+  name: "crear-usuario",
   props: {
     dialogusuarios: { dafault: false },
   } /*data de llegado de componente padre creacion*/,

@@ -12,7 +12,7 @@
 import activitylogtable from "../components/table-lists/tabla-activitylog.vue";
 
 export default {
-  name: "activitylog",
+  name: "activitylog-component",
   components: { activitylogtable },
 };
 </script>

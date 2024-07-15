@@ -7,14 +7,8 @@
     <v-row>
       <v-col align-self="end" cols="2">
         <v-row>
-          <v-btn
-            v-shortkey="['ctrl', 'shift', 't']"
-            @shortkey="dialogtipo = !dialogtipo"
-            elevation="0"
-            dark
-            rounded
-            @click="dialogtipo = !dialogtipo"
-          >
+          <v-btn v-shortkey="['ctrl', 'shift', 't']" @shortkey="dialogtipo = !dialogtipo" elevation="0" dark rounded
+            @click="dialogtipo = !dialogtipo">
             <v-icon left large dark>mdi-plus</v-icon>
             Tipo
           </v-btn>
@@ -27,27 +21,27 @@
 </template>
 
 <script>
-  import creartipo from "../cruds/creartipo.vue";
+import creartipo from "../cruds/crear_tipo.vue";
 
-  export default {
-    name: "crearlist",
+export default {
+  name: "crear-list",
 
-    components: {
-      creartipo,
-    },
-    data: () => ({
-      dialogtipo: false,
-    }),
-  };
+  components: {
+    creartipo,
+  },
+  data: () => ({
+    dialogtipo: false,
+  }),
+};
 </script>
 <style scoped>
-  .list-card {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    padding: 1em;
+.list-card {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  padding: 1em;
 
-    width: 7rem;
-    height: 3em;
-  }
+  width: 7rem;
+  height: 3em;
+}
 </style>

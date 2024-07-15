@@ -7,14 +7,8 @@
     <v-row>
       <v-col align-self="end" cols="2">
         <v-row>
-          <v-btn
-            v-shortkey="['ctrl', 'shift', 'u']"
-            @shortkey="dialogusuarios = !dialogusuarios"
-            elevation="0"
-            dark
-            rounded
-            @click="dialogusuarios = true"
-          >
+          <v-btn v-shortkey="['ctrl', 'shift', 'u']" @shortkey="dialogusuarios = !dialogusuarios" elevation="0" dark
+            rounded @click="dialogusuarios = true">
             <v-icon left large>mdi-plus</v-icon>
             Usuarios
           </v-btn>
@@ -38,31 +32,30 @@
 </template>
 
 <script>
-  import crearusuario from "../cruds/crearusuario.vue";
-  //import crearrol from "../cruds/crearrol.vue";
-  import store from "@/store";
-  export default {
-    name: "crearlist",
+import crearusuario from "../cruds/crear_usuario.vue";
+//import crearrol from "../cruds/crearrol.vue";
+import store from "@/store";
+export default {
+  name: "crear-list",
 
-    components: {
-      crearusuario,
-      //crearrol,
+  components: {
+    crearusuario,
+    //crearrol,
+  },
+  computed: {
+    count() {
+      return store.getters.counter;
     },
-    computed: {
-      count() {
-        return store.getters.counter;
-      },
+  },
+  methods: {
+    syncFromRol(updatedDialog) {
+      this.dialogrol = updatedDialog;
     },
-    methods: {
-      syncFromRol(updatedDialog) {
-        this.dialogrol = updatedDialog;
-      },
-    },
-    data: () => ({
-      dialogusuarios: false,
-      dialogrol: false,
-    }),
-  };
+  },
+  data: () => ({
+    dialogusuarios: false,
+    dialogrol: false,
+  }),
+};
 </script>
-<style scoped>
-</style>
+<style scoped></style>

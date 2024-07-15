@@ -17,7 +17,7 @@ import tablaArticulos from "../components/table-lists/tabla-articulos.vue";
 import creacionlist from "../components/global/creacion.vue";
 //import store from "@/store";
 export default {
-  name: "artículos",
+  name: "artículos-component",
 
   components: { tablaArticulos, creacionlist },
   data: () => ({}),
@@ -38,6 +38,6 @@ export default {
 
 <style scoped>
 .size-table {
-  max-width: 90%;
+  max-inline-size: 90%;
 }
 </style>

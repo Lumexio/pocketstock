@@ -61,7 +61,7 @@ const routes = [
   {
     path: '/crearusuario',
     name: 'crearusuario',
-    component: () => import('../components/cruds/crearusuario.vue'),
+    component: () => import('../components/cruds/crear_usuario.vue'),
     meta: {
       authenticated: true
     },

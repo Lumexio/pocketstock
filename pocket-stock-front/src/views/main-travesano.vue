@@ -12,22 +12,22 @@
 </template>
 
 <script>
-  import tablatravesano from "../components/table-lists/table-travesano.vue";
-  import store from "@/store";
-  import creacionlist from "../components/global/creacion-travesano.vue";
-  export default {
-    name: "travesaño",
-    components: { tablatravesano, creacionlist },
-    computed: {
-      count() {
-        return store.getters.counter;
-      },
+import tablatravesano from "../components/table-lists/table-travesano.vue";
+import store from "@/store";
+import creacionlist from "../components/global/creacion-travesano.vue";
+export default {
+  name: "travesaño-component",
+  components: { tablatravesano, creacionlist },
+  computed: {
+    count() {
+      return store.getters.counter;
     },
-  };
+  },
+};
 </script>
 
 <style scoped>
-  #creation {
-    padding: 4.5rem 0 0 0;
-  }
+#creation {
+  padding: 4.5rem 0 0 0;
+}
 </style>

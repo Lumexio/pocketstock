@@ -12,13 +12,12 @@
 </template>
 
 <script>
-  import tablacategoria from "../components/table-lists/tabla-categoria.vue";
-  import creacionlist from "../components/global/creacion-categoria.vue";
-  export default {
-    name: "categorias",
-    components: { tablacategoria, creacionlist },
-  };
+import tablacategoria from "../components/table-lists/tabla-categoria.vue";
+import creacionlist from "../components/global/creacion-categoria.vue";
+export default {
+  name: "categorias-component",
+  components: { tablacategoria, creacionlist },
+};
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

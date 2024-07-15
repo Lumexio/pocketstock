@@ -1,4 +1,3 @@
-
 <template>
   <!--
   En esta tarjeta se encuentra el listado de componentes para crear todos los elementos
@@ -8,14 +7,8 @@
     <v-row>
       <v-col align-self="end" cols="2">
         <v-row>
-          <v-btn
-            v-shortkey="['ctrl', 'shift', 'p']"
-            @shortkey="dialogproveedor = !dialogproveedor"
-            elevation="0"
-            dark
-            rounded
-            @click="dialogproveedor = !dialogproveedor"
-          >
+          <v-btn v-shortkey="['ctrl', 'shift', 'p']" @shortkey="dialogproveedor = !dialogproveedor" elevation="0" dark
+            rounded @click="dialogproveedor = !dialogproveedor">
             <v-icon left large dark>mdi-plus</v-icon>
             Proveedor
           </v-btn>
@@ -28,27 +21,27 @@
 </template>
 
 <script>
-  import crearproveedor from "../cruds/crearproveedor.vue";
+import crearproveedor from "../cruds/crear_proveedor.vue";
 
-  export default {
-    name: "crearlist",
-    components: {
-      crearproveedor,
-    },
+export default {
+  name: "crear-list",
+  components: {
+    crearproveedor,
+  },
 
-    data: () => ({
-      dialogproveedor: false,
-    }),
-  };
+  data: () => ({
+    dialogproveedor: false,
+  }),
+};
 </script>
 <style scoped>
-  .list-card {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    padding: 1em;
+.list-card {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  padding: 1em;
 
-    width: 7rem;
-    height: 3em;
-  }
+  width: 7rem;
+  height: 3em;
+}
 </style>

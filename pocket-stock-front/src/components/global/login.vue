@@ -1,55 +1,30 @@
 <template>
-	<div class="logcard">
-		<v-card
-			v-on:keyup.enter="login()"
-			class="cont-card"
-			elevation="2"
-			:dark="this.$store.getters.hasdarkflag"
-		>
-			<v-card-title class="fade-in-title" style="font-size: 3rem"
-				><code class="font-weight-light">Pocket</code
-				><strong
-					:class="[
-						this.$store.getters.hasdarkflag === true
-							? 'black-mode-text'
-							: 'white-mode-text',
-					]"
-					>stock</strong
-				></v-card-title
-			>
-			<v-text-field v-model="name" label="Nombre" required></v-text-field>
-			<v-text-field
-				:append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-				v-model="password"
-				:type="show3 ? 'text' : 'password'"
-				class="input-group--focused"
-				:counter="8"
-				label="contraseña"
-				:error-messages="passwordErrors"
-				required
-				@click:append="show3 = !show3"
-				@input="$v.password.$touch()"
-				@blur="$v.password.$touch()"
-				loading
-			>
-				<template v-slot:progress>
-					<v-progress-linear
-						:value="progress"
-						:color="color"
-						absolute
-						height="2"
-					></v-progress-linear>
-				</template>
-			</v-text-field>
-			<v-card-actions>
-				<v-btn @click="clear" outlined> limpiar </v-btn>
-				<v-spacer></v-spacer>
-				<v-btn color="#9acd32" class="mr-4" v-on:click="login()" outlined>
-					Iniciar sesión
-				</v-btn>
-			</v-card-actions>
-		</v-card>
-	</div>
+  <div class="logcard">
+    <v-card v-on:keyup.enter="login()" class="cont-card" elevation="2" :dark="this.$store.getters.hasdarkflag">
+      <v-card-title class="fade-in-title" style="font-size: 3rem"><code class="font-weight-light">Pocket</code><strong
+          :class="[
+            this.$store.getters.hasdarkflag === true
+              ? 'black-mode-text'
+              : 'white-mode-text',
+          ]">stock</strong></v-card-title>
+      <v-text-field v-model="name" label="Nombre" required></v-text-field>
+      <v-text-field :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'" v-model="password"
+        :type="show3 ? 'text' : 'password'" class="input-group--focused" :counter="8" label="contraseña"
+        :error-messages="passwordErrors" required @click:append="show3 = !show3" @input="$v.password.$touch()"
+        @blur="$v.password.$touch()" loading>
+        <template v-slot:progress>
+          <v-progress-linear :value="progress" :color="color" absolute height="2"></v-progress-linear>
+        </template>
+      </v-text-field>
+      <v-card-actions>
+        <v-btn @click="clear" outlined> limpiar </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn color="#9acd32" class="mr-4" v-on:click="login()" outlined>
+          Iniciar sesión
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -62,7 +37,7 @@ import router from "@/router";
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://127.0.0.1:8000/";
 export default {
-  name: "crearusuario",
+  name: "log-in",
   data: () => ({
     name: "",
     email: "", //a@a.com//b@b.com
@@ -114,9 +89,9 @@ export default {
                 let token = store.state.token;
                 store.dispatch("login", { token });
                 if (rol === 1) {
-                  router.push("/usuarios").catch(() => {});
+                  router.push("/usuarios").catch(() => { });
                 } else if (rol === 2) {
-                  router.push("/articulos").catch(() => {});
+                  router.push("/articulos").catch(() => { });
                 }
               } else if (validado == false) {
                 alert("Cuanta no existe o es incorrecta");
@@ -144,12 +119,12 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 15rem;
+  padding-block-start: 15rem;
 }
 
 .cont-card {
   padding: 1rem;
-  width: 24em;
+  inline-size: 27em;
 }
 
 .fade-in-title {
@@ -159,10 +134,12 @@ export default {
   -o-animation: fadeIn 5s;
   -ms-animation: fadeIn 5s;
 }
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -172,6 +149,7 @@ export default {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -181,6 +159,7 @@ export default {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -190,6 +169,7 @@ export default {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -199,6 +179,7 @@ export default {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }

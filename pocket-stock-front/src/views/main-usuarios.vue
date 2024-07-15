@@ -12,24 +12,23 @@
 </template>
 
 <script>
-  import tablausuarios from "../components/table-lists/tabla-usuarios.vue";
-  import creacionuserlist from "../components/global/creacion-user.vue";
-  import store from "@/store";
-  export default {
-    name: "artículos",
-    components: { tablausuarios, creacionuserlist },
-    computed: {
-      count() {
-        /*contador que apoya en actualizar la tabla en cada cambion en la numeracion*/
-        return store.getters.counter;
-      },
-      hasrol() {
-        /*para obtener el rol al que pertenece el usuario y dependiendo de eso podra observar el componente */
-        return store.getters.hasrol;
-      },
+import tablausuarios from "../components/table-lists/tabla-usuarios.vue";
+import creacionuserlist from "../components/global/creacion-user.vue";
+import store from "@/store";
+export default {
+  name: "artículos-component",
+  components: { tablausuarios, creacionuserlist },
+  computed: {
+    count() {
+      /*contador que apoya en actualizar la tabla en cada cambion en la numeracion*/
+      return store.getters.counter;
     },
-  };
+    hasrol() {
+      /*para obtener el rol al que pertenece el usuario y dependiendo de eso podra observar el componente */
+      return store.getters.hasrol;
+    },
+  },
+};
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

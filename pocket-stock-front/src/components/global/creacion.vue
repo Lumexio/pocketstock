@@ -1,4 +1,4 @@
-<template >
+<template>
   <!--
   En esta tarjeta se encuentra el listado de componentes para crear todos los elementos
   dentro del sistema.
@@ -9,16 +9,8 @@
         <v-row class="ma-2">
           <v-tooltip open-delay="500" left>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                v-shortkey="['ctrl', 'shift', 'a']"
-                @shortkey="dialogarticulo = !dialogarticulo"
-                elevation="0"
-                dark
-                @click="dialogarticulo = true"
-                v-bind="attrs"
-                v-on="on"
-                rounded
-              >
+              <v-btn v-shortkey="['ctrl', 'shift', 'a']" @shortkey="dialogarticulo = !dialogarticulo" elevation="0" dark
+                @click="dialogarticulo = true" v-bind="attrs" v-on="on" rounded>
                 <v-icon left large>mdi-plus</v-icon>
                 Artículos
               </v-btn>
@@ -29,16 +21,8 @@
         <v-row class="ma-2">
           <v-tooltip open-delay="500" left>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                v-shortkey="['ctrl', 'shift', 'c']"
-                @shortkey="dialogcategoria = !dialogcategoria"
-                elevation="0"
-                dark
-                @click="dialogcategoria = true"
-                v-bind="attrs"
-                v-on="on"
-                rounded
-              >
+              <v-btn v-shortkey="['ctrl', 'shift', 'c']" @shortkey="dialogcategoria = !dialogcategoria" elevation="0"
+                dark @click="dialogcategoria = true" v-bind="attrs" v-on="on" rounded>
                 <v-icon left large>mdi-plus</v-icon>
                 Categoría
               </v-btn>
@@ -49,16 +33,8 @@
         <v-row class="ma-2">
           <v-tooltip open-delay="500" left>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                v-shortkey="['ctrl', 'shift', 'm']"
-                @shortkey="dialogmarca = !dialogmarca"
-                elevation="0"
-                dark
-                @click="dialogmarca = true"
-                v-bind="attrs"
-                v-on="on"
-                rounded
-              >
+              <v-btn v-shortkey="['ctrl', 'shift', 'm']" @shortkey="dialogmarca = !dialogmarca" elevation="0" dark
+                @click="dialogmarca = true" v-bind="attrs" v-on="on" rounded>
                 <v-icon left large>mdi-plus</v-icon>
                 Marca
               </v-btn>
@@ -69,16 +45,8 @@
         <v-row class="ma-2">
           <v-tooltip open-delay="500" left>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                v-shortkey="['ctrl', 'shift', 't']"
-                @shortkey="dialogtipo = !dialogtipo"
-                elevation="0"
-                dark
-                @click="dialogtipo = true"
-                v-bind="attrs"
-                v-on="on"
-                rounded
-              >
+              <v-btn v-shortkey="['ctrl', 'shift', 't']" @shortkey="dialogtipo = !dialogtipo" elevation="0" dark
+                @click="dialogtipo = true" v-bind="attrs" v-on="on" rounded>
                 <v-icon left large>mdi-plus</v-icon>
                 Tipo
               </v-btn>
@@ -89,16 +57,8 @@
         <v-row class="ma-2">
           <v-tooltip open-delay="500" left>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                v-shortkey="['ctrl', 'shift', 'p']"
-                @shortkey="dialogproveedor = !dialogproveedor"
-                elevation="0"
-                dark
-                @click="dialogproveedor = true"
-                v-bind="attrs"
-                v-on="on"
-                rounded
-              >
+              <v-btn v-shortkey="['ctrl', 'shift', 'p']" @shortkey="dialogproveedor = !dialogproveedor" elevation="0"
+                dark @click="dialogproveedor = true" v-bind="attrs" v-on="on" rounded>
                 <v-icon left large>mdi-plus</v-icon>
                 Proveedor
               </v-btn>
@@ -117,16 +77,8 @@
         <v-row class="ma-2">
           <v-tooltip open-delay="500" left>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                v-shortkey="['ctrl', 'shift', 'r']"
-                @shortkey="dialograck = !dialograck"
-                elevation="0"
-                dark
-                @click="dialograck = true"
-                v-bind="attrs"
-                v-on="on"
-                rounded
-              >
+              <v-btn v-shortkey="['ctrl', 'shift', 'r']" @shortkey="dialograck = !dialograck" elevation="0" dark
+                @click="dialograck = true" v-bind="attrs" v-on="on" rounded>
                 <v-icon left large>mdi-plus</v-icon>
                 Rack
               </v-btn>
@@ -137,16 +89,8 @@
         <v-row class="ma-2">
           <v-tooltip open-delay="500" left>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                v-shortkey="['ctrl', 'shift', 'e']"
-                @shortkey="dialogtravesaño = !dialogtravesaño"
-                elevation="0"
-                dark
-                @click="dialogtravesaño = true"
-                v-bind="attrs"
-                v-on="on"
-                rounded
-              >
+              <v-btn v-shortkey="['ctrl', 'shift', 'e']" @shortkey="dialogtravesaño = !dialogtravesaño" elevation="0"
+                dark @click="dialogtravesaño = true" v-bind="attrs" v-on="on" rounded>
                 <v-icon left large>mdi-plus</v-icon>
                 Travesaño
               </v-btn>
@@ -157,11 +101,11 @@
       </v-col>
     </v-row>
 
-    <creararticulo :key="count" :dialogarticulo.sync="dialogarticulo" />
-    <crearcategoria :dialogcategoria.sync="dialogcategoria" />
-    <crearmarca :dialogmarca.sync="dialogmarca" />
-    <creartipo :dialogtipo.sync="dialogtipo" />
-    <crearproveedor :dialogproveedor.sync="dialogproveedor" />
+    <creararticulo :key="count" :dialogarticulo="dialogarticulo" />
+    <crearcategoria :dialogcategoria="dialogcategoria" />
+    <crearmarca :dialogmarca="dialogmarca" />
+    <creartipo :dialogtipo="dialogtipo" />
+    <crearproveedor :dialogproveedor="dialogproveedor" />
     <!--<crearstatus
       :parentdialog="dialogstatus"
       v-on:dialogFromChild="syncFromStatus($event)"
@@ -174,20 +118,20 @@
 </template>
 
 <script>
-import creararticulo from "../cruds/creararticulos.vue";
-import crearcategoria from "../cruds/crearcategoria.vue";
-import crearmarca from "../cruds/crearmarca.vue";
-import creartipo from "../cruds/creartipo.vue";
-import crearproveedor from "../cruds/crearproveedor.vue";
+import creararticulo from "../cruds/crear_articulos.vue";
+import crearcategoria from "../cruds/crear_categoria.vue";
+import crearmarca from "../cruds/crear_marca.vue";
+import creartipo from "../cruds/crear_tipo.vue";
+import crearproveedor from "../cruds/crear_proveedor.vue";
 
 //import crearstatus from "../cruds/crearstatus.vue";
 
-import crearrack from "../cruds/crearrack.vue";
-import creartravesaño from "../cruds/creartravesaño.vue";
+import crearrack from "../cruds/crear_rack.vue";
+import creartravesaño from "../cruds/crear_travesaño.vue";
 import store from "@/store";
 
 export default {
-  name: "crearlist",
+  name: "crear-list",
 
   components: {
     creararticulo,
@@ -217,5 +161,4 @@ export default {
   }),
 };
 </script>
-<style scoped>
-</style>
+<style scoped></style>

@@ -7,18 +7,11 @@
       </v-list-item-title>
       <v-list-item-group color="primary">
         <v-list v-if="hasrol === 1" flat>
-          <v-list-item
-            v-for="item in itemsmain"
-            :key="item.title"
-            link
-            :to="item.path"
-            v-shortkey="{
-              usuarios: ['ctrl', 'u'],
-              articulos: ['ctrl', 'a'],
-              historial: ['ctrl', 'h'],
-            }"
-            @shortkey="paths"
-          >
+          <v-list-item v-for="item in itemsmain" :key="item.title" link :to="item.path" v-shortkey="{
+            usuarios: ['ctrl', 'u'],
+            articulos: ['ctrl', 'a'],
+            historial: ['ctrl', 'h'],
+          }" @shortkey="paths">
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>
@@ -28,16 +21,9 @@
           </v-list-item>
         </v-list>
         <v-list v-else-if="hasrol === 2" flat>
-          <v-list-item
-            v-for="item in itemsemp"
-            :key="item.title"
-            link
-            :to="item.path"
-            v-shortkey="{
-              articulos: ['ctrl', 'a'],
-            }"
-            @shortkey="paths"
-          >
+          <v-list-item v-for="item in itemsemp" :key="item.title" link :to="item.path" v-shortkey="{
+            articulos: ['ctrl', 'a'],
+          }" @shortkey="paths">
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>
@@ -54,20 +40,12 @@
             <v-list-item-title>Catálogos </v-list-item-title>
           </v-list-item-content>
         </template>
-        <v-list-item
-          v-for="item in itemstable"
-          :key="item.title"
-          link
-          flat
-          :to="item.path"
-          v-shortkey="{
-            categorias: ['ctrl', 'c'],
-            marcas: ['ctrl', 'm'],
-            proveedores: ['ctrl', 'p'],
-            tipos: ['ctrl', 't'],
-          }"
-          @shortkey="paths"
-        >
+        <v-list-item v-for="item in itemstable" :key="item.title" link flat :to="item.path" v-shortkey="{
+          categorias: ['ctrl', 'c'],
+          marcas: ['ctrl', 'm'],
+          proveedores: ['ctrl', 'p'],
+          tipos: ['ctrl', 't'],
+        }" @shortkey="paths">
           <v-list-item-title>{{ item.title }}</v-list-item-title>
 
           <v-list-item-icon>
@@ -81,18 +59,10 @@
             <v-list-item-title>Ubicaciones </v-list-item-title>
           </v-list-item-content>
         </template>
-        <v-list-item
-          v-for="item in itemlocation"
-          :key="item.title"
-          link
-          flat
-          :to="item.path"
-          v-shortkey="{
-            travesano: ['ctrl', 'e'],
-            racks: ['ctrl', 'r'],
-          }"
-          @shortkey="paths"
-        >
+        <v-list-item v-for="item in itemlocation" :key="item.title" link flat :to="item.path" v-shortkey="{
+          travesano: ['ctrl', 'e'],
+          racks: ['ctrl', 'r'],
+        }" @shortkey="paths">
           <v-list-item-title>{{ item.title }}</v-list-item-title>
 
           <v-list-item-icon>
@@ -115,7 +85,7 @@
 import store from "@/store.js";
 import router from "@/router";
 export default {
-  name: "sidebar",
+  name: "sidebar-component",
   components: {},
   data: () => ({
     itemsmain: [
@@ -183,31 +153,31 @@ export default {
     paths(event) {
       switch (event.srcKey) {
         case "usuarios":
-          router.push("/usuarios").catch(() => {});
+          router.push("/usuarios").catch(() => { });
           break;
         case "articulos":
-          router.push("/articulos").catch(() => {});
+          router.push("/articulos").catch(() => { });
           break;
         case "historial":
-          router.push("/historial").catch(() => {});
+          router.push("/historial").catch(() => { });
           break;
         case "categorias":
-          router.push("/categorias").catch(() => {});
+          router.push("/categorias").catch(() => { });
           break;
         case "marcas":
-          router.push("/marcas").catch(() => {});
+          router.push("/marcas").catch(() => { });
           break;
         case "tipos":
-          router.push("/tipos").catch(() => {});
+          router.push("/tipos").catch(() => { });
           break;
         case "proveedores":
-          router.push("/proveedores").catch(() => {});
+          router.push("/proveedores").catch(() => { });
           break;
         case "racks":
-          router.push("/racks").catch(() => {});
+          router.push("/racks").catch(() => { });
           break;
         case "travesano":
-          router.push("/travesano").catch(() => {});
+          router.push("/travesano").catch(() => { });
           break;
         default:
           break;

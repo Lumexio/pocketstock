@@ -12,16 +12,12 @@
 </template>
 
 <script>
-  import tablamarca from "../components/table-lists/tabla-marca.vue";
-  import creacionlist from "../components/global/creacion-marca.vue";
-  export default {
-    name: "marcas",
-    components: { tablamarca, creacionlist },
-  };
+import tablamarca from "../components/table-lists/tabla-marca.vue";
+import creacionlist from "../components/global/creacion-marca.vue";
+export default {
+  name: "marcas-component",
+  components: { tablamarca, creacionlist },
+};
 </script>
 
-<style scoped>
-</style>
-
-
-
+<style scoped></style>

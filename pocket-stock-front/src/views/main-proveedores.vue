@@ -12,16 +12,16 @@
 </template>
 
 <script>
-  import tablaproveedor from "../components/table-lists/tabla-proveedor.vue";
-  import creacionlist from "../components/global/creacion-proveedor.vue";
-  export default {
-    name: "marcas",
-    components: { tablaproveedor, creacionlist },
-  };
+import tablaproveedor from "../components/table-lists/tabla-proveedor.vue";
+import creacionlist from "../components/global/creacion-proveedor.vue";
+export default {
+  name: "marcas-component",
+  components: { tablaproveedor, creacionlist },
+};
 </script>
 
 <style scoped>
-  #creation {
-    padding: 4.5rem 0 0 0;
-  }
+#creation {
+  padding: 4.5rem 0 0 0;
+}
 </style>
