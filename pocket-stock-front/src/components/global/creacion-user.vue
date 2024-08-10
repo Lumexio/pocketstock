@@ -9,14 +9,14 @@
         <v-row>
           <v-btn
             v-shortkey="['ctrl', 'shift', 'u']"
-            @shortkey="dialogusuarios = !dialogusuarios"
+            @shortkey="dialogusers = !dialogusers"
             elevation="0"
             dark
             rounded
-            @click="dialogusuarios = true"
+            @click="dialogusers = true"
           >
             <v-icon left large>mdi-plus</v-icon>
-            Usuarios
+            Users
           </v-btn>
         </v-row>
         <!-- <v-row>
@@ -27,7 +27,7 @@
       </v-col>
     </v-row>
 
-    <crearusuario :dialogusuarios.sync="dialogusuarios" />
+    <crearuser :dialogusers.sync="dialogusers" />
     <!--
     <crearrol
       :parentdialog="dialogrol"
@@ -38,14 +38,14 @@
 </template>
 
 <script>
-  import crearusuario from "../cruds/crearusuario.vue";
+  import crearuser from "../cruds/crearuser.vue";
   //import crearrol from "../cruds/crearrol.vue";
   import store from "@/store";
   export default {
     name: "crearlist",
 
     components: {
-      crearusuario,
+      crearuser,
       //crearrol,
     },
     computed: {
@@ -59,7 +59,7 @@
       },
     },
     data: () => ({
-      dialogusuarios: false,
+      dialogusers: false,
       dialogrol: false,
     }),
   };

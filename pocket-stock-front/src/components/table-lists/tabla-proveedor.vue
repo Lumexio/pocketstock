@@ -44,7 +44,7 @@
                     <v-row>
                       <v-col cols="12" sm="6" md="4">
                         <v-text-field
-                          v-model="editedItem.nombre_proveedor"
+                          v-model="editedItem.name_proveedor"
                           label="Nombre"
                         ></v-text-field>
                       </v-col>
@@ -110,7 +110,7 @@
   } from "@/api/proveedores.js";
   import { upperConverter } from "@/special/uppercases-converter.js";
   export default {
-    nombre_proveedor: "tabla-proveedor",
+    name_proveedor: "tabla-proveedor",
     data: () => ({
       dialog: false,
       dialogDelete: false,
@@ -123,7 +123,7 @@
           text: "Proveedores",
           align: "start",
           sortable: false,
-          value: "nombre_proveedor",
+          value: "name_proveedor",
         },
         { text: "Acciones", value: "actions", sortable: false, align: "center" },
         { text: "Descripción", align: "start", value: "data-table-expand" },
@@ -139,11 +139,11 @@
       editedIndex: -1,
       editedItem: {
         id: "",
-        nombre_proveedor: "",
+        name_proveedor: "",
       },
       defaultItem: {
         id: "",
-        nombre_proveedor: "",
+        name_proveedor: "",
       },
     }),
     mounted() {
@@ -241,11 +241,11 @@
         if (this.editedIndex > -1) {
           Object.assign(this.proveedorArray[this.editedIndex], this.editedItem);
           let send = this.editedItem;
-          send.nombre_proveedor = upperConverter(send.nombre_proveedor);
+          send.name_proveedor = upperConverter(send.name_proveedor);
           let url = "api/proveedor/";
 
           url = url + send.id;
-          url = `${url}?${"nombre_proveedor=" + send.nombre_proveedor}`;
+          url = `${url}?${"name_proveedor=" + send.name_proveedor}`;
           editProveedores(url);
         } else {
           this.proveedorArray.push(this.editedItem);

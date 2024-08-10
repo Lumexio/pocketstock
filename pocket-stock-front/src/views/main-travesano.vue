@@ -16,7 +16,7 @@
   import store from "@/store";
   import creacionlist from "../components/global/creacion-travesano.vue";
   export default {
-    name: "travesaño",
+    name: "crossbar",
     components: { tablatravesano, creacionlist },
     computed: {
       count() {

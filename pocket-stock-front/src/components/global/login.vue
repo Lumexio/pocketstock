@@ -62,7 +62,7 @@ import router from "@/router";
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://127.0.0.1:8000/";
 export default {
-  name: "crearusuario",
+  name: "crearuser",
   data: () => ({
     name: "",
     email: "", //a@a.com//b@b.com
@@ -114,9 +114,9 @@ export default {
                 let token = store.state.token;
                 store.dispatch("login", { token });
                 if (rol === 1) {
-                  router.push("/usuarios").catch(() => {});
+                  router.push("/users").catch(() => {});
                 } else if (rol === 2) {
-                  router.push("/articulos").catch(() => {});
+                  router.push("/products").catch(() => {});
                 }
               } else if (validado == false) {
                 alert("Cuanta no existe o es incorrecta");

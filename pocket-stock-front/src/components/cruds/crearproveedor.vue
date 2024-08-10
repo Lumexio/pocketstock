@@ -21,7 +21,7 @@
       <v-row>
         <v-col>
           <v-text-field
-            v-model="nombre_proveedor"
+            v-model="name_proveedor"
             :counter="10"
             label="Nombre proveedor"
             required
@@ -64,7 +64,7 @@
       dialogproveedor: { type: Boolean },
     } /*data de llegado de componente padre creacion*/,
     data: () => ({
-      nombre_proveedor: "",
+      name_proveedor: "",
       descripcion: "",
     }),
 
@@ -78,19 +78,19 @@
         store.commit("setsuccess", false); //para resetear el valor de la notificion en una nueva entrada
         store.commit("setdanger", false);
         let enviar = {
-          nombre_proveedor: this.nombre_proveedor,
+          name_proveedor: this.name_proveedor,
           descripcion: this.descripcion,
         };
         const formdata = new FormData();
-        formdata.append("nombre_proveedor", this.nombre_proveedor);
+        formdata.append("name_proveedor", this.name_proveedor);
         formdata.append("descripcion", this.descripcion);
-        enviar.nombre_proveedor = upperConverter(this.nombre_proveedor);
+        enviar.name_proveedor = upperConverter(this.name_proveedor);
 
         postProveedores(formdata);
         this.clear();
       },
       clear() {
-        (this.nombre_proveedor = ""), (this.descripcion = "");
+        (this.name_proveedor = ""), (this.descripcion = "");
       },
     },
   };

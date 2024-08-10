@@ -5,73 +5,50 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-
 use Illuminate\Support\Facades\DB;
-
-use App\Http\Requests\UsuarioValidationRequest;
+use App\Http\Requests\UserValidationRequest;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $loggeduser = Auth::id();
-        $dat = DB::table('users')->where('users.id', '!=', $loggeduser)->leftJoin('rols', 'users.rol_id', '=', 'rols.id')->select('users.id', 'users.name', 'users.email', 'users.password', 'rols.name')->get();
+        $data = DB::table('users')
+            ->where('users.id', '!=', $loggeduser)
+            ->rightJoin('rols', 'users.rol_id', '=', 'rols.id')
+            ->select(
+                'users.id',
+                'users.name',
+                'users.password',
+                'rols.name as rol_name'
+            )
+            ->get();
 
-
-        return $dat;
+        return response()->json($data, 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(UsuarioValidationRequest $request)
+    public function store(UserValidationRequest $request)
     {
-        $user = User::create($request->all());
+        $data = User::create($request->all());
 
-        return $user;
+        return response()->json($data, 201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        return User::find($id);
+        $data = User::find($id);
+        return response()->json($data, 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        $user->update($request->all());
-
-        return $user;
+        $data = $user->update($request->all());
+        return response()->json($data, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         return User::destroy($id);
@@ -84,20 +61,15 @@ class UserController extends Controller
             'name' => ['required'],
             'password' => ['required'],
         ]);
-
         $user = User::where('name', $request->name)->first();
-
-        // print_r($data);
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response([
                 'message' => ['Las credentials no concuerdan con ningun registro.']
             ], 404);
         }
-
-
         if (Auth::attempt($credentials)) {
             $token = $user->createToken('my-app-token')->plainTextToken;
-            //Auth::setUser($user);
+
             auth()->setUser($user);
             $request->session()->regenerate();
             $response = [

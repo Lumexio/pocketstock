@@ -1,7 +1,7 @@
 <template>
   <v-dialog
     content-class="elevation-0"
-    v-model="dialogarticulo"
+    v-model="dialogproduct"
     persistent
     max-width="40rem"
   >
@@ -58,7 +58,7 @@
             <v-select
               v-model="selectt"
               :items="itemstt"
-              item-text="nombre_tipo"
+              item-text="name_tipo"
               item-value="id"
               label="Tipo"
             >
@@ -69,7 +69,7 @@
             <v-select
               v-model="selectp"
               :items="itemsp"
-              item-text="nombre_proveedor"
+              item-text="name_proveedor"
               item-value="id"
               label="Proveedor"
               required
@@ -116,7 +116,7 @@
               :items="itemsT"
               item-text="name"
               item-value="id"
-              label="Ubicación travesaño"
+              label="Ubicación crossbar"
               required
             ></v-select>
           </v-col>
@@ -160,8 +160,8 @@
 <script>
   import axios from "axios";
   import store from "@/store";
-  import { postArticulos } from "@/api/articulos.js";
-  import { getCategorias } from "@/api/categorias.js";
+  import { postProducts } from "@/api/products.js";
+  import { getCategorys } from "@/api/categorys.js";
   import { getMarcas } from "@/api/marcas.js";
   import { getProveedores } from "@/api/proveedores.js";
   import { getRack } from "@/api/racks.js";
@@ -171,9 +171,9 @@
   import { upperConverter } from "@/special/uppercases-converter.js";
 
   export default {
-    name: "creararticulos",
+    name: "crearproducts",
     props: {
-      dialogarticulo: { default: false },
+      dialogproduct: { default: false },
     } /*data de llegado de componente padre creacion*/,
     data: () => ({
       name: "",
@@ -181,22 +181,22 @@
       cant: "",
       nameat: "artículo", //nombre variable en componente
       cargando: false,
-      selectc: "", //*categoria
+      selectc: "", //*category
       selectt: "", //*tipo
       selectp: "", //*proveedor
       selectm: "", //*marca
       selectst: "", //*status
       selectr: "", //*rack
-      selectT: "", //*travesaño
-      photo: null, //*Imagen de articulo
+      selectT: "", //*crossbar
+      photo: null, //*Imagen de product
 
-      itemsc: [], //*categoria [array]
+      itemsc: [], //*category [array]
       itemstt: [], //*tipo [array]
       itemsp: [], //*proveedor [array]
       itemstm: [], //*marca [array]
       itemstst: [], //*status [array]
       itemsr: [], //*rack [array]
-      itemsT: [], //*travesaño [array]
+      itemsT: [], //*crossbar [array]
       //Reglas de entradas del formulario
       nameRules: [
         (v) => !!v || "Este campo es requerido",
@@ -211,8 +211,8 @@
       ],
     }),
     mounted() {
-      window.Echo.channel("categorias").listen("categoriaCreated", (e) => {
-        this.itemsc = e.categorias;
+      window.Echo.channel("categorys").listen("categoryCreated", (e) => {
+        this.itemsc = e.categorys;
       });
       window.Echo.channel("marcas").listen("marcaCreated", (e) => {
         this.itemstm = e.marcas;
@@ -229,10 +229,10 @@
       window.Echo.channel("racks").listen("rackCreated", (e) => {
         this.itemsr = e.racks;
       });
-      window.Echo.channel("travesanos").listen("travesañoCreated", (e) => {
+      window.Echo.channel("travesanos").listen("crossbarCreated", (e) => {
         this.itemsT = e.travesanos;
       });
-      getCategorias(this.itemsc)
+      getCategorys(this.itemsc)
         .then((response) => {
           if (response.stats === 200) {
             this.cargando = false;
@@ -316,7 +316,7 @@
     methods: {
       onClose() {
         /*Envia parametro de cierre a componente creación*/
-        this.$emit("update:dialogarticulo", false);
+        this.$emit("update:dialogproduct", false);
         //this.$emit("dialogFromChild", false);
         //store.commit("increment", 1);
       },
@@ -339,7 +339,7 @@
         formdata.append("rack_id", this.selectr);
         formdata.append("crossbar_id", this.selectT);
         formdata.append("description", this.description);
-        formdata.append("foto_articulo", this.photo);
+        formdata.append("foto_product", this.photo);
         // const enviar = {
         //   name: this.name,
         //   quantity: this.cant,
@@ -350,10 +350,10 @@
         //   marca_id: this.selectm,
         //   rack_id: this.selectr,
         //   crossbar_id: this.selectT,
-        //   foto_articulo: this.photo,
+        //   foto_product: this.photo,
         // };
 
-        postArticulos(formdata);
+        postProducts(formdata);
         this.clear();
       },
       clear() {

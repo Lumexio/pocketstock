@@ -14,7 +14,7 @@ export function getProveedores(proveedorArray) {
         proveedor.forEach((element) => {
           let datos = {
             id: element.id,
-            nombre_proveedor: element.nombre_proveedor,
+            name_proveedor: element.name_proveedor,
             descripcion: element.descripcion,
           };
           if (!datos) return;

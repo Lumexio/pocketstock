@@ -9,39 +9,39 @@
         <v-row>
           <v-btn
             v-shortkey="['ctrl', 'shift', 'e']"
-            @shortkey="dialogtravesaño = !dialogtravesaño"
+            @shortkey="dialogcrossbar = !dialogcrossbar"
             elevation="0"
             dark
             rounded
-            @click="dialogtravesaño = true"
+            @click="dialogcrossbar = true"
           >
             <v-icon left large dark>mdi-plus</v-icon>
-            Travesaño
+            Crossbar
           </v-btn>
         </v-row>
       </v-col>
     </v-row>
 
-    <creartravesaño :dialogtravesaño.sync="dialogtravesaño" />
+    <crearcrossbar :dialogcrossbar.sync="dialogcrossbar" />
   </div>
 </template>
 
 <script>
-  import creartravesaño from "../cruds/creartravesaño.vue";
+  import crearcrossbar from "../cruds/crearcrossbar.vue";
 
   export default {
     name: "crearlist",
 
     components: {
-      creartravesaño,
+      crearcrossbar,
     },
     methods: {
-      syncFromCategoria(updatedDialog) {
-        this.dialogtravesaño = updatedDialog;
+      syncFromCategory(updatedDialog) {
+        this.dialogcrossbar = updatedDialog;
       },
     },
     data: () => ({
-      dialogtravesaño: false,
+      dialogcrossbar: false,
     }),
   };
 </script>

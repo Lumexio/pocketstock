@@ -9,11 +9,11 @@ export function tiposync(itemstt, selectt, recived) {
   tipo.forEach((element) => {
    let datos = {
     id: element.id,
-    nombre_tipo: element.nombre_tipo,
+    name_tipo: element.name_tipo,
    };
-   if (datos.nombre_tipo === recived) {
+   if (datos.name_tipo === recived) {
     tempid = datos.id;
-    tempname = datos.nombre_tipo;
+    tempname = datos.name_tipo;
     selectt = tempid;
    }
   });
@@ -31,11 +31,11 @@ export function proveedorsync(itemsp, selectp, recived) {
   proveedor.forEach((element) => {
    let datos = {
     id: element.id,
-    nombre_proveedor: element.nombre_proveedor,
+    name_proveedor: element.name_proveedor,
    };
-   if (datos.nombre_proveedor === recived) {
+   if (datos.name_proveedor === recived) {
     tempid = datos.id;
-    tempname = datos.nombre_proveedor;
+    tempname = datos.name_proveedor;
 
     selectp = tempid;
    }
@@ -109,7 +109,7 @@ export function racksync(itemsr, selectr, recived) {
  }
  return selectr;
 }
-export function travesañosync(itemsT, selectT, recived) {
+export function crossbarsync(itemsT, selectT, recived) {
  var tempid = "";
  var tempname = "";
  tempname;
@@ -136,8 +136,8 @@ export function categsync(itemsc, selectc, recived) {
  var tempname = "";
  tempname;
  if (itemsc) {
-  let categoria = itemsc;
-  categoria.forEach((element) => {
+  let category = itemsc;
+  category.forEach((element) => {
    let datos = {
     id: element.id,
     name: element.name,
@@ -153,4 +153,4 @@ export function categsync(itemsc, selectc, recived) {
  return selectc;
 }
 
-export default { tiposync, categsync, statusync, travesañosync, racksync, marcasync, proveedorsync }
+export default { tiposync, categsync, statusync, crossbarsync, racksync, marcasync, proveedorsync }

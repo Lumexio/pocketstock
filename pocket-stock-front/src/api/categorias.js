@@ -4,33 +4,33 @@ axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://127.0.0.1:8000/";
 
 
-export function getCategorias(categoriaArray) {
+export function getCategorys(categoryArray) {
   return new Promise((resolve, reject) => {
     axios
-      .get("api/categoria")
+      .get("api/category")
       .then(response => {
-        const categoria = response.data;
+        const category = response.data;
         const stats = response.status;
-        categoria.forEach((element) => {
+        category.forEach((element) => {
           let datos = {
             id: element.id,
             name: element.name,
             description: element.description,
           };
           if (!datos) return;
-          categoriaArray.push(datos);
+          categoryArray.push(datos);
         });
         resolve({
-          stats, categoriaArray
+          stats, categoryArray
         });
       })
       .catch((error) => { console.log(error); reject(error); });
   });
 }
-export function postCategorias(enviar) {
+export function postCategorys(enviar) {
 
   axios
-    .post("api/categoria", enviar, {
+    .post("api/category", enviar, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -48,10 +48,10 @@ export function postCategorias(enviar) {
       }
     });
 }
-export function deleteCategoria(id) {
-  axios.delete("api/categoria/" + id).catch((error) => console.log(error));
+export function deleteCategory(id) {
+  axios.delete("api/category/" + id).catch((error) => console.log(error));
 }
-export function editCategoria(url) {
+export function editCategory(url) {
   axios
     .put(url)
     .then((response) => {
@@ -60,4 +60,4 @@ export function editCategoria(url) {
     .catch((error) => console.log(error));
 }
 
-export default { getCategorias, postCategorias, deleteCategoria, editCategoria }
+export default { getCategorys, postCategorys, deleteCategory, editCategory }

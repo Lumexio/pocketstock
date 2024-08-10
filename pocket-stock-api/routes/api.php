@@ -1,6 +1,6 @@
 <?php
 
-//use App\Http\Controllers\ArticuloController;
+//use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,11 +22,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::resource('products', 'ArticuloController');
+    Route::resource('products', 'ProductController');
     Route::post('/updatephoto/{id}', 'PhotoController@updatephoto');
     Route::resource('brands', 'MarcaController');
-    Route::resource('categories', 'CategoriaController');
-    Route::resource('crossbars', 'TravesañoController');
+    Route::resource('categories', 'CategoryController');
+    Route::resource('crossbars', 'CrossbarController');
     Route::resource('racks', 'RackController');
     Route::resource('users', 'UserController');
 

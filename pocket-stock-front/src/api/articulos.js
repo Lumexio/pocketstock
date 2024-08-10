@@ -5,42 +5,42 @@ axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://127.0.0.1:8000/";
 
 
-export function getArticulos(articulosArray) {
+export function getProducts(productsArray) {
   return new Promise((resolve, reject) => {
     axios
-      .get("api/articulo/list")
+      .get("api/product/list")
       .then((response) => {
-        const articulos = response.data;
+        const products = response.data;
         const stats = response.status;
-        articulos.forEach((element) => {
+        products.forEach((element) => {
           let datos = {
             id: element.id,
             name: element.name,
             quantity: element.quantity,
             description: element.description, //pendiente
             name: element.name,
-            nombre_tipo: element.nombre_tipo,
+            name_tipo: element.name_tipo,
             name: element.name,
-            nombre_proveedor: element.nombre_proveedor,
+            name_proveedor: element.name_proveedor,
             name: element.name,
             //campos de ubicación
             name: element.name,
             name: element.name,
-            foto_articulo: element.foto_articulo,
+            foto_product: element.foto_product,
           };
           if (!datos) return;
-          articulosArray.push(datos);
+          productsArray.push(datos);
         });
         resolve({
-          stats, articulosArray
+          stats, productsArray
         });
       })
       .catch((error) => { console.log(error); reject(error); });
   });
 }
-export function postArticulos(enviar) {
+export function postProducts(enviar) {
   axios
-    .post("api/articulo/create/", enviar, {
+    .post("api/product/create/", enviar, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -58,10 +58,10 @@ export function postArticulos(enviar) {
       }
     });
 }
-export function deleteArticulos(id) {
-  axios.delete("api/articulo/delete/" + id).then((response) => { response; /*store.commit("increment", 1);*/ }).catch((error) => console.log(error));
+export function deleteProducts(id) {
+  axios.delete("api/product/delete/" + id).then((response) => { response; /*store.commit("increment", 1);*/ }).catch((error) => console.log(error));
 }
-export function editArticulos(url, data) {
+export function editProducts(url, data) {
   axios
     .put(url, data, {
       headers: {
@@ -78,4 +78,4 @@ export function editArticulos(url, data) {
     .catch((error) => console.log(error));
 }
 
-export default { getArticulos, postArticulos, deleteArticulos, editArticulos }
+export default { getProducts, postProducts, deleteProducts, editProducts }

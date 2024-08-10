@@ -1,7 +1,7 @@
 <template>
   <v-dialog
     content-class="elevation-0"
-    v-model="dialogcategoria"
+    v-model="dialogcategory"
     max-width="40rem"
     persistent
   >
@@ -52,7 +52,7 @@
           @click="submit"
           outlined
         >
-          Guardar categoria
+          Guardar category
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -61,12 +61,12 @@
 
 <script>
   import store from "@/store";
-  import { postCategorias } from "@/api/categorias.js";
+  import { postCategorys } from "@/api/categorys.js";
   import { upperConverter } from "@/special/uppercases-converter.js";
   export default {
-    name: "crearcategoria",
+    name: "crearcategory",
     props: {
-      dialogcategoria: { dafault: false },
+      dialogcategory: { dafault: false },
     } /*data de llegado de componente padre creacion*/,
     data: () => ({
       name: "",
@@ -76,7 +76,7 @@
     methods: {
       onClose() {
         /*Envia parametro de cierre a componente creación*/
-        this.$emit("update:dialogcategoria", false);
+        this.$emit("update:dialogcategory", false);
       },
       submit() {
         store.commit("setsuccess", false);
@@ -85,7 +85,7 @@
         const formdata = new FormData();
         formdata.append("name", this.name);
         formdata.append("description", this.description);
-        postCategorias(formdata);
+        postCategorys(formdata);
         this.clear();
       },
       clear() {

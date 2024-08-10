@@ -44,7 +44,7 @@
                     <v-row>
                       <v-col cols="12" sm="6" md="4">
                         <v-text-field
-                          v-model="editedItem.nombre_tipo"
+                          v-model="editedItem.name_tipo"
                           label="Nombre"
                         ></v-text-field>
                       </v-col>
@@ -105,7 +105,7 @@
   import { getTipos, deleteTipos, editTipos } from "@/api/tipos.js";
   import { upperConverter } from "@/special/uppercases-converter.js";
   export default {
-    nombre_tipo: "tabla-tipo",
+    name_tipo: "tabla-tipo",
     data: () => ({
       dialog: false,
       dialogDelete: false,
@@ -117,7 +117,7 @@
           text: "Tipo",
           align: "start",
           sortable: false,
-          value: "nombre_tipo",
+          value: "name_tipo",
         },
         { text: "Acciones", value: "actions", sortable: false, align: "center" },
         { text: "Descripción", align: "start", value: "data-table-expand" },
@@ -129,11 +129,11 @@
       editedIndex: -1,
       editedItem: {
         id: "",
-        nombre_tipo: "",
+        name_tipo: "",
       },
       defaultItem: {
         id: "",
-        nombre_tipo: "",
+        name_tipo: "",
       },
     }),
     mounted() {
@@ -230,10 +230,10 @@
         if (this.editedIndex > -1) {
           Object.assign(this.tipoArray[this.editedIndex], this.editedItem);
           let send = this.editedItem;
-          send.nombre_tipo = upperConverter(send.nombre_tipo);
+          send.name_tipo = upperConverter(send.name_tipo);
           let url = "api/tipo/";
           url = url + send.id;
-          url = `${url}?${"nombre_tipo=" + send.nombre_tipo}`;
+          url = `${url}?${"name_tipo=" + send.name_tipo}`;
           editTipos(url);
         } else {
           this.tipoArray.push(this.editedItem);

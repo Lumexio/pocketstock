@@ -11,10 +11,10 @@
             <template v-slot:activator="{ on, attrs }">
               <v-btn
                 v-shortkey="['ctrl', 'shift', 'a']"
-                @shortkey="dialogarticulo = !dialogarticulo"
+                @shortkey="dialogproduct = !dialogproduct"
                 elevation="0"
                 dark
-                @click="dialogarticulo = true"
+                @click="dialogproduct = true"
                 v-bind="attrs"
                 v-on="on"
                 rounded
@@ -31,10 +31,10 @@
             <template v-slot:activator="{ on, attrs }">
               <v-btn
                 v-shortkey="['ctrl', 'shift', 'c']"
-                @shortkey="dialogcategoria = !dialogcategoria"
+                @shortkey="dialogcategory = !dialogcategory"
                 elevation="0"
                 dark
-                @click="dialogcategoria = true"
+                @click="dialogcategory = true"
                 v-bind="attrs"
                 v-on="on"
                 rounded
@@ -139,16 +139,16 @@
             <template v-slot:activator="{ on, attrs }">
               <v-btn
                 v-shortkey="['ctrl', 'shift', 'e']"
-                @shortkey="dialogtravesaño = !dialogtravesaño"
+                @shortkey="dialogcrossbar = !dialogcrossbar"
                 elevation="0"
                 dark
-                @click="dialogtravesaño = true"
+                @click="dialogcrossbar = true"
                 v-bind="attrs"
                 v-on="on"
                 rounded
               >
                 <v-icon left large>mdi-plus</v-icon>
-                Travesaño
+                Crossbar
               </v-btn>
             </template>
             <code>abrir y cerrar:ctrl+shift+e</code>
@@ -157,8 +157,8 @@
       </v-col>
     </v-row>
 
-    <creararticulo :key="count" :dialogarticulo.sync="dialogarticulo" />
-    <crearcategoria :dialogcategoria.sync="dialogcategoria" />
+    <crearproduct :key="count" :dialogproduct.sync="dialogproduct" />
+    <crearcategory :dialogcategory.sync="dialogcategory" />
     <crearmarca :dialogmarca.sync="dialogmarca" />
     <creartipo :dialogtipo.sync="dialogtipo" />
     <crearproveedor :dialogproveedor.sync="dialogproveedor" />
@@ -169,13 +169,13 @@
     />-->
 
     <crearrack :dialograck.sync="dialograck" />
-    <creartravesaño :dialogtravesaño.sync="dialogtravesaño" />
+    <crearcrossbar :dialogcrossbar.sync="dialogcrossbar" />
   </div>
 </template>
 
 <script>
-import creararticulo from "../cruds/creararticulos.vue";
-import crearcategoria from "../cruds/crearcategoria.vue";
+import crearproduct from "../cruds/crearproducts.vue";
+import crearcategory from "../cruds/crearcategory.vue";
 import crearmarca from "../cruds/crearmarca.vue";
 import creartipo from "../cruds/creartipo.vue";
 import crearproveedor from "../cruds/crearproveedor.vue";
@@ -183,21 +183,21 @@ import crearproveedor from "../cruds/crearproveedor.vue";
 //import crearstatus from "../cruds/crearstatus.vue";
 
 import crearrack from "../cruds/crearrack.vue";
-import creartravesaño from "../cruds/creartravesaño.vue";
+import crearcrossbar from "../cruds/crearcrossbar.vue";
 import store from "@/store";
 
 export default {
   name: "crearlist",
 
   components: {
-    creararticulo,
-    crearcategoria,
+    crearproduct,
+    crearcategory,
     crearmarca,
     creartipo,
     crearproveedor,
     //crearstatus,
     crearrack,
-    creartravesaño,
+    crearcrossbar,
   },
   computed: {
     count() {
@@ -206,14 +206,14 @@ export default {
   },
 
   data: () => ({
-    dialogarticulo: false,
-    dialogcategoria: false,
+    dialogproduct: false,
+    dialogcategory: false,
     dialogmarca: false,
     dialogtipo: false,
     dialogproveedor: false,
     //dialogstatus: false,
     dialograck: false,
-    dialogtravesaño: false,
+    dialogcrossbar: false,
   }),
 };
 </script>

@@ -13,8 +13,8 @@
             link
             :to="item.path"
             v-shortkey="{
-              usuarios: ['ctrl', 'u'],
-              articulos: ['ctrl', 'a'],
+              users: ['ctrl', 'u'],
+              products: ['ctrl', 'a'],
               historial: ['ctrl', 'h'],
             }"
             @shortkey="paths"
@@ -34,7 +34,7 @@
             link
             :to="item.path"
             v-shortkey="{
-              articulos: ['ctrl', 'a'],
+              products: ['ctrl', 'a'],
             }"
             @shortkey="paths"
           >
@@ -61,7 +61,7 @@
           flat
           :to="item.path"
           v-shortkey="{
-            categorias: ['ctrl', 'c'],
+            categorys: ['ctrl', 'c'],
             marcas: ['ctrl', 'm'],
             proveedores: ['ctrl', 'p'],
             tipos: ['ctrl', 't'],
@@ -120,9 +120,9 @@ export default {
   data: () => ({
     itemsmain: [
       //{ path: "/home", title: "Home", icon: "mdi-home" },
-      { path: "/usuarios", title: "Usuarios", icon: "mdi-account-multiple" },
+      { path: "/users", title: "Users", icon: "mdi-account-multiple" },
       {
-        path: "/articulos",
+        path: "/products",
         title: "Artículos",
         icon: "mdi-folder-multiple",
       },
@@ -134,15 +134,15 @@ export default {
     ],
     itemsemp: [
       {
-        path: "/articulos",
+        path: "/products",
         title: "Artículos",
         icon: "mdi-folder-multiple",
       },
     ],
     itemstable: [
       {
-        path: "/categorias",
-        title: "Categorias",
+        path: "/categorys",
+        title: "Categorys",
         icon: "mdi-folder-multiple",
       },
       {
@@ -169,7 +169,7 @@ export default {
       },
       {
         path: "/travesano",
-        title: "Travesaños",
+        title: "Crossbars",
         icon: "mdi-folder-multiple",
       },
     ],
@@ -182,17 +182,17 @@ export default {
   methods: {
     paths(event) {
       switch (event.srcKey) {
-        case "usuarios":
-          router.push("/usuarios").catch(() => {});
+        case "users":
+          router.push("/users").catch(() => {});
           break;
-        case "articulos":
-          router.push("/articulos").catch(() => {});
+        case "products":
+          router.push("/products").catch(() => {});
           break;
         case "historial":
           router.push("/historial").catch(() => {});
           break;
-        case "categorias":
-          router.push("/categorias").catch(() => {});
+        case "categorys":
+          router.push("/categorys").catch(() => {});
           break;
         case "marcas":
           router.push("/marcas").catch(() => {});

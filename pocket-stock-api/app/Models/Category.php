@@ -5,11 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Travesaño extends Model
+
+class Category extends Model
 {
-    protected $table = 'crossbars';
+    protected $table = 'categories';
     protected $primaryKey = 'id';
     use HasFactory;
+
+
+
+
+
+
+
 
     /**
      * The attributes that are mass assignable.
@@ -18,5 +26,6 @@ class Travesaño extends Model
      */
     protected $fillable = [
         'name',
+        'description'
     ];
 }

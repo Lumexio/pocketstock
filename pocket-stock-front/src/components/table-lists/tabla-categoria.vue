@@ -4,7 +4,7 @@
       <v-col cols="12" sm="6" md="4">
         <v-text-field
           v-model="search"
-          label="Buscar categoria"
+          label="Buscar category"
           class="mx-4"
           id="onsearch"
         ></v-text-field>
@@ -22,7 +22,7 @@
         :headers="headers"
         show-expand
         :expanded.sync="expanded"
-        :items="categoriaArray"
+        :items="categoryArray"
         sort-by="quantity"
         class="elevation-1"
         :search="search"
@@ -30,7 +30,7 @@
       >
         <template v-slot:top>
           <v-toolbar flat>
-            <v-toolbar-title>Tabla categoria</v-toolbar-title>
+            <v-toolbar-title>Tabla category</v-toolbar-title>
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-spacer></v-spacer>
             <v-dialog v-model="dialog" max-width="500px">
@@ -116,13 +116,13 @@
 
 <script>
   import {
-    getCategorias,
-    deleteCategoria,
-    editCategoria,
-  } from "@/api/categorias.js";
+    getCategorys,
+    deleteCategory,
+    editCategory,
+  } from "@/api/categorys.js";
   import { upperConverter } from "@/special/uppercases-converter.js";
   export default {
-    name: "tabla-categoria",
+    name: "tabla-category",
     data: () => ({
       dialog: false,
       dialogDelete: false,
@@ -131,7 +131,7 @@
       expanded: [],
       headers: [
         {
-          text: "Categorias",
+          text: "Categorys",
           align: "start",
           sortable: false,
           value: "name",
@@ -140,7 +140,7 @@
         { text: "Descripción", align: "start", value: "data-table-expand" },
       ],
 
-      categoriaArray: [],
+      categoryArray: [],
       //variable en la que se deposita la posicion en el selector
       selectrol: null, //Rol
 
@@ -161,10 +161,10 @@
     }),
     mounted() {
       this.onFocus();
-      window.Echo.channel("categorias").listen("categoriaCreated", (e) => {
-        this.categoriaArray = e.categorias;
+      window.Echo.channel("categorys").listen("categoryCreated", (e) => {
+        this.categoryArray = e.categorys;
       });
-      getCategorias(this.categoriaArray)
+      getCategorys(this.categoryArray)
         .then((response) => {
           if (response.stats === 200) {
             this.cargando = false;
@@ -178,7 +178,7 @@
 
     computed: {
       formTitle() {
-        return this.editedIndex === -1 ? "New Item" : "Editar categoria";
+        return this.editedIndex === -1 ? "New Item" : "Editar category";
       },
     },
 
@@ -213,26 +213,26 @@
       },
 
       editItem(item) {
-        this.editedIndex = this.categoriaArray.indexOf(item);
+        this.editedIndex = this.categoryArray.indexOf(item);
         this.editedItem = Object.assign({}, item);
 
         this.dialog = true;
       },
 
       deleteItem(item) {
-        this.editedIndex = this.categoriaArray.indexOf(item);
+        this.editedIndex = this.categoryArray.indexOf(item);
         this.editedItem = Object.assign({}, item);
         this.dialogDelete = true;
       },
 
       deleteItemConfirm() {
-        this.categoriaArray.splice(this.editedIndex, 1);
+        this.categoryArray.splice(this.editedIndex, 1);
         let id = this.editedItem.id;
-        deleteCategoria(id);
+        deleteCategory(id);
 
         this.closeDelete();
-        window.Echo.channel("categorias").listen("categoriaCreated", (e) => {
-          this.itemsc = e.categorias;
+        window.Echo.channel("categorys").listen("categoryCreated", (e) => {
+          this.itemsc = e.categorys;
         });
       },
 
@@ -254,20 +254,20 @@
 
       save() {
         if (this.editedIndex > -1) {
-          Object.assign(this.categoriaArray[this.editedIndex], this.editedItem);
+          Object.assign(this.categoryArray[this.editedIndex], this.editedItem);
           let send = this.editedItem;
           send.name = upperConverter(send.name);
-          let url = "api/categoria/";
+          let url = "api/category/";
           url = url + send.id;
           url = `${url}?${"name=" + send.name}&${
             "description=" + send.description
           }`;
-          editCategoria(url);
-          window.Echo.channel("categorias").listen("categoriaCreated", (e) => {
-            this.itemsc = e.categorias;
+          editCategory(url);
+          window.Echo.channel("categorys").listen("categoryCreated", (e) => {
+            this.itemsc = e.categorys;
           });
         } else {
-          this.categoriaArray.push(this.editedItem);
+          this.categoryArray.push(this.editedItem);
         }
         this.close();
       },

@@ -27,7 +27,7 @@ class ArticuleValidationRequest extends FormRequest
             'name' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
             'quantity' => 'required|integer|min:0',
             'description' => 'nullable|regex:/(^[A-Za-z0-9 ]+$)+/',
-            'foto_articulo' => 'nullable|mimes:png,jpg'
+            'foto_product' => 'nullable|mimes:png,jpg'
         ];
     }
 }

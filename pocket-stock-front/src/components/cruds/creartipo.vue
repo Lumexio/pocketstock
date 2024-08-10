@@ -21,7 +21,7 @@
       <v-row>
         <v-col sm="6" md="12" lx="13">
           <v-text-field
-            v-model="nombre_tipo"
+            v-model="name_tipo"
             :counter="10"
             label="Nombre tipo"
             required
@@ -65,7 +65,7 @@
       dialogtipo: { dafault: false },
     } /*data de llegado de componente padre creacion*/,
     data: () => ({
-      nombre_tipo: "",
+      name_tipo: "",
       descripcion_tipo: "",
     }),
 
@@ -79,13 +79,13 @@
         store.commit("setsuccess", false); //para resetear el valor de la notificion en una nueva entrada
         store.commit("setdanger", false);
         const formdata = new FormData();
-        formdata.append("nombre_tipo", this.nombre_tipo);
+        formdata.append("name_tipo", this.name_tipo);
         formdata.append("descripcion_tipo", this.descripcion_tipo);
         postTipos(formdata);
         this.clear();
       },
       clear() {
-        (this.nombre_tipo = ""), (this.descripcion_tipo = "");
+        (this.name_tipo = ""), (this.descripcion_tipo = "");
       },
     },
   };

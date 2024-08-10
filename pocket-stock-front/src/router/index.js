@@ -59,9 +59,9 @@ const routes = [
   },
   //Cruds 
   {
-    path: '/crearusuario',
-    name: 'crearusuario',
-    component: () => import('../components/cruds/crearusuario.vue'),
+    path: '/crearuser',
+    name: 'crearuser',
+    component: () => import('../components/cruds/crearuser.vue'),
     meta: {
       authenticated: true
     },
@@ -85,9 +85,9 @@ const routes = [
 
   //Listas
   {
-    path: '/usuarios',
-    name: 'usuarios',
-    component: () => import('../views/main-usuarios.vue'),
+    path: '/users',
+    name: 'users',
+    component: () => import('../views/main-users.vue'),
     meta: {
       authenticated: true
     },
@@ -109,9 +109,9 @@ const routes = [
     }
   },
   {
-    path: '/articulos',
+    path: '/products',
     name: 'artículos',
-    component: () => import('../views/main-articulos.vue'), meta: {
+    component: () => import('../views/main-products.vue'), meta: {
       authenticated: true
     },
     beforeEnter: (to, from, next) => {
@@ -132,9 +132,9 @@ const routes = [
     }
   },
   {
-    path: '/categorias',
-    name: 'categorias',
-    component: () => import('../views/main-categorias.vue'),
+    path: '/categorys',
+    name: 'categorys',
+    component: () => import('../views/main-categorys.vue'),
     meta: {
       authenticated: true
     },

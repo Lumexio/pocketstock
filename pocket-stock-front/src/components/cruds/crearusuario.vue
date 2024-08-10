@@ -1,7 +1,7 @@
 <template>
   <v-dialog
     content-class="elevation-0"
-    v-model="dialogusuarios"
+    v-model="dialogusers"
     max-width="25rem"
     persistent
   >
@@ -16,7 +16,7 @@
         >
           <v-icon>mdi-close</v-icon>
         </v-btn>
-        <v-toolbar-title>Crear usuario</v-toolbar-title>
+        <v-toolbar-title>Crear user</v-toolbar-title>
       </v-toolbar>
       <v-row
         ><v-col sm="6" md="12" lx="13">
@@ -70,9 +70,9 @@ import store from "@/store";
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://127.0.0.1:8000/";
 export default {
-  name: "crearusuario",
+  name: "crearuser",
   props: {
-    dialogusuarios: { dafault: false },
+    dialogusers: { dafault: false },
   } /*data de llegado de componente padre creacion*/,
   data: () => ({
     name: "",
@@ -108,7 +108,7 @@ export default {
   methods: {
     onClose() {
       /*Envia parametro de cierre a componente creación*/
-      this.$emit("update:dialogusuarios", false);
+      this.$emit("update:dialogusers", false);
     },
     submit() {
       //this.$emit("dialogFromChild", false);

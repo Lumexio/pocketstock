@@ -14,7 +14,7 @@ export function getTipos(tipoArray) {
         tipo.forEach((element) => {
           let datos = {
             id: element.id,
-            nombre_tipo: element.nombre_tipo,
+            name_tipo: element.name_tipo,
           };
           if (!datos) return;
           tipoArray.push(datos);

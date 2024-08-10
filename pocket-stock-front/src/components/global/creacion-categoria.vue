@@ -9,35 +9,35 @@
         <v-row>
           <v-btn
             v-shortkey="['ctrl', 'shift', 'c']"
-            @shortkey="dialogcategoria = !dialogcategoria"
+            @shortkey="dialogcategory = !dialogcategory"
             elevation="0"
             dark
             rounded
-            @click="dialogcategoria = !dialogcategoria"
+            @click="dialogcategory = !dialogcategory"
           >
             <v-icon left large>mdi-plus</v-icon>
-            Categoria
+            Category
           </v-btn>
         </v-row>
       </v-col>
     </v-row>
 
-    <crearcategoria :dialogcategoria.sync="dialogcategoria" />
+    <crearcategory :dialogcategory.sync="dialogcategory" />
   </div>
 </template>
 
 <script>
-  import crearcategoria from "../cruds/crearcategoria.vue";
+  import crearcategory from "../cruds/crearcategory.vue";
 
   export default {
     name: "crearlist",
 
     components: {
-      crearcategoria,
+      crearcategory,
     },
 
     data: () => ({
-      dialogcategoria: false,
+      dialogcategory: false,
     }),
   };
 </script>

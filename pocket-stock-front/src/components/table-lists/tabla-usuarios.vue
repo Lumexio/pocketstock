@@ -4,7 +4,7 @@
       <v-col cols="12" sm="6" md="4">
         <v-text-field
           v-model="search"
-          label="Buscar usuario"
+          label="Buscar user"
           placeholder="Nombre, correo y rol"
           class="mx-4"
           id="onsearch"
@@ -28,7 +28,7 @@
       >
         <template v-slot:top>
           <v-toolbar flat>
-            <v-toolbar-title>Tabla usuarios</v-toolbar-title>
+            <v-toolbar-title>Tabla users</v-toolbar-title>
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-spacer></v-spacer>
             <v-dialog v-model="dialog" max-width="500px">
@@ -132,7 +132,7 @@ import { upperConverter } from "@/special/uppercases-converter.js";
 //axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://127.0.0.1:8000/";
 export default {
-  name: "tabla-usuarios",
+  name: "tabla-users",
   data: () => ({
     dialog: false,
     dialogDelete: false,
@@ -209,9 +209,9 @@ export default {
     axios
       .get("api/rol")
       .then((response) => {
-        let categorias = response.data;
+        let categorys = response.data;
 
-        categorias.forEach((element) => {
+        categorys.forEach((element) => {
           let datos = {
             rol_id: element.id,
             name: element.name,
@@ -229,7 +229,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Editar usuario";
+      return this.editedIndex === -1 ? "New Item" : "Editar user";
     },
     progress() {
       return Math.min(100, this.editedItem.password.length * 13);
@@ -310,7 +310,7 @@ export default {
       this.editedItem = Object.assign({}, item);
 
       if (this.editedItem.name) {
-        //categoria
+        //category
         this.usersync(this.editedItem.name);
       }
 

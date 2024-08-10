@@ -38,16 +38,16 @@ class User extends Authenticatable
         // Chain fluent methods for configuration options
     }
     /**
-     * Encripta la clave de usuario al ser creado
+     * Encripta la clave de user al ser creado
      * @var array
      * */
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = Hash::make($password);
     }
-    public function articulo()
+    public function product()
     {
-        return $this->hasMany(Articulo::class);
+        return $this->hasMany(Product::class);
     }
 
     /**

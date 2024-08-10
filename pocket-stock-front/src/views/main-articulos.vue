@@ -2,8 +2,8 @@
   <div>
     <v-row>
       <v-col sm="6" md="10" class="size-table">
-        <!-- <tablaArticulos :key="count" /> -->
-        <tablaArticulos />
+        <!-- <tablaProducts :key="count" /> -->
+        <tablaProducts />
       </v-col>
       <v-col cols="1">
         <creacionlist />
@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import tablaArticulos from "../components/table-lists/tabla-articulos.vue";
+import tablaProducts from "../components/table-lists/tabla-products.vue";
 import creacionlist from "../components/global/creacion.vue";
 //import store from "@/store";
 export default {
   name: "artículos",
 
-  components: { tablaArticulos, creacionlist },
+  components: { tablaProducts, creacionlist },
   data: () => ({}),
   methods: {
     /*para definir metodos*/

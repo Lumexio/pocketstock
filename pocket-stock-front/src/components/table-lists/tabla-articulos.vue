@@ -4,7 +4,7 @@
       <v-col sm="8" md="5">
         <v-text-field
           label="Buscar artículo"
-          placeholder="Nombre, cantidad, categoria, tipo ...."
+          placeholder="Nombre, cantidad, category, tipo ...."
           class="mx-4"
           v-model="search"
           id="onsearch"
@@ -13,7 +13,7 @@
     </v-row>
     <v-data-table
       :headers="headers"
-      :items="articulosArray"
+      :items="productsArray"
       :expanded.sync="expanded"
       sort-by="quantity"
       class="elevation-2"
@@ -68,7 +68,7 @@
                       <v-select
                         v-model="selectt"
                         :items="itemstt"
-                        item-text="nombre_tipo"
+                        item-text="name_tipo"
                         item-value="id"
                         label="Tipo"
                       >
@@ -88,7 +88,7 @@
                       <v-select
                         v-model="selectp"
                         :items="itemsp"
-                        item-text="nombre_proveedor"
+                        item-text="name_proveedor"
                         item-value="id"
                         label="Proveedor"
                         required
@@ -120,7 +120,7 @@
                         :items="itemsT"
                         item-text="name"
                         item-value="id"
-                        label="Ubicación travesaño"
+                        label="Ubicación crossbar"
                         required
                       ></v-select>
                     </v-col>
@@ -180,10 +180,10 @@
                   >
                   <v-img
                     :colspan="headers.length"
-                    v-bind:lazy-src="editedItem.foto_articulo"
+                    v-bind:lazy-src="editedItem.foto_product"
                     max-height="500"
                     max-width="600"
-                    v-bind:src="editedItem.foto_articulo"
+                    v-bind:src="editedItem.foto_product"
                   ></v-img>
                 </v-card-text>
                 <v-card-actions class="justify-end">
@@ -235,12 +235,12 @@
 import store from "@/store";
 import { postPhoto } from "@/api/photohandler.js";
 import {
-  getArticulos,
-  deleteArticulos,
-  editArticulos,
-} from "@/api/articulos.js";
+  getProducts,
+  deleteProducts,
+  editProducts,
+} from "@/api/products.js";
 
-import { getCategorias } from "@/api/categorias.js";
+import { getCategorys } from "@/api/categorys.js";
 import { getMarcas } from "@/api/marcas.js";
 import { getProveedores } from "@/api/proveedores.js";
 import { getTipos } from "@/api/tipos.js";
@@ -251,7 +251,7 @@ import { upperConverter } from "@/special/uppercases-converter.js";
 import {
   tiposync,
   statusync,
-  travesañosync,
+  crossbarsync,
   categsync,
   racksync,
   marcasync,
@@ -260,7 +260,7 @@ import {
 
 //axios.defaults.baseURL = "http://127.0.0.1:8000/";
 export default {
-  name: "tabla-articulos",
+  name: "tabla-products",
   data: () => ({
     search: "",
     dialog: false,
@@ -279,33 +279,33 @@ export default {
       },
       { text: "Cantidad", value: "quantity", align: "center" },
       { text: "Categoría", value: "name", align: "center" },
-      { text: "Tipo", value: "nombre_tipo", align: "center" },
+      { text: "Tipo", value: "name_tipo", align: "center" },
       { text: "Marca", value: "name", align: "center" },
-      { text: "Proveedor", value: "nombre_proveedor", align: "center" },
+      { text: "Proveedor", value: "name_proveedor", align: "center" },
       { text: "estatus", value: "name", align: "center" },
       { text: "Rack", value: "name", align: "center" },
-      { text: "Travesaño", value: "name", align: "center" },
+      { text: "Crossbar", value: "name", align: "center" },
       { text: "Acciones", value: "actions", sortable: false, align: "center" },
       { text: "", align: "end", value: "data-table-expand" },
     ],
 
-    articulosArray: [],
+    productsArray: [],
     //variable en la que se deposita la posicion en el selector
-    selectc: "", //categoria
+    selectc: "", //category
     selectt: "", //tipo
     selectp: "", //proveedor
     selectm: "", //marca
     selectst: "", //status
     selectr: "", //rack
-    selectT: "", //travesaño
+    selectT: "", //crossbar
     //Array en el que se deposita de los selectores.
-    itemsc: [], //categoria
+    itemsc: [], //category
     itemstt: [], //tipo
     itemsp: [], //proveedor
     itemstm: [], //marca
     itemstst: [], //status
     itemsr: [], //rack
-    itemsT: [], //travesaño
+    itemsT: [], //crossbar
     photo: null,
 
     editedIndex: -1,
@@ -314,13 +314,13 @@ export default {
       name: "",
       quantity: 0,
       name: "",
-      nombre_tipo: "",
+      name_tipo: "",
       name: "",
-      nombre_proveedor: "",
+      name_proveedor: "",
       name: "",
       name: "",
       name: "",
-      foto_articulo: null,
+      foto_product: null,
       description: "",
     },
     defaultItem: {
@@ -328,13 +328,13 @@ export default {
       name: "",
       quantity: 0,
       name: "",
-      nombre_tipo: "",
+      name_tipo: "",
       name: "",
-      nombre_proveedor: "",
+      name_proveedor: "",
       name: "",
       name: "",
       name: "",
-      foto_articulo: null,
+      foto_product: null,
       description: "",
     },
   }),
@@ -342,12 +342,12 @@ export default {
     this.onFocus();
   },
   mounted() {
-    window.Echo.channel("articulos").listen("articuloCreated", (e) => {
-      this.articulosArray = e.articulos;
+    window.Echo.channel("products").listen("productCreated", (e) => {
+      this.productsArray = e.products;
     });
 
-    window.Echo.channel("categorias").listen("categoriaCreated", (e) => {
-      this.itemsc = e.categorias;
+    window.Echo.channel("categorys").listen("categoryCreated", (e) => {
+      this.itemsc = e.categorys;
     });
     window.Echo.channel("marcas").listen("marcaCreated", (e) => {
       this.itemstm = e.marcas;
@@ -364,10 +364,10 @@ export default {
     window.Echo.channel("racks").listen("rackCreated", (e) => {
       this.itemsr = e.racks;
     });
-    window.Echo.channel("travesanos").listen("travesañoCreated", (e) => {
+    window.Echo.channel("travesanos").listen("crossbarCreated", (e) => {
       this.itemsT = e.travesanos;
     });
-    getArticulos(this.articulosArray)
+    getProducts(this.productsArray)
       .then((response) => {
         if (response.stats === 200) {
           this.cargando = false;
@@ -379,7 +379,7 @@ export default {
         console.log(e);
         this.cargando = true;
       });
-    getCategorias(this.itemsc);
+    getCategorys(this.itemsc);
     getMarcas(this.itemstm);
     getProveedores(this.itemsp);
     getTipos(this.itemstt);
@@ -390,7 +390,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Editar articulo";
+      return this.editedIndex === -1 ? "New Item" : "Editar product";
     },
     count() {
       return store.getters.counter;
@@ -435,20 +435,20 @@ export default {
     },
 
     editItem(item) {
-      this.editedIndex = this.articulosArray.indexOf(item);
+      this.editedIndex = this.productsArray.indexOf(item);
       this.editedItem = Object.assign({}, item);
-      //categoria
+      //category
       if (this.editedItem.name) {
-        let categoriasync = this.editedItem.name;
-        this.selectc = categsync(this.itemsc, this.selectc, categoriasync);
+        let categorysync = this.editedItem.name;
+        this.selectc = categsync(this.itemsc, this.selectc, categorysync);
       }
       //tipo
-      if (this.editedItem.nombre_tipo) {
-        let typosync = this.editedItem.nombre_tipo;
+      if (this.editedItem.name_tipo) {
+        let typosync = this.editedItem.name_tipo;
         this.selectt = tiposync(this.itemstt, this.selectt, typosync);
       }
       //proveedor
-      let provsync = this.editedItem.nombre_proveedor;
+      let provsync = this.editedItem.name_proveedor;
       this.selectp = proveedorsync(this.itemsp, this.selectp, provsync);
       //marca
       let marcsync = this.editedItem.name;
@@ -460,30 +460,30 @@ export default {
       //rack
       let racsycn = this.editedItem.name;
       this.selectr = racksync(this.itemsr, this.selectr, racsycn);
-      //travesaño
+      //crossbar
       let travsync = this.editedItem.name;
-      this.selectT = travesañosync(this.itemsT, this.selectT, travsync);
+      this.selectT = crossbarsync(this.itemsT, this.selectT, travsync);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      this.editedIndex = this.articulosArray.indexOf(item);
+      this.editedIndex = this.productsArray.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
     detailItem(item) {
-      this.editedIndex = this.articulosArray.indexOf(item);
+      this.editedIndex = this.productsArray.indexOf(item);
       this.editedItem = Object.assign({}, item);
 
       this.dialogDetail = true;
     },
 
     deleteItemConfirm() {
-      this.articulosArray.splice(this.editedIndex, 1);
+      this.productsArray.splice(this.editedIndex, 1);
       let id = this.editedItem.id;
-      deleteArticulos(id);
-      window.Echo.channel("articulos").listen("articuloCreated", (e) => {
-        this.articulosArray = e.articulos;
+      deleteProducts(id);
+      window.Echo.channel("products").listen("productCreated", (e) => {
+        this.productsArray = e.products;
       });
       this.closeDelete();
     },
@@ -506,26 +506,26 @@ export default {
     },
     photochange() {
       if (this.editedIndex > -1) {
-        Object.assign(this.articulosArray[this.editedIndex], this.editedItem);
+        Object.assign(this.productsArray[this.editedIndex], this.editedItem);
         let send = this.editedItem;
         let url = "api/updatephoto/" + send.id;
 
         if (this.photo != null) {
           const formdata = new FormData();
-          formdata.append("foto_articulo", this.photo);
+          formdata.append("foto_product", this.photo);
           postPhoto(url, formdata);
         }
       } else {
-        this.articulosArray.push(this.editedItem);
+        this.productsArray.push(this.editedItem);
       }
       this.close();
     },
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.articulosArray[this.editedIndex], this.editedItem);
+        Object.assign(this.productsArray[this.editedIndex], this.editedItem);
         let send = this.editedItem;
         send.name = upperConverter(send.name);
-        let url = "api/articulo/update/" + send.id;
+        let url = "api/product/update/" + send.id;
 
         url = `${url}?${"name=" + send.name}&${
           "quantity=" + send.quantity
@@ -537,14 +537,14 @@ export default {
           "crossbar_id=" + this.selectT
         }`;
 
-        editArticulos(url);
-        //Sub sistema de eliminación de photos del articulo
+        editProducts(url);
+        //Sub sistema de eliminación de photos del product
 
-        window.Echo.channel("articulos").listen("articuloCreated", (e) => {
-          this.articulosArray = e.articulos;
+        window.Echo.channel("products").listen("productCreated", (e) => {
+          this.productsArray = e.products;
         });
       } else {
-        this.articulosArray.push(this.editedItem);
+        this.productsArray.push(this.editedItem);
       }
       this.close();
     },

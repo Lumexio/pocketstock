@@ -61,17 +61,17 @@
   export default {
     name: "table-campos",
     data: () => ({
-      itemsc: [], //categoria
+      itemsc: [], //category
       itemstt: [], //tipo
       itemsp: [], //proveedor
       itemstm: [], //marca
       itemstst: [], //status
       itemsr: [], //rack
-      itemsT: [], //travesaño
+      itemsT: [], //crossbar
 
       items: [
         {
-          name: "Categoria",
+          name: "Category",
         },
         {
           name: "Marca",
@@ -89,17 +89,17 @@
           name: "Rack",
         },
         {
-          name: "Travesaño",
+          name: "Crossbar",
         },
       ],
     }),
     mounted() {
       axios
-        .get("api/categoria")
+        .get("api/category")
         .then((response) => {
-          let categorias = response.data;
+          let categorys = response.data;
 
-          categorias.forEach((element) => {
+          categorys.forEach((element) => {
             let datos = {
               category_id: element.id,
               name: element.name,
@@ -138,7 +138,7 @@
           proveedores.forEach((element) => {
             let datos = {
               proveedor_id: element.id,
-              nombre_proveedor: element.nombre_proveedor,
+              name_proveedor: element.name_proveedor,
             };
 
             if (!datos) return;
@@ -174,7 +174,7 @@
           tipos.forEach((element) => {
             let datos = {
               tipo_id: element.id,
-              nombre_tipo: element.nombre_tipo,
+              name_tipo: element.name_tipo,
             };
 
             if (!datos) return;
@@ -206,11 +206,11 @@
       axios
         .get("api/travesano")
         .then((response) => {
-          let travesaños = response.data;
+          let crossbars = response.data;
 
-          travesaños.forEach((element) => {
+          crossbars.forEach((element) => {
             let datos = {
-              travesaño_id: element.id,
+              crossbar_id: element.id,
               name: element.name,
             };
 

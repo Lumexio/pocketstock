@@ -4,7 +4,7 @@
       <v-col cols="12" sm="6" md="4">
         <v-text-field
           v-model="search"
-          label="Buscar travesaños"
+          label="Buscar crossbars"
           class="mx-4"
           id="onsearch"
         ></v-text-field>
@@ -28,7 +28,7 @@
       >
         <template v-slot:top>
           <v-toolbar flat>
-            <v-toolbar-title>Tabla travesaño</v-toolbar-title>
+            <v-toolbar-title>Tabla crossbar</v-toolbar-title>
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-spacer></v-spacer>
             <v-dialog v-model="dialog" max-width="500px">
@@ -110,7 +110,7 @@
       cargando: true,
       headers: [
         {
-          text: "Travesaño",
+          text: "Crossbar",
           align: "start",
           sortable: false,
           value: "name",
@@ -133,7 +133,7 @@
     }),
     mounted() {
       this.onFocus();
-      window.Echo.channel("travesanos").listen("travesañoCreated", (e) => {
+      window.Echo.channel("travesanos").listen("crossbarCreated", (e) => {
         this.travesanoArray = e.travesanos;
       });
       getTravesano(this.travesanoArray)

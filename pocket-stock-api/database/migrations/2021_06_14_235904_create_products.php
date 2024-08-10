@@ -22,7 +22,7 @@ class CreateProducts extends Migration
             $table->foreignId('rack_id')->nullable('NULL')->references('id')->on('racks');
             $table->foreignId('crossbar_id')->nullable('NULL')->references('id')->on('crossbars');
             $table->foreignId('status_id')->nullable('NULL')->references('id')->on('status');
-            $table->string('foto_articulo')->nullable('NULL');
+            $table->string('foto_product')->nullable('NULL');
             $table->foreignId('user_id')
                 ->constrained()
                 ->onUpdate('cascade')

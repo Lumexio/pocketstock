@@ -9,7 +9,7 @@ use Spatie\Activitylog\LogOptions;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-class Articulo extends Model
+class Product extends Model
 {
     protected $table = 'products';
     protected $primaryKey = 'id';
@@ -32,7 +32,7 @@ class Articulo extends Model
         'crossbar_id',
         'rack_id',
         'status_id',
-        'foto_articulo',
+        'foto_product',
         'user_id'
     ];
 

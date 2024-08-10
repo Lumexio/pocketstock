@@ -2,7 +2,7 @@
   <div>
     <v-row>
       <v-col sm="10" md="10">
-        <tablacategoria />
+        <tablacategory />
       </v-col>
       <v-col sm="1" md="2">
         <creacionlist />
@@ -12,11 +12,11 @@
 </template>
 
 <script>
-  import tablacategoria from "../components/table-lists/tabla-categoria.vue";
-  import creacionlist from "../components/global/creacion-categoria.vue";
+  import tablacategory from "../components/table-lists/tabla-category.vue";
+  import creacionlist from "../components/global/creacion-category.vue";
   export default {
-    name: "categorias",
-    components: { tablacategoria, creacionlist },
+    name: "categorys",
+    components: { tablacategory, creacionlist },
   };
 </script>
 
