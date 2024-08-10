@@ -21,7 +21,7 @@
       <v-row justify-sm="center">
         <v-col sm="6" md="12" lx="13">
           <v-text-field
-            v-model="name_rol"
+            v-model="name"
             :counter="10"
             label="Nombre rol"
             required
@@ -54,7 +54,7 @@
       parentdialog: { type: Boolean },
     } /*data de llegado de componente padre creacion*/,
     data: () => ({
-      name_rol: "",
+      name: "",
     }),
 
     methods: {
@@ -68,7 +68,7 @@
         store.commit("setdanger", false);
 
         const formdata = new FormData();
-        formdata.append("name_rol", this.name_rol);
+        formdata.append("name", this.name);
         axios
           .post("api/rol", formdata)
           .then((response) => {
@@ -82,7 +82,7 @@
           });
       },
       clear() {
-        this.name_rol = "";
+        this.name = "";
       },
     },
   };

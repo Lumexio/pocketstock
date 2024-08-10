@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Travesaño extends Model
 {
-    protected $table = 'travesano_tbl';
+    protected $table = 'crossbars';
     protected $primaryKey = 'id';
     use HasFactory;
 
@@ -17,6 +17,6 @@ class Travesaño extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre_travesano',
+        'name',
     ];
 }

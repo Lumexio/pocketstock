@@ -16,33 +16,32 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-
-        DB::table('rols_tbl')->insert([
-            'name_rol' => 'Administrativo',
+        DB::table('rols')->insert([
+            'name' => 'Administrativo',
         ]);
-        DB::table('rols_tbl')->insert([
-            'name_rol' => 'Empleado',
+        DB::table('rols')->insert([
+            'name' => 'Empleado',
         ]);
-        DB::table('status_tbl')->insert([
-            'nombre_status' => 'Disponible',
+        DB::table('status')->insert([
+            'name' => 'Disponible',
         ]);
-        DB::table('status_tbl')->insert([
-            'nombre_status' => 'Agotado',
+        DB::table('status')->insert([
+            'name' => 'Agotado',
         ]);
-        DB::table('status_tbl')->insert([
-            'nombre_status' => 'En uso',
+        DB::table('status')->insert([
+            'name' => 'En uso',
         ]);
-        DB::table('travesano_tbl')->insert([
-            'nombre_travesano' => '1',
+        DB::table('crossbars')->insert([
+            'name' => '1',
         ]);
-        DB::table('rack_tbl')->insert([
-            'nombre_rack' => 'A',
+        DB::table('racks')->insert([
+            'name' => 'A',
         ]);
-        DB::table('travesano_tbl')->insert([
-            'nombre_travesano' => '2',
+        DB::table('crossbars')->insert([
+            'name' => '2',
         ]);
-        DB::table('rack_tbl')->insert([
-            'nombre_rack' => 'B',
+        DB::table('racks')->insert([
+            'name' => 'B',
         ]);
 
 
@@ -60,48 +59,21 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'rol_id' => '2',
         ]);
-        DB::table('categorias_tbl')->insert([
-            'nombre_categoria' => 'Plomería',
+        DB::table('categories')->insert([
+            'name' => 'Plomería',
         ]);
-        DB::table('categorias_tbl')->insert([
-            'nombre_categoria' => 'Electrícidad',
+        DB::table('categories')->insert([
+            'name' => 'Electrícidad',
         ]);
-        DB::table('categorias_tbl')->insert([
-            'nombre_categoria' => 'General',
-        ]);
-
-
-        DB::table('marcas_tbl')->insert([
-            'nombre_marca' => 'Honda',
-        ]);
-        DB::table('marcas_tbl')->insert([
-            'nombre_marca' => 'Yamaha',
-        ]);
-        DB::table('marcas_tbl')->insert([
-            'nombre_marca' => 'Asus',
+        DB::table('categories')->insert([
+            'name' => 'General',
         ]);
 
 
-        DB::table('tipos_tbl')->insert([
-            'nombre_tipo' => 'Consumible',
-        ]);
-        DB::table('tipos_tbl')->insert([
-            'nombre_tipo' => 'Herramienta',
-        ]);
-        DB::table('tipos_tbl')->insert([
-            'nombre_tipo' => 'General',
-        ]);
 
 
-        DB::table('proveedores_tbl')->insert([
-            'nombre_proveedor' => 'Davila',
-        ]);
-        DB::table('proveedores_tbl')->insert([
-            'nombre_proveedor' => 'Ortíz',
-        ]);
-        DB::table('proveedores_tbl')->insert([
-            'nombre_proveedor' => 'Desconocido',
-        ]);
+
+
         \App\Models\Articulo::factory(10)->create();
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Rol;
-use App\Events\rolCreated;
+
 
 class RolController extends Controller
 {
@@ -27,7 +27,7 @@ class RolController extends Controller
     public function store(Request $request)
     {
         $rol = Rol::create($request->all());
-        rolCreated::dispatch($rol);
+
         return $rol;
     }
 

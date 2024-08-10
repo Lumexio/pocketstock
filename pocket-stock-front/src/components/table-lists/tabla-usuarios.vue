@@ -52,7 +52,7 @@
                           v-model="selectrol"
                           :items="itemsrol"
                           v-on="usersync()"
-                          item-text="name_rol"
+                          item-text="name"
                           item-value="rol_id"
                           label="Rol"
                         ></v-select>
@@ -106,9 +106,9 @@
             </v-dialog>
           </v-toolbar>
         </template>
-        <template v-slot:[`item.name_rol`]="{ item }">
-          <v-chip :color="getColor(item.name_rol)" dark>
-            {{ item.name_rol }}
+        <template v-slot:[`item.name`]="{ item }">
+          <v-chip :color="getColor(item.name)" dark>
+            {{ item.name }}
           </v-chip>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
@@ -149,7 +149,7 @@ export default {
         value: "name",
       },
 
-      { text: "Rol", value: "name_rol" },
+      { text: "Rol", value: "name" },
 
       { text: "Acciones", value: "actions", sortable: false },
     ],
@@ -167,14 +167,14 @@ export default {
       name: "",
 
       password: "",
-      name_rol: "",
+      name: "",
     },
     defaultItem: {
       id: "",
       name: "",
 
       password: "",
-      name_rol: "",
+      name: "",
     },
   }),
 
@@ -197,7 +197,7 @@ export default {
             id: element.id,
             name: element.name,
 
-            name_rol: element.name_rol,
+            name: element.name,
           };
           if (!datos) return;
           this.usersArray.push(datos);
@@ -214,7 +214,7 @@ export default {
         categorias.forEach((element) => {
           let datos = {
             rol_id: element.id,
-            name_rol: element.name_rol,
+            name: element.name,
           };
 
           if (!datos) return;
@@ -291,11 +291,11 @@ export default {
         rol.forEach((element) => {
           let datos = {
             rol_id: element.rol_id,
-            name_rol: element.name_rol,
+            name: element.name,
           };
-          if (datos.name_rol === recived) {
+          if (datos.name === recived) {
             tempid = datos.rol_id;
-            tempname = datos.name_rol;
+            tempname = datos.name;
 
             this.selectrol = tempid;
           }
@@ -309,9 +309,9 @@ export default {
       this.editedIndex = this.usersArray.indexOf(item);
       this.editedItem = Object.assign({}, item);
 
-      if (this.editedItem.name_rol) {
+      if (this.editedItem.name) {
         //categoria
-        this.usersync(this.editedItem.name_rol);
+        this.usersync(this.editedItem.name);
       }
 
       this.dialog = true;

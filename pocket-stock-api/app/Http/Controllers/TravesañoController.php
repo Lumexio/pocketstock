@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Travesaño;
-use App\Events\travesañoCreated;
+
 use App\Http\Requests\TravesanoValidationRequest;
 
 class TravesañoController extends Controller
@@ -28,13 +28,13 @@ class TravesañoController extends Controller
      */
     public function store(TravesanoValidationRequest $request)
     {
-        if (Travesaño::where('nombre_travesano', '=', $request->get('nombre_travesano'))->exists()) {
+        if (Travesaño::where('name', '=', $request->get('name'))->exists()) {
             return response([
                 'message' => ['Uno de los parametros ya exite.']
             ], 409);
         } else {
             $travesaño = Travesaño::create($request->all());
-            travesañoCreated::dispatch($travesaño);
+
             return $travesaño;
         }
     }

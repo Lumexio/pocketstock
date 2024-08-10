@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStatusesTable extends Migration
+class CreateRols extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('status_tbl', function (Blueprint $table) {
+        Schema::create('rols', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre_status');
+            $table->string('name');
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 
@@ -27,6 +28,6 @@ class CreateStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('status_tbl');
+        Schema::dropIfExists('rols');
     }
 }

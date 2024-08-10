@@ -22,46 +22,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-
-    Route::prefix('articulo')->group(function () {
-        Route::post('/create', 'ArticuloController@store');
-        Route::put('/update/{id}', 'ArticuloController@update');
-        Route::get('/list', 'ArticuloController@index');
-        Route::delete('/delete/{id}', 'ArticuloController@destroy');
-    });
+    Route::resource('products', 'ArticuloController');
     Route::post('/updatephoto/{id}', 'PhotoController@updatephoto');
+    Route::resource('brands', 'MarcaController');
+    Route::resource('categories', 'CategoriaController');
+    Route::resource('crossbars', 'TravesañoController');
+    Route::resource('racks', 'RackController');
+    Route::resource('users', 'UserController');
 
-    Route::resource('rol', 'RolController');
-    /*Crear  si
-Eliminar no
-Mostrar un registro no */
-    Route::resource('marca', 'MarcaController');
-    /*Crear  si
-Eliminar no
-Mostrar un registro no */
-    Route::resource('categoria', 'CategoriaController');
-    /*Crear  si
-Eliminar no
-Mostrar un registro no */
-    Route::resource('travesano', 'TravesañoController');
-    Route::resource('rack', 'RackController');
-    /*Crear  si
-Eliminar no
-Mostrar un registro no */
-    Route::resource('tipo', 'TipoController');
-    /*Crear  si
-Eliminar no
-Mostrar un registro no */
-    Route::resource('proveedor', 'ProveedorController');
-    /*Crear  si
-Eliminar no
-Mostrar un registro no */
-    Route::resource('status', 'StatusController');
-    /*Crear  si
-Eliminar no
-Mostrar un registro no */
-    Route::resource('user', 'UserController');
-    Route::resource('activitylog', 'ActivitylogController');
+    //Route::resource('rol', 'RolController');
+    //Route::resource('tipo', 'TipoController');
+    // Route::resource('proveedor', 'ProveedorController');
+    // Route::resource('status', 'StatusController');
+    //Route::resource('activitylog', 'ActivitylogController');
 });
 
 Route::post('login', [UserController::class, 'login']);

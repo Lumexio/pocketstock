@@ -21,7 +21,7 @@
         id="tabla"
         :headers="headers"
         :items="rackArray"
-        sort-by="cantidad_articulo"
+        sort-by="quantity"
         class="elevation-1"
         :search="search"
         :custom-filter="filterOnlyCapsText.toUpperCase"
@@ -42,7 +42,7 @@
                     <v-row>
                       <v-col cols="12" sm="6" md="4">
                         <v-text-field
-                          v-model="editedItem.nombre_rack"
+                          v-model="editedItem.name"
                           label="Nombre"
                         ></v-text-field>
                       </v-col>
@@ -98,7 +98,7 @@
   import { getRack, deleteRack, editRack } from "@/api/racks.js";
   import { upperConverter } from "@/special/uppercases-converter.js";
   export default {
-    nombre_rack: "tabla-rack",
+    name: "tabla-rack",
     data: () => ({
       dialog: false,
       dialogDelete: false,
@@ -109,7 +109,7 @@
           text: "Rack",
           align: "start",
           sortable: false,
-          value: "nombre_rack",
+          value: "name",
         },
 
         { text: "Acciones", value: "actions", sortable: false },
@@ -121,11 +121,11 @@
       editedIndex: -1,
       editedItem: {
         id: "",
-        nombre_rack: "",
+        name: "",
       },
       defaultItem: {
         id: "",
-        nombre_rack: "",
+        name: "",
       },
     }),
     mounted() {
@@ -217,10 +217,10 @@
         if (this.editedIndex > -1) {
           Object.assign(this.rackArray[this.editedIndex], this.editedItem);
           let send = this.editedItem;
-          send.nombre_rack = upperConverter(send.nombre_rack);
+          send.name = upperConverter(send.name);
           let url = "api/rack/";
           url = url + send.id;
-          url = `${url}?${"nombre_rack=" + send.nombre_rack}`;
+          url = `${url}?${"name=" + send.name}`;
           editRack(url);
         } else {
           this.rackArray.push(this.editedItem);

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Status extends Model
 {
-    protected $table = 'status_tbl';
+    protected $table = 'status';
     protected $primaryKey = 'id';
     use HasFactory;
 
@@ -17,7 +17,7 @@ class Status extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre_status',
+        'name',
 
     ];
 }

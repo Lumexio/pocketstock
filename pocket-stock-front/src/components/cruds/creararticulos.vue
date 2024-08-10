@@ -46,7 +46,7 @@
             <v-select
               v-model="selectc"
               :items="itemsc"
-              item-text="nombre_categoria"
+              item-text="name"
               item-value="id"
               label="Categoría"
             >
@@ -81,7 +81,7 @@
             <v-select
               v-model="selectm"
               :items="itemstm"
-              item-text="nombre_marca"
+              item-text="name"
               item-value="id"
               label="Marca"
               required
@@ -92,7 +92,7 @@
             <v-select
               v-model="selectst"
               :items="itemstst"
-              item-text="nombre_status"
+              item-text="name"
               item-value="id"
               label="Estatus"
               required
@@ -104,7 +104,7 @@
             <v-select
               v-model="selectr"
               :items="itemsr"
-              item-text="nombre_rack"
+              item-text="name"
               item-value="id"
               label="Ubicación rack"
               required
@@ -114,7 +114,7 @@
             <v-select
               v-model="selectT"
               :items="itemsT"
-              item-text="nombre_travesano"
+              item-text="name"
               item-value="id"
               label="Ubicación travesaño"
               required
@@ -133,7 +133,7 @@
         <v-row
           ><v-col>
             <v-textarea
-              v-model="descripcion_articulo"
+              v-model="description"
               label="Descrpción"
               type="text"
             ></v-textarea> </v-col
@@ -177,7 +177,7 @@
     } /*data de llegado de componente padre creacion*/,
     data: () => ({
       name: "",
-      descripcion_articulo: "",
+      description: "",
       cant: "",
       nameat: "artículo", //nombre variable en componente
       cargando: false,
@@ -270,7 +270,7 @@
           status.forEach((element) => {
             let datos = {
               id: element.id,
-              nombre_status: element.nombre_status,
+              name: element.name,
             };
 
             if (!datos) return;
@@ -329,27 +329,27 @@
         if (this.photo === null) {
           this.photo = tempPhoto;
         }
-        formdata.append("nombre_articulo", this.name);
-        formdata.append("cantidad_articulo", this.cant);
-        formdata.append("categoria_id", this.selectc);
+        formdata.append("name", this.name);
+        formdata.append("quantity", this.cant);
+        formdata.append("category_id", this.selectc);
         formdata.append("proveedor_id", this.selectp);
         formdata.append("tipo_id", this.selectt);
         formdata.append("status_id", this.selectst);
         formdata.append("marca_id", this.selectm);
         formdata.append("rack_id", this.selectr);
-        formdata.append("travesano_id", this.selectT);
-        formdata.append("descripcion_articulo", this.descripcion_articulo);
+        formdata.append("crossbar_id", this.selectT);
+        formdata.append("description", this.description);
         formdata.append("foto_articulo", this.photo);
         // const enviar = {
-        //   nombre_articulo: this.name,
-        //   cantidad_articulo: this.cant,
-        //   categoria_id: this.selectc,
+        //   name: this.name,
+        //   quantity: this.cant,
+        //   category_id: this.selectc,
         //   proveedor_id: this.selectp,
         //   tipo_id: this.selectt,
         //   status_id: this.selectst,
         //   marca_id: this.selectm,
         //   rack_id: this.selectr,
-        //   travesano_id: this.selectT,
+        //   crossbar_id: this.selectT,
         //   foto_articulo: this.photo,
         // };
 

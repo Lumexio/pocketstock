@@ -53,11 +53,11 @@ export function marcasync(itemstm, selectm, recived) {
   marca.forEach((element) => {
    let datos = {
     id: element.id,
-    nombre_marca: element.nombre_marca,
+    name: element.name,
    };
-   if (datos.nombre_marca === recived) {
+   if (datos.name === recived) {
     tempid = datos.id;
-    tempname = datos.nombre_marca;
+    tempname = datos.name;
 
     selectm = tempid;
    }
@@ -75,12 +75,12 @@ export function statusync(itemstst, selectst, recived) {
   status.forEach((element) => {
    let datos = {
     status_id: element.status_id,
-    nombre_status: element.nombre_status,
+    name: element.name,
    };
 
-   if (datos.nombre_status === recived) {
+   if (datos.name === recived) {
     tempid = datos.status_id;
-    tempname = datos.nombre_status;
+    tempname = datos.name;
 
     selectst = tempid;
    }
@@ -97,11 +97,11 @@ export function racksync(itemsr, selectr, recived) {
   rack.forEach((element) => {
    let datos = {
     id: element.id,
-    nombre_rack: element.nombre_rack,
+    name: element.name,
    };
-   if (datos.nombre_rack === recived) {
+   if (datos.name === recived) {
     tempid = datos.id;
-    tempname = datos.nombre_rack;
+    tempname = datos.name;
 
     selectr = tempid;
    }
@@ -118,11 +118,11 @@ export function travesañosync(itemsT, selectT, recived) {
   rack.forEach((element) => {
    let datos = {
     id: element.id,
-    nombre_travesano: element.nombre_travesano,
+    name: element.name,
    };
-   if (datos.nombre_travesano === recived) {
+   if (datos.name === recived) {
     tempid = datos.id;
-    tempname = datos.nombre_travesano;
+    tempname = datos.name;
 
     selectT = tempid;
    }
@@ -140,11 +140,11 @@ export function categsync(itemsc, selectc, recived) {
   categoria.forEach((element) => {
    let datos = {
     id: element.id,
-    nombre_categoria: element.nombre_categoria,
+    name: element.name,
    };
-   if (datos.nombre_categoria === recived) {
+   if (datos.name === recived) {
     tempid = datos.id;
-    tempname = datos.nombre_categoria;
+    tempname = datos.name;
 
     selectc = tempid;
    }

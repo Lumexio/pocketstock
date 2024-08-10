@@ -24,7 +24,7 @@ class TravesanoValidationRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre_travesano' => 'required'
+            'name' => 'required'
         ];
     }
 }

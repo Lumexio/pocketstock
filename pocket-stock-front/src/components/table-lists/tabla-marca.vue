@@ -24,7 +24,7 @@
         show-expand
         :expanded.sync="expanded"
         :items="marcaArray"
-        sort-by="cantidad_articulo"
+        sort-by="quantity"
         class="elevation-1"
         :search="search"
         :custom-filter="filterOnlyCapsText.toUpperCase"
@@ -45,7 +45,7 @@
                     <v-row>
                       <v-col cols="12" sm="6" md="4">
                         <v-text-field
-                          v-model="editedItem.nombre_marca"
+                          v-model="editedItem.name"
                           label="Nombre"
                         ></v-text-field>
                       </v-col>
@@ -106,7 +106,7 @@
   import { getMarcas, editMarcas, deleteMarcas } from "@/api/marcas.js";
   import { upperConverter } from "@/special/uppercases-converter.js";
   export default {
-    nombre_marca: "tabla-marca",
+    name: "tabla-marca",
     data: () => ({
       dialog: false,
       dialogDelete: false,
@@ -118,7 +118,7 @@
           text: "Marcas",
           align: "start",
           sortable: false,
-          value: "nombre_marca",
+          value: "name",
         },
         { text: "Acciones", value: "actions", sortable: false, align: "center" },
         { text: "Descripción", align: "start", value: "data-table-expand" },
@@ -129,11 +129,11 @@
       editedIndex: -1,
       editedItem: {
         id: "",
-        nombre_marca: "",
+        name: "",
       },
       defaultItem: {
         id: "",
-        nombre_marca: "",
+        name: "",
       },
     }),
     mounted() {
@@ -229,11 +229,11 @@
         if (this.editedIndex > -1) {
           Object.assign(this.marcaArray[this.editedIndex], this.editedItem);
           let send = this.editedItem;
-          send.nombre_marca = upperConverter(send.nombre_marca);
+          send.name = upperConverter(send.name);
           let url = "api/marca/";
 
           url = url + send.id;
-          url = `${url}?${"nombre_marca=" + send.nombre_marca}`;
+          url = `${url}?${"name=" + send.name}`;
           editMarcas(url);
         } else {
           this.marcaArray.push(this.editedItem);

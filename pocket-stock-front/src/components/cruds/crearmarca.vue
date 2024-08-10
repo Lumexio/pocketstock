@@ -21,7 +21,7 @@
       <v-row>
         <v-col sm="6" md="12" lx="13">
           <v-text-field
-            v-model="nombre_marca"
+            v-model="name"
             :counter="10"
             label="Nombre marca"
             required
@@ -65,7 +65,7 @@
       dialogmarca: { default: false },
     } /*data de llegado de componente padre creacion*/,
     data: () => ({
-      nombre_marca: "",
+      name: "",
       descripcion_marca: "",
     }),
 
@@ -79,15 +79,15 @@
         store.commit("setsuccess", false); //para resetear el valor de la notificion en una nueva entrada
         store.commit("setdanger", false);
 
-        this.nombre_marca = upperConverter(this.nombre_marca);
+        this.name = upperConverter(this.name);
         const formdata = new FormData();
-        formdata.append("nombre_marca", this.nombre_marca);
+        formdata.append("name", this.name);
         formdata.append("descripcion_marca", this.descripcion_marca);
         postMarcas(formdata);
         this.clear();
       },
       clear() {
-        (this.nombre_marca = ""), (this.descripcion_marca = "");
+        (this.name = ""), (this.descripcion_marca = "");
       },
     },
   };

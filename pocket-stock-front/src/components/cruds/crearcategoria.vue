@@ -21,7 +21,7 @@
       <v-row
         ><v-col>
           <v-text-field
-            v-model="nombre_categoria"
+            v-model="name"
             :counter="10"
             label="Nombre categoría"
             required
@@ -31,7 +31,7 @@
       <v-row>
         <v-col>
           <v-textarea
-            v-model="descripcion_categoria"
+            v-model="description"
             :counter="120"
             color="teal"
           >
@@ -69,8 +69,8 @@
       dialogcategoria: { dafault: false },
     } /*data de llegado de componente padre creacion*/,
     data: () => ({
-      nombre_categoria: "",
-      descripcion_categoria: "",
+      name: "",
+      description: "",
     }),
 
     methods: {
@@ -81,15 +81,15 @@
       submit() {
         store.commit("setsuccess", false);
         store.commit("setdanger", false);
-        this.nombre_categoria = upperConverter(this.nombre_categoria);
+        this.name = upperConverter(this.name);
         const formdata = new FormData();
-        formdata.append("nombre_categoria", this.nombre_categoria);
-        formdata.append("descripcion_categoria", this.descripcion_categoria);
+        formdata.append("name", this.name);
+        formdata.append("description", this.description);
         postCategorias(formdata);
         this.clear();
       },
       clear() {
-        (this.nombre_categoria = ""), (this.descripcion_categoria = "");
+        (this.name = ""), (this.description = "");
       },
     },
   };

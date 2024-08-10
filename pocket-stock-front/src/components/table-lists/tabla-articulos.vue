@@ -15,7 +15,7 @@
       :headers="headers"
       :items="articulosArray"
       :expanded.sync="expanded"
-      sort-by="cantidad_articulo"
+      sort-by="quantity"
       class="elevation-2"
       :search="search"
       show-expand
@@ -44,13 +44,13 @@
                   <v-row>
                     <v-col sm="4" md="6">
                       <v-text-field
-                        v-model="editedItem.nombre_articulo"
+                        v-model="editedItem.name"
                         label="Nombre"
                       ></v-text-field>
                     </v-col>
                     <v-col sm="1" md="2">
                       <v-text-field
-                        v-model="editedItem.cantidad_articulo"
+                        v-model="editedItem.quantity"
                         type="number"
                         label="Cantidad"
                       ></v-text-field>
@@ -59,7 +59,7 @@
                       <v-select
                         v-model="selectc"
                         :items="itemsc"
-                        item-text="nombre_categoria"
+                        item-text="name"
                         item-value="id"
                         label="Categoría"
                       ></v-select>
@@ -78,7 +78,7 @@
                       <v-select
                         v-model="selectm"
                         :items="itemstm"
-                        item-text="nombre_marca"
+                        item-text="name"
                         item-value="id"
                         label="Marca"
                         required
@@ -98,7 +98,7 @@
                       <v-select
                         v-model="selectst"
                         :items="itemstst"
-                        item-text="nombre_status"
+                        item-text="name"
                         item-value="status_id"
                         label="Estatus"
                         required
@@ -108,7 +108,7 @@
                       <v-select
                         v-model="selectr"
                         :items="itemsr"
-                        item-text="nombre_rack"
+                        item-text="name"
                         item-value="id"
                         label="Ubicación rack"
                         required
@@ -118,7 +118,7 @@
                       <v-select
                         v-model="selectT"
                         :items="itemsT"
-                        item-text="nombre_travesano"
+                        item-text="name"
                         item-value="id"
                         label="Ubicación travesaño"
                         required
@@ -128,7 +128,7 @@
                   <v-row
                     ><v-col>
                       <v-textarea
-                        v-model="editedItem.descripcion_articulo"
+                        v-model="editedItem.description"
                         label="Descrpción"
                         type="text"
                       ></v-textarea> </v-col
@@ -175,7 +175,7 @@
                 <v-card-text>
                   <v-toolbar flat>
                     <v-card-title>
-                      Foto {{ editedItem.nombre_articulo }}</v-card-title
+                      Foto {{ editedItem.name }}</v-card-title
                     ></v-toolbar
                   >
                   <v-img
@@ -208,9 +208,9 @@
         </v-toolbar>
       </template>
 
-      <template v-slot:[`item.nombre_status`]="{ item }">
-        <v-chip :color="getColor(item.nombre_status)" dark>
-          {{ item.nombre_status }}
+      <template v-slot:[`item.name`]="{ item }">
+        <v-chip :color="getColor(item.name)" dark>
+          {{ item.name }}
         </v-chip>
       </template>
       <template v-slot:[`item.actions`]="{ item }">
@@ -223,7 +223,7 @@
       </template>
       <template v-slot:expanded-item="{ headers, item }">
         <td :colspan="headers.length">
-          {{ item.descripcion_articulo }}
+          {{ item.description }}
         </td>
       </template>
     </v-data-table>
@@ -275,16 +275,16 @@ export default {
         text: "Nombre",
         align: "start",
         sortable: false,
-        value: "nombre_articulo",
+        value: "name",
       },
-      { text: "Cantidad", value: "cantidad_articulo", align: "center" },
-      { text: "Categoría", value: "nombre_categoria", align: "center" },
+      { text: "Cantidad", value: "quantity", align: "center" },
+      { text: "Categoría", value: "name", align: "center" },
       { text: "Tipo", value: "nombre_tipo", align: "center" },
-      { text: "Marca", value: "nombre_marca", align: "center" },
+      { text: "Marca", value: "name", align: "center" },
       { text: "Proveedor", value: "nombre_proveedor", align: "center" },
-      { text: "estatus", value: "nombre_status", align: "center" },
-      { text: "Rack", value: "nombre_rack", align: "center" },
-      { text: "Travesaño", value: "nombre_travesano", align: "center" },
+      { text: "estatus", value: "name", align: "center" },
+      { text: "Rack", value: "name", align: "center" },
+      { text: "Travesaño", value: "name", align: "center" },
       { text: "Acciones", value: "actions", sortable: false, align: "center" },
       { text: "", align: "end", value: "data-table-expand" },
     ],
@@ -311,31 +311,31 @@ export default {
     editedIndex: -1,
     editedItem: {
       id: "",
-      nombre_articulo: "",
-      cantidad_articulo: 0,
-      nombre_categoria: "",
+      name: "",
+      quantity: 0,
+      name: "",
       nombre_tipo: "",
-      nombre_marca: "",
+      name: "",
       nombre_proveedor: "",
-      nombre_status: "",
-      nombre_rack: "",
-      nombre_travesano: "",
+      name: "",
+      name: "",
+      name: "",
       foto_articulo: null,
-      descripcion_articulo: "",
+      description: "",
     },
     defaultItem: {
       id: "",
-      nombre_articulo: "",
-      cantidad_articulo: 0,
-      nombre_categoria: "",
+      name: "",
+      quantity: 0,
+      name: "",
       nombre_tipo: "",
-      nombre_marca: "",
+      name: "",
       nombre_proveedor: "",
-      nombre_status: "",
-      nombre_rack: "",
-      nombre_travesano: "",
+      name: "",
+      name: "",
+      name: "",
       foto_articulo: null,
-      descripcion_articulo: "",
+      description: "",
     },
   }),
   created() {
@@ -438,8 +438,8 @@ export default {
       this.editedIndex = this.articulosArray.indexOf(item);
       this.editedItem = Object.assign({}, item);
       //categoria
-      if (this.editedItem.nombre_categoria) {
-        let categoriasync = this.editedItem.nombre_categoria;
+      if (this.editedItem.name) {
+        let categoriasync = this.editedItem.name;
         this.selectc = categsync(this.itemsc, this.selectc, categoriasync);
       }
       //tipo
@@ -451,17 +451,17 @@ export default {
       let provsync = this.editedItem.nombre_proveedor;
       this.selectp = proveedorsync(this.itemsp, this.selectp, provsync);
       //marca
-      let marcsync = this.editedItem.nombre_marca;
+      let marcsync = this.editedItem.name;
       this.selectm = marcasync(this.itemstm, this.selectm, marcsync);
 
       //status
-      let statync = this.editedItem.nombre_status;
+      let statync = this.editedItem.name;
       this.selectst = statusync(this.itemstst, this.selectst, statync);
       //rack
-      let racsycn = this.editedItem.nombre_rack;
+      let racsycn = this.editedItem.name;
       this.selectr = racksync(this.itemsr, this.selectr, racsycn);
       //travesaño
-      let travsync = this.editedItem.nombre_travesano;
+      let travsync = this.editedItem.name;
       this.selectT = travesañosync(this.itemsT, this.selectT, travsync);
       this.dialog = true;
     },
@@ -524,17 +524,17 @@ export default {
       if (this.editedIndex > -1) {
         Object.assign(this.articulosArray[this.editedIndex], this.editedItem);
         let send = this.editedItem;
-        send.nombre_articulo = upperConverter(send.nombre_articulo);
+        send.name = upperConverter(send.name);
         let url = "api/articulo/update/" + send.id;
 
-        url = `${url}?${"nombre_articulo=" + send.nombre_articulo}&${
-          "cantidad_articulo=" + send.cantidad_articulo
-        }&${"descripcion_articulo=" + send.descripcion_articulo}&${
-          "categoria_id=" + this.selectc
+        url = `${url}?${"name=" + send.name}&${
+          "quantity=" + send.quantity
+        }&${"description=" + send.description}&${
+          "category_id=" + this.selectc
         }&${"tipo_id=" + this.selectt}&${"marca_id=" + this.selectm}&${
           "proveedor_id=" + this.selectp
         }&${"status_id=" + this.selectst}&${"rack_id=" + this.selectr}&${
-          "travesano_id=" + this.selectT
+          "crossbar_id=" + this.selectT
         }`;
 
         editArticulos(url);

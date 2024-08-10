@@ -14,7 +14,7 @@ export function getMarcas(marcaArray) {
         marca.forEach((element) => {
           let datos = {
             id: element.id,
-            nombre_marca: element.nombre_marca,
+            name: element.name,
           };
           if (!datos) return;
           marcaArray.push(datos);

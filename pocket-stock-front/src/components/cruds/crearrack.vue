@@ -21,7 +21,7 @@
       <v-row>
         <v-col sm="6" md="12" lx="13">
           <v-text-field
-            v-model="nombre_rack"
+            v-model="name"
             :counter="10"
             label="Rack"
             required
@@ -57,7 +57,7 @@
       dialograck: { dafault: false },
     } /*data de llegado de componente padre creacion*/,
     data: () => ({
-      nombre_rack: "",
+      name: "",
     }),
 
     methods: {
@@ -69,12 +69,12 @@
         store.commit("setsuccess", false); //para resetear el valor de la notificion en una nueva entrada
         store.commit("setdanger", false);
         const formdata = new FormData();
-        formdata.append("nombre_rack", this.nombre_rack);
+        formdata.append("name", this.name);
         postRack(formdata);
         this.clear();
       },
       clear() {
-        this.nombre_rack = "";
+        this.name = "";
       },
     },
   };

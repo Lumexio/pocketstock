@@ -23,7 +23,7 @@
         show-expand
         :expanded.sync="expanded"
         :items="tipoArray"
-        sort-by="cantidad_articulo"
+        sort-by="quantity"
         class="elevation-1"
         :search="search"
         :custom-filter="filterOnlyCapsText.toUpperCase"

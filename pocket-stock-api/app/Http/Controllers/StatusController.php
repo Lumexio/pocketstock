@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Status;
-use App\Events\statusCreated;
+
 
 class StatusController extends Controller
 {
@@ -27,7 +27,7 @@ class StatusController extends Controller
     public function store(Request $request)
     {
         $status = Status::create($request->all());
-        statusCreated::dispatch($status);
+
         return $status;
     }
 
@@ -53,7 +53,7 @@ class StatusController extends Controller
     {
         $status = Status::find($id);
         $status->update($request->all());
-        statusCreated::dispatch($status);
+
         return $status;
     }
 

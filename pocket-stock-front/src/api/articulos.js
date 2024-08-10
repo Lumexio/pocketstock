@@ -15,17 +15,17 @@ export function getArticulos(articulosArray) {
         articulos.forEach((element) => {
           let datos = {
             id: element.id,
-            nombre_articulo: element.nombre_articulo,
-            cantidad_articulo: element.cantidad_articulo,
-            descripcion_articulo: element.descripcion_articulo, //pendiente
-            nombre_categoria: element.nombre_categoria,
+            name: element.name,
+            quantity: element.quantity,
+            description: element.description, //pendiente
+            name: element.name,
             nombre_tipo: element.nombre_tipo,
-            nombre_marca: element.nombre_marca,
+            name: element.name,
             nombre_proveedor: element.nombre_proveedor,
-            nombre_status: element.nombre_status,
+            name: element.name,
             //campos de ubicación
-            nombre_rack: element.nombre_rack,
-            nombre_travesano: element.nombre_travesano,
+            name: element.name,
+            name: element.name,
             foto_articulo: element.foto_articulo,
           };
           if (!datos) return;

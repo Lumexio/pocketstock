@@ -21,7 +21,7 @@
       <v-row>
         <v-col sm="6" md="12" lx="13">
           <v-text-field
-            v-model="nombre_travesano"
+            v-model="name"
             :counter="10"
             type="number"
             label="Travesaño"
@@ -50,7 +50,7 @@
       dialogtravesaño: { default: false },
     } /*data de llegado de componente padre creacion*/,
     data: () => ({
-      nombre_travesano: null,
+      name: null,
     }),
 
     methods: {
@@ -62,16 +62,16 @@
         store.commit("setsuccess", false); //para resetear el valor de la notificion en una nueva entrada
         store.commit("setdanger", false);
         let enviar_travesaño = {
-          nombre_travesano: this.nombre_travesano,
+          name: this.name,
         };
         const formdata = new FormData();
-        formdata.append("nombre_travesano", this.nombre_travesano);
+        formdata.append("name", this.name);
         postTravesano(enviar_travesaño);
         this.clear();
       },
 
       clear() {
-        this.nombre_travesano = null;
+        this.name = null;
       },
     },
   };

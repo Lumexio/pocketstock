@@ -49,7 +49,7 @@
           <v-select
             v-model="selectrol"
             :items="itemsrol"
-            item-text="name_rol"
+            item-text="name"
             item-value="rol_id"
             label="Rol"
           >
@@ -94,7 +94,7 @@ export default {
         rol.forEach((element) => {
           let datos = {
             rol_id: element.id,
-            name_rol: element.name_rol,
+            name: element.name,
           };
 
           if (!datos) return;

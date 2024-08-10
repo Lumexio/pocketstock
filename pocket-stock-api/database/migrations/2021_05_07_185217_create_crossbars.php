@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RackTbl extends Migration
+class CreateCrossbars extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class RackTbl extends Migration
      */
     public function up()
     {
-        Schema::create('rack_tbl', function (Blueprint $table) {
+        Schema::create('crossbars', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string("nombre_rack");
-            //$table->foreignId('travesano_id')->nullable('NULL')->references('id')->on('travesano_tbl');
+            $table->string("name");
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class RackTbl extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rack_tbl');
+        Schema::dropIfExists('crossbars');
     }
 }

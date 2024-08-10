@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-use \Illuminate\Http\Response;
+
 use Illuminate\Support\Facades\DB;
-use App\Events\userCreated;
+
 use App\Http\Requests\UsuarioValidationRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,7 +21,7 @@ class UserController extends Controller
     public function index()
     {
         $loggeduser = Auth::id();
-        $dat = DB::table('users')->where('users.id', '!=', $loggeduser)->leftJoin('rols_tbl', 'users.rol_id', '=', 'rols_tbl.id')->select('users.id', 'users.name', 'users.email', 'users.password', 'rols_tbl.name_rol')->get();
+        $dat = DB::table('users')->where('users.id', '!=', $loggeduser)->leftJoin('rols', 'users.rol_id', '=', 'rols.id')->select('users.id', 'users.name', 'users.email', 'users.password', 'rols.name')->get();
 
 
         return $dat;
@@ -36,7 +36,7 @@ class UserController extends Controller
     public function store(UsuarioValidationRequest $request)
     {
         $user = User::create($request->all());
-        userCreated::dispatch($user);
+
         return $user;
     }
 
@@ -62,7 +62,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->update($request->all());
-        userCreated::dispatch($user);
+
         return $user;
     }
 

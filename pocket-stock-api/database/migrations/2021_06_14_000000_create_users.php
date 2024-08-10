@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->engine = 'InnoDB';
-            $table->foreignId('rol_id')->nullable('NULL')->references('id')->on('rols_tbl');
+            $table->foreignId('rol_id')->nullable('NULL')->references('id')->on('rols');
         });
     }
 

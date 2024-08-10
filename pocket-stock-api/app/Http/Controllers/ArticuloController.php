@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use \Illuminate\Http\Response;
 use App\Models\Articulo;
-use App\Events\articuloCreated;
+
 use App\Http\Requests\ArticuleValidationRequest;
-use File;
+
 use Illuminate\Support\Facades\Auth;
-//use Illuminate\Support\Facades\Storage;
+
 
 class ArticuloController extends Controller
 {
@@ -21,16 +20,13 @@ class ArticuloController extends Controller
      */
     public function index()
     {
-        $dat = DB::table('articulos_tbl')
-            ->leftJoin('users', 'articulos_tbl.user_id', '=', 'users.id')
-            ->leftJoin('categorias_tbl', 'articulos_tbl.categoria_id', '=', 'categorias_tbl.id')
-            ->leftJoin('marcas_tbl', 'articulos_tbl.marca_id', '=', 'marcas_tbl.id')
-            ->leftJoin('proveedores_tbl', 'articulos_tbl.proveedor_id', '=', 'proveedores_tbl.id')
-            ->leftJoin('status_tbl', 'articulos_tbl.status_id', '=', 'status_tbl.id')
-            ->leftJoin('tipos_tbl', 'articulos_tbl.tipo_id', '=', 'tipos_tbl.id')
-            ->leftJoin('rack_tbl', 'articulos_tbl.rack_id', '=', 'rack_tbl.id')
-            ->leftJoin('travesano_tbl', 'articulos_tbl.travesano_id', '=', 'travesano_tbl.id')
-            ->select('articulos_tbl.id', 'articulos_tbl.nombre_articulo', 'articulos_tbl.cantidad_articulo', 'articulos_tbl.descripcion_articulo', 'articulos_tbl.foto_articulo', 'users.name', 'categorias_tbl.nombre_categoria', 'marcas_tbl.nombre_marca', 'proveedores_tbl.nombre_proveedor', 'status_tbl.nombre_status', 'tipos_tbl.nombre_tipo', 'travesano_tbl.nombre_travesano', 'rack_tbl.nombre_rack')
+        $dat = DB::table('products')
+            ->leftJoin('users', 'products.user_id', '=', 'users.id')
+            ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+            ->leftJoin('status', 'products.status_id', '=', 'status.id')
+            ->leftJoin('racks', 'products.rack_id', '=', 'racks.id')
+            ->leftJoin('crossbars', 'products.crossbar_id', '=', 'crossbars.id')
+            ->select('products.id', 'products.name', 'products.quantity', 'products.description', 'products.foto_articulo', 'users.name', 'categories.name', 'status.name', 'crossbars.name', 'racks.name')
             ->get()
             ->map(
                 function ($item) {
@@ -38,11 +34,7 @@ class ArticuloController extends Controller
                     return $item;
                 }
             );
-
-        return $dat;
-
-
-        //return Articulo::all();
+        return response()->json($dat);
     }
 
 
@@ -58,7 +50,7 @@ class ArticuloController extends Controller
     {
 
 
-        if (Articulo::where('nombre_articulo', '=', $request->get('nombre_articulo'))->exists()) {
+        if (Articulo::where('name', '=', $request->get('name'))->exists()) {
             return response([
                 'message' => ['Uno de los parametros ya exite.']
             ], 409);
@@ -68,12 +60,12 @@ class ArticuloController extends Controller
             $articulo['user_id'] = Auth::id();
             if (isset($photo)) {
                 $extension = $request->file('foto_articulo')->guessExtension();
-                $name_foto =  $request->nombre_articulo . '.' . $extension;
+                $name_foto =  $request->name . '.' . $extension;
                 $request->foto_articulo->move(public_path('images'), $name_foto);
                 $articulo["foto_articulo"] = $name_foto;
             }
             $articulo = Articulo::create($articulo);
-            articuloCreated::dispatch($articulo);
+
             return $articulo;
         }
     }
@@ -100,7 +92,7 @@ class ArticuloController extends Controller
     {
         $articulo = Articulo::find($id);
         //Obtener nombre venidero
-        $newname = $request->nombre_articulo;
+        $newname = $request->name;
         //newname de archivo ya guardado
         $filename = $articulo->foto_articulo;
 
@@ -124,13 +116,22 @@ class ArticuloController extends Controller
      */
     public function destroy($id)
     {
-        $articulo = Articulo::find($id);
-        $filename = $articulo->foto_articulo;
-        $path = public_path("/images/$filename");
 
-        File::delete($path);
-        $articulo = Articulo::destroy($id);
+        // $articulo = Articulo::find($id);
 
-        return $articulo;
+        // $filename = $articulo->foto_articulo;
+        // $path = public_path("/images/$filename");
+
+        // File::delete($path);
+        try {
+            $articulo = Articulo::destroy($id);
+            return response()->json([
+                'status' => 'success',
+                'code' => 200,
+                'message' => 'Articulo eliminado'
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }

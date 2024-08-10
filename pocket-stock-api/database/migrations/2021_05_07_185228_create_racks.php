@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTiposTable extends Migration
+class CreateRacks extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateTiposTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipos_tbl', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre_tipo');
-            $table->longText('descripcion_tipo')->nullable();
+        Schema::create('racks', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string("name");
             $table->timestamps();
-            $table->engine = 'InnoDB';
         });
     }
 
@@ -29,6 +27,6 @@ class CreateTiposTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipos_tbl');
+        Schema::dropIfExists('racks');
     }
 }

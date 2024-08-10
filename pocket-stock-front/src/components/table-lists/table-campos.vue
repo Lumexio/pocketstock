@@ -30,8 +30,8 @@
                     <v-list-item>
                       <v-list-item-content
                         :items="itemsc"
-                        item-text="nombre_categoria"
-                        item-value="categoria_id"
+                        item-text="name"
+                        item-value="category_id"
                       >
                       </v-list-item-content>
                     </v-list-item>
@@ -101,8 +101,8 @@
 
           categorias.forEach((element) => {
             let datos = {
-              categoria_id: element.id,
-              nombre_categoria: element.nombre_categoria,
+              category_id: element.id,
+              name: element.name,
             };
 
             if (!datos) return;
@@ -120,7 +120,7 @@
           marcas.forEach((element) => {
             let datos = {
               marca_id: element.id,
-              nombre_marca: element.nombre_marca,
+              name: element.name,
             };
 
             if (!datos) return;
@@ -156,7 +156,7 @@
           status.forEach((element) => {
             let datos = {
               status_id: element.id,
-              nombre_status: element.nombre_status,
+              name: element.name,
             };
 
             if (!datos) return;
@@ -193,7 +193,7 @@
           racks.forEach((element) => {
             let datos = {
               rack_id: element.id,
-              nombre_rack: element.nombre_rack,
+              name: element.name,
             };
 
             if (!datos) return;
@@ -211,7 +211,7 @@
           travesaños.forEach((element) => {
             let datos = {
               travesaño_id: element.id,
-              nombre_travesano: element.nombre_travesano,
+              name: element.name,
             };
 
             if (!datos) return;

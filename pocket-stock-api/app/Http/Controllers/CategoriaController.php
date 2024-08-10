@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Categoria;
-use App\Events\categoriaCreated;
+
 use App\Http\Requests\CategoriaValidationRequest;
 
 class CategoriaController extends Controller
@@ -17,7 +17,8 @@ class CategoriaController extends Controller
     public function index()
     {
 
-        return Categoria::all();
+        $data = Categoria::all();
+        return  response()->json($data, 200);
     }
 
     /**
@@ -28,13 +29,13 @@ class CategoriaController extends Controller
      */
     public function store(CategoriaValidationRequest $request)
     {
-        if (Categoria::where('nombre_categoria', '=', $request->get('nombre_categoria'))->exists()) {
+        if (Categoria::where('name', '=', $request->get('name'))->exists()) {
             return response([
                 'message' => ['Nombre el nombre de la categoria  ya exite.']
             ], 409);
         } else {
             $categoria = Categoria::create($request->all());
-            categoriaCreated::dispatch($categoria);
+
             return $categoria;
         }
     }

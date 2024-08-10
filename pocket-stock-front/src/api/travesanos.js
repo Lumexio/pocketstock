@@ -14,7 +14,7 @@ export function getTravesano(travesanoArray) {
         Travesano.forEach((element) => {
           let datos = {
             id: element.id,
-            nombre_travesano: element.nombre_travesano,
+            name: element.name,
           };
           if (!datos) return;
           travesanoArray.push(datos);

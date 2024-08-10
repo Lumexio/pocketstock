@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Rack;
-use App\Events\rackCreated;
+
 use App\Http\Requests\RackValidationRequest;
 
 class RackController extends Controller
@@ -27,13 +27,13 @@ class RackController extends Controller
      */
     public function store(RackValidationRequest $request)
     {
-        if (Rack::where('nombre_rack', '=', $request->get('nombre_rack'))->exists()) {
+        if (Rack::where('name', '=', $request->get('name'))->exists()) {
             return response([
                 'message' => ['Uno de los parametros ya exite.']
             ], 409);
         } else {
             $rack = Rack::create($request->all());
-            rackCreated::dispatch($rack);
+
             return $rack;
         }
     }

@@ -23,7 +23,7 @@
         show-expand
         :expanded.sync="expanded"
         :items="categoriaArray"
-        sort-by="cantidad_articulo"
+        sort-by="quantity"
         class="elevation-1"
         :search="search"
         :custom-filter="filterOnlyCapsText.toUpperCase"
@@ -44,7 +44,7 @@
                     <v-row>
                       <v-col>
                         <v-text-field
-                          v-model="editedItem.nombre_categoria"
+                          v-model="editedItem.name"
                           label="Nombre"
                         ></v-text-field>
                       </v-col>
@@ -52,7 +52,7 @@
                     <v-row
                       ><v-col>
                         <v-textarea
-                          v-model="editedItem.descripcion_categoria"
+                          v-model="editedItem.description"
                           label="Descrpción"
                           type="text"
                         ></v-textarea> </v-col
@@ -106,7 +106,7 @@
         </template>
         <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length">
-            {{ item.descripcion_categoria }}
+            {{ item.description }}
           </td>
         </template>
       </v-data-table>
@@ -122,7 +122,7 @@
   } from "@/api/categorias.js";
   import { upperConverter } from "@/special/uppercases-converter.js";
   export default {
-    nombre_categoria: "tabla-categoria",
+    name: "tabla-categoria",
     data: () => ({
       dialog: false,
       dialogDelete: false,
@@ -134,7 +134,7 @@
           text: "Categorias",
           align: "start",
           sortable: false,
-          value: "nombre_categoria",
+          value: "name",
         },
         { text: "Acciones", value: "actions", sortable: false, align: "center" },
         { text: "Descripción", align: "start", value: "data-table-expand" },
@@ -150,13 +150,13 @@
       editedIndex: -1,
       editedItem: {
         id: "",
-        nombre_categoria: "",
-        descripcion_categoria: "",
+        name: "",
+        description: "",
       },
       defaultItem: {
         id: "",
-        nombre_categoria: "",
-        descripcion_categoria: "",
+        name: "",
+        description: "",
       },
     }),
     mounted() {
@@ -256,11 +256,11 @@
         if (this.editedIndex > -1) {
           Object.assign(this.categoriaArray[this.editedIndex], this.editedItem);
           let send = this.editedItem;
-          send.nombre_categoria = upperConverter(send.nombre_categoria);
+          send.name = upperConverter(send.name);
           let url = "api/categoria/";
           url = url + send.id;
-          url = `${url}?${"nombre_categoria=" + send.nombre_categoria}&${
-            "descripcion_categoria=" + send.descripcion_categoria
+          url = `${url}?${"name=" + send.name}&${
+            "description=" + send.description
           }`;
           editCategoria(url);
           window.Echo.channel("categorias").listen("categoriaCreated", (e) => {

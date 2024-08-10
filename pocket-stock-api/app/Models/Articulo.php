@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Articulo extends Model
 {
-    protected $table = 'articulos_tbl';
+    protected $table = 'products';
     protected $primaryKey = 'id';
     use HasFactory, LogsActivity;
 
@@ -22,14 +22,14 @@ class Articulo extends Model
      *Aqui se especifica los campos de entrada o permitidos para llenar la tabla artículos con los campos de las tablas *foraneas
      */
     protected $fillable = [
-        'nombre_articulo',
-        'cantidad_articulo',
-        'descripcion_articulo',
-        'categoria_id',
+        'name',
+        'quantity',
+        'description',
+        'category_id',
         'tipo_id',
         'proveedor_id',
         'marca_id',
-        'travesano_id',
+        'crossbar_id',
         'rack_id',
         'status_id',
         'foto_articulo',
@@ -41,8 +41,8 @@ class Articulo extends Model
     {
         return LogOptions::defaults()
             ->logOnly([
-                'nombre_articulo',
-                'cantidad_articulo',
+                'name',
+                'quantity',
             ]);
         // Chain fluent methods for configuration options
         //$user = Auth::user();

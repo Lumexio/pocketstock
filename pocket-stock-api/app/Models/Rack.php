@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rack extends Model
 {
-    protected $table = 'rack_tbl';
+    protected $table = 'racks';
     protected $primaryKey = 'id';
     use HasFactory;
 
@@ -17,6 +17,6 @@ class Rack extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre_rack',
+        'name',
     ];
 }

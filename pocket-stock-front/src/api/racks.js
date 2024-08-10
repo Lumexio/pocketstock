@@ -14,7 +14,7 @@ export function getRack(rackArray) {
         rack.forEach((element) => {
           let datos = {
             id: element.id,
-            nombre_rack: element.nombre_rack,
+            name: element.name,
           };
           if (!datos) return;
           rackArray.push(datos);

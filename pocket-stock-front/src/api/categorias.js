@@ -14,8 +14,8 @@ export function getCategorias(categoriaArray) {
         categoria.forEach((element) => {
           let datos = {
             id: element.id,
-            nombre_categoria: element.nombre_categoria,
-            descripcion_categoria: element.descripcion_categoria,
+            name: element.name,
+            description: element.description,
           };
           if (!datos) return;
           categoriaArray.push(datos);

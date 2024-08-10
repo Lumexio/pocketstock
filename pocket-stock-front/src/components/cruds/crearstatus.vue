@@ -66,7 +66,7 @@
         store.commit("setsuccess", false); //para resetear el valor de la notificion en una nueva entrada
         store.commit("setdanger", false);
         let enviar = {
-          nombre_status: this.name,
+          name: this.name,
         };
 
         axios
