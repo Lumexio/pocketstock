@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ArticuleValidationRequest extends FormRequest
+class ProductValidationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class ArticuleValidationRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->check();
     }
 
     /**
@@ -24,10 +24,9 @@ class ArticuleValidationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
-            'quantity' => 'required|integer|min:0',
+            'name' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/|unique:products,name',
+            'quantity' => 'nullable|integer|min:0',
             'description' => 'nullable|regex:/(^[A-Za-z0-9 ]+$)+/',
-            'foto_product' => 'nullable|mimes:png,jpg'
         ];
     }
 }

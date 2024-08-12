@@ -16,7 +16,7 @@ class CreateProducts extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('quantity');
+            $table->integer('quantity')->nullable('NULL');
             $table->longText('description')->nullable('NULL');
             $table->foreignId('category_id')->nullable('NULL')->references('id')->on('categories');
             $table->foreignId('rack_id')->nullable('NULL')->references('id')->on('racks');

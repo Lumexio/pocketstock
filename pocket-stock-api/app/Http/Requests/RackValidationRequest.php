@@ -13,7 +13,7 @@ class RackValidationRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->check();
     }
 
     /**
@@ -24,7 +24,7 @@ class RackValidationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/'
+            'name' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/|exists:racks,name',
         ];
     }
 }

@@ -13,7 +13,7 @@ class CrossbarValidationRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->check();
     }
 
     /**
@@ -24,7 +24,7 @@ class CrossbarValidationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => 'required|exists:crossbars,name',
         ];
     }
 }

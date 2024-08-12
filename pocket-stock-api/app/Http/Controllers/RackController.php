@@ -9,22 +9,23 @@ use App\Http\Requests\RackValidationRequest;
 
 class RackController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        return Rack::all();
+        try {
+            $data = Rack::all(
+                'id',
+                'name'
+            );
+            return response()->json($data, 200);
+        } catch (\Exception $e) {
+            return response([
+                'message' => 'An error occurred while retrieving the data.'
+            ], 500);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(RackValidationRequest $request)
     {
         if (Rack::where('name', '=', $request->get('name'))->exists()) {
@@ -32,45 +33,64 @@ class RackController extends Controller
                 'message' => ['Uno de los parametros ya exite.']
             ], 409);
         } else {
-            $rack = Rack::create($request->all());
-
-            return $rack;
+            try {
+                $rack = Rack::create($request->all(
+                    'name',
+                    'description'
+                ));
+                return $rack;
+            } catch (\Exception $e) {
+                return response([
+                    'message' => 'An error occurred while storing the data.'
+                ], 500);
+            }
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
-        return Rack::find($id);
+        try {
+            $rack = Rack::findOrFail($id);
+            return $rack;
+        } catch (\Exception $e) {
+            return response([
+                'message' => 'Un error ocurrió al mostrar el dato.'
+            ], 500);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
-        $rack = Rack::find($id);
-        $rack->update($request->all());
-        return $rack;
+        try {
+            $rack = Rack::findOrFail($id);
+            $data = $rack->update($request->all(
+                'name',
+                'description'
+            ));
+            return response()->json($data, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'code' => 500,
+                'message' => 'Error al actualizar'
+            ]);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        return Rack::destroy($id);
+        try {
+            $data = Rack::destroy($id);
+            return response()->json($data, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'code' => 500,
+                'message' => 'Error al eliminar'
+            ]);
+        }
     }
 }

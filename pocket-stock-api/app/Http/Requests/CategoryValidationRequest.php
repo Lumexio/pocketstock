@@ -13,7 +13,7 @@ class CategoryValidationRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->check();
     }
 
     /**
@@ -24,7 +24,7 @@ class CategoryValidationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|alpha',
+            'name' => 'required|alpha|exists:categories,name',
             'description' =>
             'nullable|regex:/^[a-zA-Z0-9.,_ ]*$/',
         ];

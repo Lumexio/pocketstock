@@ -15,7 +15,20 @@ class RolController extends Controller
      */
     public function index()
     {
-        return Rol::all();
+        try {
+            $data = Rol::all(
+                'id',
+                'name',
+                'description'
+            );
+            return response()->json($data, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'code' => 500,
+                'message' => 'Error al mostrar los roles'
+            ]);
+        }
     }
 
     /**
@@ -26,9 +39,18 @@ class RolController extends Controller
      */
     public function store(Request $request)
     {
-        $rol = Rol::create($request->all());
+        try {
+            $rol = Rol::create($request->all(
+                'name',
+                'description'
+            ));
 
-        return $rol;
+            return response()->json($rol, 201);
+        } catch (\Throwable $th) {
+            $rol = Rol::create($request->all());
+
+            return response()->json($rol, 201);
+        }
     }
 
     /**
@@ -39,7 +61,14 @@ class RolController extends Controller
      */
     public function show($id)
     {
-        return Rol::find($id);
+        try {
+            $rol = Rol::findOrFail($id);
+            return response()->json($rol, 200);
+        } catch (\Exception $e) {
+            return response([
+                'message' => 'Un error ocurrió al mostrar el dato.'
+            ], 500);
+        }
     }
 
     /**
@@ -51,9 +80,20 @@ class RolController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rol = Rol::find($id);
-        $rol->update($request->all());
-        return $rol;
+        try {
+            $rol = Rol::findOrFail($id);
+            $data = $rol->update($request->all(
+                'name',
+                'description'
+            ));
+            return response()->json($data, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'code' => 500,
+                'message' => 'Error al actualizar'
+            ]);
+        }
     }
 
     /**
@@ -64,6 +104,15 @@ class RolController extends Controller
      */
     public function destroy($id)
     {
-        return Rol::destroy($id);
+        try {
+            $data = Rol::destroy($id);
+            return response()->json($data, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'code' => 500,
+                'message' => 'Error al eliminar'
+            ]);
+        }
     }
 }

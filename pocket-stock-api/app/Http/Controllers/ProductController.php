@@ -5,91 +5,113 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
-use App\Http\Requests\ArticuleValidationRequest;
-use Illuminate\Support\Facades\Auth;
-
+use App\Http\Requests\ProductValidationRequest;
 
 class ProductController extends Controller
 {
 
     public function index()
     {
-        $dat = DB::table('products')
-            ->leftJoin('users', 'products.user_id', '=', 'users.id')
-            ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
-            ->leftJoin('status', 'products.status_id', '=', 'status.id')
-            ->leftJoin('racks', 'products.rack_id', '=', 'racks.id')
-            ->leftJoin('crossbars', 'products.crossbar_id', '=', 'crossbars.id')
-            ->select('products.id', 'products.name', 'products.quantity', 'products.description', 'products.foto_product', 'users.name', 'categories.name', 'status.name', 'crossbars.name', 'racks.name')
-            ->get()
-            ->map(
-                function ($item) {
-                    $item->foto_product = url("images/{$item->foto_product}");
-                    return $item;
-                }
-            );
-        return response()->json($dat);
+        try {
+            $dat = Product::query()
+                ->leftJoin('users', 'products.user_id', '=', 'users.id')
+                ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+                ->leftJoin('status', 'products.status_id', '=', 'status.id')
+                ->leftJoin('racks', 'products.rack_id', '=', 'racks.id')
+                ->leftJoin('crossbars', 'products.crossbar_id', '=', 'crossbars.id')
+                ->select(
+                    'products.id',
+                    'products.name',
+                    'products.quantity',
+                    'products.description',
+                    'users.name as user_name',
+                    'categories.name as category_name',
+                    'products.category_id',
+                    'products.status_id',
+                    'products.rack_id',
+                    'products.crossbar_id',
+                    'status.name as status_name',
+                    'crossbars.name as crossbar_name',
+                    'racks.name as rack_name'
+                )
+                ->get();
+            return response()->json($dat, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'code' => 500,
+                'message' => 'Error al mostrar los productos'
+            ]);
+        }
     }
 
-    public function store(ArticuleValidationRequest $request)
+    public function store(ProductValidationRequest $request)
     {
+        try {
+            $request->merge(['user_id' => auth()->user()->id]);
+            $product = $request->all(
+                'name',
+                'quantity',
+                'description',
+                'category_id',
+                'rack_id',
+                'crossbar_id',
+                'status_id',
+                'user_id'
+            );
 
-
-        if (Product::where('name', '=', $request->get('name'))->exists()) {
-            return response([
-                'message' => ['Uno de los parametros ya exite.']
-            ], 409);
-        } else {
-            $photo = $request->file('foto_product');
-            $product = $request->all();
-            $product['user_id'] = Auth::id();
-            if (isset($photo)) {
-                $extension = $request->file('foto_product')->guessExtension();
-                $name_foto =  $request->name . '.' . $extension;
-                $request->foto_product->move(public_path('images'), $name_foto);
-                $product["foto_product"] = $name_foto;
-            }
             $data = Product::create($product);
 
             return response()->json($data, 201);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' =>  $th->getMessage(),
+                'code' => 500,
+                'message' => 'Error al guardar'
+            ]);
         }
     }
 
 
     public function show($id)
     {
-        return Product::find($id);
+        try {
+            $data = Product::find($id);
+            return response()->json($data, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'code' => 500,
+                'message' => 'Error al mostrar el producto'
+            ]);
+        }
     }
 
 
     public function update(Request $request, $id)
     {
-        $product = Product::find($id);
-        //Obtener nombre venidero
-        $newname = $request->name;
-        //newname de archivo ya guardado
-        $filename = $product->foto_product;
-
-        //lugar donde esta guardado el archivo existente
-        $oldpath = public_path("/images/$filename");
-        $filename =  $newname . '.' . "jpg";
-        $newpath = public_path("/images/$filename");
-        rename($oldpath, $newpath);
-        $product["foto_product"] = $filename;
-        $product->update($request->all());
-        $product['user_id'] = Auth::id();
-        return $product;
+        try {
+            $product = Product::find($id);
+            $data = $product->update($request->all(
+                'name',
+                'quantity',
+                'description',
+                'category_id',
+                'rack_id',
+                'crossbar_id',
+            ));
+            return response()->json($data, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'code' => 500,
+                'message' => 'Error al actualizar'
+            ]);
+        }
     }
 
     public function destroy($id)
     {
-
-        // $product = Product::find($id);
-
-        // $filename = $product->foto_product;
-        // $path = public_path("/images/$filename");
-
-        // File::delete($path);
         try {
             $product = Product::destroy($id);
             return response()->json([
@@ -98,7 +120,11 @@ class ProductController extends Controller
                 'message' => 'Product eliminado'
             ]);
         } catch (\Throwable $th) {
-            throw $th;
+            return response()->json([
+                'status' => 'error',
+                'code' => 500,
+                'message' => 'Error al eliminar'
+            ]);
         }
     }
 }

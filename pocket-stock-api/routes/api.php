@@ -4,7 +4,6 @@
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-//use Spatie\Activitylog\Models\Activity;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,18 +22,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('products', 'ProductController');
-    Route::post('/updatephoto/{id}', 'PhotoController@updatephoto');
-    Route::resource('brands', 'MarcaController');
     Route::resource('categories', 'CategoryController');
     Route::resource('crossbars', 'CrossbarController');
     Route::resource('racks', 'RackController');
     Route::resource('users', 'UserController');
 
-    //Route::resource('rol', 'RolController');
-    //Route::resource('tipo', 'TipoController');
-    // Route::resource('proveedor', 'ProveedorController');
-    // Route::resource('status', 'StatusController');
-    //Route::resource('activitylog', 'ActivitylogController');
+    Route::resource('rols', 'RolController');
+
+    //Route::resource('status', 'StatusController');
 });
 
 Route::post('login', [UserController::class, 'login']);

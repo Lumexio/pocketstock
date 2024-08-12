@@ -12,8 +12,16 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $data = Category::all();
-        return  response()->json($data, 200);
+        try {
+            $data = Category::all();
+            return  response()->json($data, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'code' => 500,
+                'message' => 'Error al mostrar las categorias'
+            ]);
+        }
     }
 
     public function store(CategoryValidationRequest $request)

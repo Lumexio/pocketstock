@@ -12,8 +12,19 @@ class CrossbarController extends Controller
 
     public function index()
     {
-        $data =  Crossbar::all();
-        return response()->json($data, 200);
+        try {
+            $data =  Crossbar::all(
+                'id',
+                'name'
+            );
+            return response()->json($data, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'code' => 500,
+                'message' => 'Error al mostrar las barras'
+            ]);
+        }
     }
 
 
