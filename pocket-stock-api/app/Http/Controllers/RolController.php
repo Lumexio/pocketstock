@@ -15,11 +15,11 @@ class RolController extends Controller
      */
     public function index()
     {
+
         try {
             $data = Rol::all(
                 'id',
-                'name',
-                'description'
+                'name'
             );
             return response()->json($data, 200);
         } catch (\Throwable $th) {

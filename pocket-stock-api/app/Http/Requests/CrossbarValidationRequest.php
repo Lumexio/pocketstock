@@ -24,7 +24,7 @@ class CrossbarValidationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|exists:crossbars,name',
+            'name' => 'required|unique:crossbars,name',
         ];
     }
 }

@@ -13,7 +13,9 @@ class CategoryController extends Controller
     public function index()
     {
         try {
-            $data = Category::all();
+            $data = Category::all(
+                ['id', 'name', 'description']
+            );
             return  response()->json($data, 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -26,13 +28,16 @@ class CategoryController extends Controller
 
     public function store(CategoryValidationRequest $request)
     {
-        if (Category::where('name', '=', $request->get('name'))->exists()) {
-            return response([
-                'message' => ['Nombre el nombre de la categoria  ya exite.']
-            ], 409);
-        } else {
+
+        try {
             $data = Category::create($request->all());
             return response()->json($data, 201);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'code' => 500,
+                'message' => 'Error al crear la categoria'
+            ]);
         }
     }
 

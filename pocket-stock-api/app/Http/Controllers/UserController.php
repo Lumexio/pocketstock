@@ -70,6 +70,12 @@ class UserController extends Controller
                 return response()->json(['message' => 'User not found.'], 404);
             }
 
+            if ($request->password != $user->password) {
+
+                $request->merge([
+                    'password' => Hash::make($request->password)
+                ]);
+            }
             $data = $user->update($request->all(
                 'name',
                 'password',

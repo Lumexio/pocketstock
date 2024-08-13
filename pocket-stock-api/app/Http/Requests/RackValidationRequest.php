@@ -24,7 +24,7 @@ class RackValidationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/|exists:racks,name',
+            'name' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/|unique:racks,name',
         ];
     }
 }
