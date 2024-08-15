@@ -69,13 +69,14 @@ class UserController extends Controller
             if (!$user) {
                 return response()->json(['message' => 'User not found.'], 404);
             }
-
-            if ($request->password != $user->password) {
-
-                $request->merge([
-                    'password' => Hash::make($request->password)
-                ]);
+            if ($request->password == '') {
+                $request->merge(['password' => $user->password]);
+            } else if ($request->name == '') {
+                $request->merge(['name' => $user->name]);
+            } else if ($request->rol_id == '') {
+                $request->merge(['rol_id' => $user->rol_id]);
             }
+
             $data = $user->update($request->all(
                 'name',
                 'password',
@@ -126,6 +127,17 @@ class UserController extends Controller
                 $request->session()->save();
                 return response()->json($response, 200);
             }
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'An error occurred.'], 500);
+        }
+    }
+
+    function logout()
+    {
+
+        try {
+            Auth::logout();
+            return response()->json(['message' => 'Logged out.'], 200);
         } catch (\Exception $e) {
             return response()->json(['message' => 'An error occurred.'], 500);
         }
