@@ -17,8 +17,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('users', 'UserController');
 
     Route::resource('rols', 'RolController');
-
+    Route::post('logout', [UserController::class, 'logout']);
     //Route::resource('status', 'StatusController');
 });
-Route::get('logout', [UserController::class, 'logout']);
+
 Route::post('login', [UserController::class, 'login']);

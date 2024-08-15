@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\UserValidationRequest;
 use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
 {
@@ -62,6 +64,8 @@ class UserController extends Controller
         }
     }
 
+
+
     public function update(Request $request, $id)
     {
         try {
@@ -69,21 +73,20 @@ class UserController extends Controller
             if (!$user) {
                 return response()->json(['message' => 'User not found.'], 404);
             }
-            if ($request->password == '') {
-                $request->merge(['password' => $user->password]);
-            } else if ($request->name == '') {
-                $request->merge(['name' => $user->name]);
-            } else if ($request->rol_id == '') {
-                $request->merge(['rol_id' => $user->rol_id]);
+            if ($request->filled('password')) {
+                if (!Hash::check($request->current_password, $user->password)) {
+                    return response()->json(['message' => 'Password does not match.'], 400);
+                }
+                $user->password = $request->password;
             }
-
-            $data = $user->update($request->all(
-                'name',
-                'password',
-                'rol_id'
-            ));
-
-            return response()->json($data, 200);
+            if ($request->filled('name')) {
+                $user->name = $request->name;
+            }
+            if ($request->filled('rol_id')) {
+                $user->rol_id = $request->rol_id;
+            }
+            $user->save();
+            return response()->json(['message' => 'User updated successfully.', 'user' => $user], 200);
         } catch (\Exception $e) {
             return response()->json(['message' => 'An error occurred.'], 500);
         }
@@ -102,44 +105,33 @@ class UserController extends Controller
         }
     }
 
-    function login(Request $request)
+    public function login(Request $request)
     {
-        try {
-            $credentials = $request->validate([
-                'name' => ['required'],
-                'password' => ['required'],
-            ]);
-            $user = User::where('name', $request->name)->first();
-            if (!$user || !Hash::check($request->password, $user->password)) {
-                return response()->json(['message' => 'Invalid credentials.'], 404);
-            }
-            if (Auth::attempt($credentials)) {
-                $token = $user->createToken('my-app-token')->plainTextToken;
+        $request->validate([
+            'name' => 'required',
+            'password' => 'required',
+        ]);
 
-                auth()->setUser($user);
-                $request->session()->regenerate();
-                $response = [
-                    'user' => $user,
-                    'token' => $token,
-                ];
-
-                Auth::login($user, true);
-                $request->session()->save();
-                return response()->json($response, 200);
-            }
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'An error occurred.'], 500);
+        if (!Auth::attempt($request->only('name', 'password'), true)) {
+            return response()->json(['message' => 'Invalid credentials'], 401);
         }
+
+        $user = Auth::user();
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'user' => $user,
+            'token' => $token,
+        ]);
     }
 
-    function logout()
+    public function logout(Request $request)
     {
 
-        try {
-            Auth::logout();
-            return response()->json(['message' => 'Logged out.'], 200);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'An error occurred.'], 500);
-        }
+
+        $request->user()->tokens()->delete();
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json(['message' => 'Logged out successfully']);
     }
 }
