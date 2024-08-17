@@ -1,0 +1,25 @@
+name: mega
+on:
+  push:
+    branches:
+      - mega
+jobs:
+  build:
+    runs-on:
+      - self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run a one-line script
+        run: |
+          echo Preparando lanzamiento!!
+          sleep 10
+          echo Motores en marcha!!
+          sleep 10
+          echo Cabina presurizada!!!
+          sleep 10
+          echo Despegue!!!!
+          sleep 10
+          echo God speed!!!!
+      - name: Run a multi-line script
+        run: |
+          echo "${{ github.workspace }}"

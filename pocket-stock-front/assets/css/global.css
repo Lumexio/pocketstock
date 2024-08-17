@@ -1,0 +1,9 @@
+.custom-full-width {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh !important;
+}
+.custom-h1 {
+  font-size: calc(2rem + 1vw);
+}

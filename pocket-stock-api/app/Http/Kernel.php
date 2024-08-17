@@ -51,6 +51,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\EncryptCookies::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Session\Middleware\StartSession::class,
+            //'auth:sanctum', // Ensure this line is present
 
         ],
     ];
