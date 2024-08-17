@@ -74,9 +74,6 @@ class UserController extends Controller
                 return response()->json(['message' => 'User not found.'], 404);
             }
             if ($request->filled('password')) {
-                if (!Hash::check($request->current_password, $user->password)) {
-                    return response()->json(['message' => 'Password does not match.'], 400);
-                }
                 $user->password = $request->password;
             }
             if ($request->filled('name')) {
