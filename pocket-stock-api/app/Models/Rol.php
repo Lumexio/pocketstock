@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rol extends Model
 {
-    protected $table = 'rols_tbl';
+    protected $table = 'rols';
     protected $primaryKey = 'id';
     use HasFactory;
 
@@ -19,6 +19,6 @@ class Rol extends Model
      * @var array
      */
     protected $fillable = [
-        'name_rol',
+        'name',
     ];
 }

@@ -12,62 +12,62 @@
 
 namespace App\Models{
 /**
- * App\Models\Articulo
+ * App\Models\Product
  *
  * @property int $id
- * @property string $nombre_articulo
- * @property int $cantidad_articulo
- * @property string|null $descripcion_articulo
- * @property int|null $categoria_id
+ * @property string $name_product
+ * @property int $cantidad_product
+ * @property string|null $descripcion_product
+ * @property int|null $category_id
  * @property int|null $marca_id
  * @property int|null $proveedor_id
  * @property int|null $rack_id
  * @property int|null $tipo_id
- * @property int|null $travesano_id
+ * @property int|null $crossbar_id
  * @property int|null $status_id
- * @property string|null $foto_articulo
+ * @property string|null $foto_product
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|Articulo newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Articulo newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Articulo query()
- * @method static \Illuminate\Database\Eloquent\Builder|Articulo whereCantidadArticulo($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Articulo whereCategoriaId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Articulo whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Articulo whereDescripcionArticulo($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Articulo whereFotoArticulo($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Articulo whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Articulo whereMarcaId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Articulo whereNombreArticulo($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Articulo whereProveedorId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Articulo whereRackId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Articulo whereStatusId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Articulo whereTipoId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Articulo whereTravesanoId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Articulo whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Product query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereCantidadProduct($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereDescripcionProduct($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereFotoProduct($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereMarcaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereNombreProduct($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereProveedorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereRackId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereStatusId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereTipoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereCrossbarId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereUpdatedAt($value)
  */
-	class Articulo extends \Eloquent {}
+	class Product extends \Eloquent {}
 }
 
 namespace App\Models{
 /**
- * App\Models\Categoria
+ * App\Models\Category
  *
  * @property int $id
- * @property string $nombre_categoria
- * @property string|null $descripcion_categoria
+ * @property string $name_category
+ * @property string|null $descripcion_category
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|Categoria newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Categoria newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Categoria query()
- * @method static \Illuminate\Database\Eloquent\Builder|Categoria whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Categoria whereDescripcionCategoria($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Categoria whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Categoria whereNombreCategoria($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Categoria whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereDescripcionCategory($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereNombreCategory($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
  */
-	class Categoria extends \Eloquent {}
+	class Category extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -75,7 +75,7 @@ namespace App\Models{
  * App\Models\Marca
  *
  * @property int $id
- * @property string $nombre_marca
+ * @property string $name_marca
  * @property string|null $descripcion_marca
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -121,7 +121,7 @@ namespace App\Models{
  * App\Models\Proveedor
  *
  * @property int $id
- * @property string $nombre_proveedor
+ * @property string $name_proveedor
  * @property string|null $descripcion
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -142,7 +142,7 @@ namespace App\Models{
  * App\Models\Rack
  *
  * @property int $id
- * @property string $nombre_rack
+ * @property string $name_rack
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|Rack newModelQuery()
@@ -180,7 +180,7 @@ namespace App\Models{
  * App\Models\Status
  *
  * @property int $id
- * @property string $nombre_status
+ * @property string $name_status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|Status newModelQuery()
@@ -278,8 +278,8 @@ namespace App\Models{
  * @property string $tax
  * @property string $subtotal
  * @property string $total
- * @property int $articulos_tbl_id
- * @property string $articulos_img
+ * @property int $products_tbl_id
+ * @property string $products_img
  * @property int $attended
  * @property int $ticket_id
  * @property string|null $deleted_at
@@ -288,8 +288,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|TicketDetail newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|TicketDetail newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|TicketDetail query()
- * @method static \Illuminate\Database\Eloquent\Builder|TicketDetail whereArticulosImg($value)
- * @method static \Illuminate\Database\Eloquent\Builder|TicketDetail whereArticulosTblId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TicketDetail whereProductsImg($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TicketDetail whereProductsTblId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TicketDetail whereAttended($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TicketDetail whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TicketDetail whereDeletedAt($value)
@@ -311,7 +311,7 @@ namespace App\Models{
  * App\Models\Tipo
  *
  * @property int $id
- * @property string $nombre_tipo
+ * @property string $name_tipo
  * @property string|null $descripcion_tipo
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -329,21 +329,21 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * App\Models\Travesaño
+ * App\Models\Crossbar
  *
  * @property int $id
- * @property string $nombre_travesano
+ * @property string $name_crossbar
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|Travesaño newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Travesaño newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Travesaño query()
- * @method static \Illuminate\Database\Eloquent\Builder|Travesaño whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Travesaño whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Travesaño whereNombreTravesano($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Travesaño whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Crossbar newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Crossbar newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Crossbar query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Crossbar whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Crossbar whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Crossbar whereNombreCrossbar($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Crossbar whereUpdatedAt($value)
  */
-	class Travesaño extends \Eloquent {}
+	class Crossbar extends \Eloquent {}
 }
 
 namespace App\Models{
